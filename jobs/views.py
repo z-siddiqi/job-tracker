@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin
 )
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -9,6 +10,7 @@ from django.urls import reverse_lazy
 from .models import Job
 
 # Create your views here.
+@login_required
 def all_applications_view(request):
     all_applications = Job.objects.filter(user=request.user)
     context = {'applications_list': all_applications}
