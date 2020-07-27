@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     # Local
     'accounts.apps.AccountsConfig',
     'jobs.apps.JobsConfig',
+
+    # 3rd Party
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,5 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
