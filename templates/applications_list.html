@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Job Applications{% endblock title %}
+{% block content %}
+<div class="col"></div>
+<div class="table-responsive">
+   <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+      <thead>
+         <th><input type="checkbox" id="checkall"/></th>
+         <th>Company</th>
+         <th>Job Title</th>
+         <th>URL</th>
+         <th>Notes</th>
+         <th>Edit</th>
+         <th>Delete</th>
+      </thead>
+      <tbody>
+         {% for application in applications_list %}  
+         <tr>
+            <td><input type="checkbox" class="checkthis" /></td>
+            <td>{{ application.company }}</td>
+            <td>{{ application.title }}</td>
+            <td>{{ application.url }}</td>
+            <td>{{ application.notes }}</td>
+            <td><button class="btn btn-primary btn-xs" onclick='location.href="{% url 'application_edit' application.pk %}"'></button></td>
+            <td><button class="btn btn-danger btn-xs" onclick='location.href="{% url 'application_delete' application.pk %}"'></button></td>
+         </tr>
+         {% endfor %} 
+      </tbody>
+   </table>
+</div>
+</div>
+{% endblock content %}
