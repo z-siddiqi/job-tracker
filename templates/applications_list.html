@@ -1,33 +1,118 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Job Applications{% endblock title %}
+{% block styles %}
+<link href="{% static 'css/card.css' %}" rel="stylesheet">
+{% endblock %}
 {% block content %}
-<div class="col"></div>
-<h2>All Applications</h2>
-<div class="table-responsive">
-   <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
-      <thead>
-         <th><input type="checkbox" id="checkall"/></th>
-         <th>Company</th>
-         <th>Job Title</th>
-         <th>URL</th>
-         <th>Notes</th>
-         <th>Edit</th>
-         <th>Delete</th>
-      </thead>
-      <tbody>
-         {% for application in applications_list %}  
-         <tr>
-            <td><input type="checkbox" class="checkthis" /></td>
-            <td>{{ application.company }}</td>
-            <td>{{ application.title }}</td>
-            <td>{{ application.url }}</td>
-            <td>{{ application.notes }}</td>
-            <td><button class="btn btn-primary btn-xs" onclick='location.href="{% url 'application_edit' application.pk %}"'></button></td>
-            <td><button class="btn btn-danger btn-xs" onclick='location.href="{% url 'application_delete' application.pk %}"'></button></td>
-         </tr>
-         {% endfor %} 
-      </tbody>
-   </table>
-</div>
-</div>
+<section class="lists-container">
+   <div class="list">
+      <h3 class="list-title">Wishlist</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'WI' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+   <div class="list">
+      <h3 class="list-title">Applied</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'AP' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+   <div class="list">
+      <h3 class="list-title">Phone</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'PH' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+   <div class="list">
+      <h3 class="list-title">Onsite</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'OS' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+   <div class="list">
+      <h3 class="list-title">Offer</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'OF' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+   <div class="list">
+      <h3 class="list-title">Rejected</h3>
+      <ul class="list-items">
+         {% for application in applications_list %}
+         {% if application.progress == 'RE' %}
+            <li>
+                <h6>{{ application.company }}</h6>
+                <a href="{% url 'application_edit' application.pk %}">
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                </a>
+                <p>{{ application.notes }}</p>
+                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            </li>
+         {% endif %}
+         {% endfor %}
+      </ul>
+      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+   </div>
+</section>
 {% endblock content %}
