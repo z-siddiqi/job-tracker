@@ -45,7 +45,7 @@ body {
     align-items: start;
     padding: 0 0.8rem 0.8rem;
     overflow-x: auto;
-    height: calc(100vh - 8.6rem);
+    height: calc(100vh - 7rem);
 }
 
 .list {
@@ -53,7 +53,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #e2e4e6;
-    max-height: calc(100vh - 11.8rem);
+    max-height: calc(100vh - 10rem);
     border-radius: 0.3rem;
     margin-right: 1rem;
 }
