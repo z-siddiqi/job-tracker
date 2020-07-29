@@ -1,9 +1,6 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 {% block title %}Job Applications{% endblock title %}
-{% block styles %}
-<link href="{% static 'css/kanban.css' %}" rel="stylesheet">
-{% endblock %}
 {% block content %}
 <section class="lists-container">
    <div class="list">
@@ -11,13 +8,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'WI' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+                <h5>{{ application.company }}</h5>
                 <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
                 <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
             </li>
          {% endif %}
          {% endfor %}
@@ -29,13 +23,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'AP' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
-                <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+               <h5>{{ application.company }}</h5>
+               <h3 class="list-subtitle">{{ application.title }}</h3>
+               <p>{{ application.notes }}</p>
             </li>
          {% endif %}
          {% endfor %}
@@ -47,13 +38,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'PH' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
-                <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+               <h5>{{ application.company }}</h5>
+               <h3 class="list-subtitle">{{ application.title }}</h3>
+               <p>{{ application.notes }}</p>
             </li>
          {% endif %}
          {% endfor %}
@@ -65,13 +53,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'OS' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
-                <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+               <h5>{{ application.company }}</h5>
+               <h3 class="list-subtitle">{{ application.title }}</h3>
+               <p>{{ application.notes }}</p>
             </li>
          {% endif %}
          {% endfor %}
@@ -83,13 +68,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'OF' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
-                <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+               <h5>{{ application.company }}</h5>
+               <h3 class="list-subtitle">{{ application.title }}</h3>
+               <p>{{ application.notes }}</p>
             </li>
          {% endif %}
          {% endfor %}
@@ -101,13 +83,10 @@
       <ul class="list-items">
          {% for application in applications_list %}
          {% if application.progress == 'RE' %}
-            <li>
-                <h6>{{ application.company }}</h6>
-                <a href="{% url 'application_edit' application.pk %}">
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                </a>
-                <p>{{ application.notes }}</p>
-                <a href="{% url 'application_delete' application.pk %}" style="color:red">Delete</a>
+            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+               <h5>{{ application.company }}</h5>
+               <h3 class="list-subtitle">{{ application.title }}</h3>
+               <p>{{ application.notes }}</p>
             </li>
          {% endif %}
          {% endfor %}

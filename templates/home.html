@@ -1,13 +1,4 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock title %}
 {% block content %}
-    {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}</p>
-        <br>
-        <button class="btn btn-primary" onclick='location.href="{% url 'applications_list' %}"'>View Applications</button>
-    {% else %}
-        <p>You are not signed in.</p>
-        <br>
-        <button class="btn btn-primary" onclick='location.href="{% url 'login' %}"'>Log In</button>
-    {% endif %}
 {% endblock content %}
