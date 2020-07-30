@@ -1,97 +1,96 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Job Applications{% endblock title %}
 {% block content %}
 <section class="lists-container">
-   <div class="list">
-      <h3 class="list-title">Wishlist</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'WI' %}
+    <div class="list">
+        <h3 class="list-title">Wishlist</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'WI' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-                <h5>{{ application.company }}</h5>
-                <h3 class="list-subtitle">{{ application.title }}</h3>
-                <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
-   <div class="list">
-      <h3 class="list-title">Applied</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'AP' %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
+    <div class="list">
+        <h3 class="list-title">Applied</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'AP' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-               <h5>{{ application.company }}</h5>
-               <h3 class="list-subtitle">{{ application.title }}</h3>
-               <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
-   <div class="list">
-      <h3 class="list-title">Phone</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'PH' %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
+    <div class="list">
+        <h3 class="list-title">Phone</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'PH' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-               <h5>{{ application.company }}</h5>
-               <h3 class="list-subtitle">{{ application.title }}</h3>
-               <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
-   <div class="list">
-      <h3 class="list-title">Onsite</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'OS' %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
+    <div class="list">
+        <h3 class="list-title">Onsite</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'OS' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-               <h5>{{ application.company }}</h5>
-               <h3 class="list-subtitle">{{ application.title }}</h3>
-               <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
-   <div class="list">
-      <h3 class="list-title">Offer</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'OF' %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
+    <div class="list">
+        <h3 class="list-title">Offer</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'OF' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-               <h5>{{ application.company }}</h5>
-               <h3 class="list-subtitle">{{ application.title }}</h3>
-               <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
-   <div class="list">
-      <h3 class="list-title">Rejected</h3>
-      <ul class="list-items">
-         {% for application in applications_list %}
-         {% if application.progress == 'RE' %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
+    <div class="list">
+        <h3 class="list-title">Rejected</h3>
+        <ul class="list-items">
+            {% for application in applications_list %}
+            {% if application.progress == 'RE' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
-               <h5>{{ application.company }}</h5>
-               <h3 class="list-subtitle">{{ application.title }}</h3>
-               <p>{{ application.notes }}</p>
+            <h5>{{ application.company }}</h5>
+            <h3 class="list-subtitle">{{ application.title }}</h3>
+            <p>{{ application.notes }}</p>
             </li>
-         {% endif %}
-         {% endfor %}
-      </ul>
-      <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
-   </div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+    </div>
 </section>
 {% endblock content %}

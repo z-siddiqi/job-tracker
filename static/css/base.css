@@ -1,5 +1,9 @@
 /* job search */
 
+html {
+	overflow-y: scroll;
+}
+
 body {
 	font-family: sans-serif;
 	margin: 0px;
@@ -62,7 +66,7 @@ body {
 	text-decoration: none;
 	font-weight: 550;
 	line-height: normal;
-	margin-inline-end: 1em;
+	margin-inline-start: 1em;
 }
 
 .nav li {
@@ -181,7 +185,7 @@ body {
 	color: #a378fc;
 }
 
-.load_more {
+.generic-button {
 	text-align: center;
 }
 
@@ -213,10 +217,6 @@ body {
 		float: none;
 		margin: 0 auto;
 		text-transform: uppercase;
-		font-size: 1.1em;
-	}
-	.nav {
-		float: left;
 	}
 	.nav a {
 		text-decoration: none;
@@ -225,7 +225,6 @@ body {
 		display: inline-block;
 	}
 }
-
 
 /* kanban board */
 
@@ -268,9 +267,8 @@ body {
 
 .lists-container {
 	display: flex;
-	align-items: start;
 	overflow-x: auto;
-	height: calc(100vh - 8.5rem);
+	height: calc(90vh - 15rem);
 }
 
 .list {
@@ -278,7 +276,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: #e2e4e6;
-	max-height: calc(100vh - 12rem);
+	max-height: calc(80vh - 5rem);
 	border-radius: 0.3rem;
 	margin-right: 1rem;
 }
