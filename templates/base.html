@@ -32,6 +32,7 @@
             </div>
             <div class="nav">
                 <ul>
+                    <li><a href="{% url 'about' %}">About</a></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'job_results' %}">Job Search</a></li>
                     <li><a href="{% url 'password_change' %}">Settings</a></li>
