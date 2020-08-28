@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
 <section class="lists-container">
     <div class="list">
         <h3 class="list-title">Wishlist</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="wishlist">
             {% for application in applications_list %}
             {% if application.progress == 'WI' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -15,11 +14,11 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
     <div class="list">
         <h3 class="list-title">Applied</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="applied">
             {% for application in applications_list %}
             {% if application.progress == 'AP' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -30,11 +29,11 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
     <div class="list">
         <h3 class="list-title">Phone</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="phone">
             {% for application in applications_list %}
             {% if application.progress == 'PH' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -45,11 +44,11 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
     <div class="list">
         <h3 class="list-title">Onsite</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="onsite">
             {% for application in applications_list %}
             {% if application.progress == 'OS' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -60,11 +59,11 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
     <div class="list">
         <h3 class="list-title">Offer</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="offer">
             {% for application in applications_list %}
             {% if application.progress == 'OF' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -75,11 +74,11 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
     <div class="list">
         <h3 class="list-title">Rejected</h3>
-        <ul class="list-items">
+        <ul class="list-items" id="rejected">
             {% for application in applications_list %}
             {% if application.progress == 'RE' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
@@ -90,7 +89,7 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
     </div>
 </section>
 {% endblock content %}

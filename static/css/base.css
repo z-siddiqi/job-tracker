@@ -1,4 +1,4 @@
-/* job search */
+/* base */
 
 html {
 	overflow-y: scroll;
@@ -7,6 +7,8 @@ html {
 body {
 	font-family: sans-serif;
 	margin: 0px;
+	display: flex;
+	flex-direction: column;
 	padding-bottom: 5em;
 }
 
@@ -20,24 +22,14 @@ body {
 	background-size: 50% 100%;
 }
 
-.clearfix:before,
-.clearfix:after {
-	content: " ";
-	display: table;
-}
-
-.clearfix:after {
-	clear: both;
-}
-
 .wrapper {
-	width: 750px;
+	width: 900px;
 	max-width: 90%;
 	margin: 0 auto;
 }
 
 .main_header {
-	margin: 5em 0 3em 0;
+	margin: 0em 0 2em 0;
 }
 
 .logo h1 {
@@ -73,118 +65,6 @@ body {
 	display: inline-block;
 }
 
-.current {
-	color: #34324b;
-	font-weight: 700;
-}
-
-#timeline {
-	width: 100%;
-	position: relative;
-	list-style: none;
-	padding: 0;
-}
-
-#timeline a {
-	text-decoration: none;
-}
-
-#timeline:after {
-	content: "";
-	width: 1px;
-	background: 1px #e6e7e9;
-	height: 90%;
-	position: absolute;
-	top: 3em;
-	left: 3em;
-	z-index: 0;
-}
-
-#timeline .listing {
-	background-color: white;
-	border: 1px solid #e6e7e9;
-	border-radius: 0.3em;
-	padding: 1em;
-	margin-bottom: 1em;
-	position: relative;
-	z-index: 1;
-	display: table;
-	width: 100%;
-	transition: all .3s ease-in-out;
-}
-
-.listing:hover {
-	cursor: pointer;
-	box-shadow: 0px 2px 40px 0 rgba(0, 0, 0, 0.1);
-}
-
-#timeline .listing img,
-.info,
-.job_type {
-	display: table-cell;
-	vertical-align: middle;
-	font-size: 0.9em;
-	color: #74718f;
-}
-
-#timeline .image_wrapper {
-	width: 60px;
-}
-
-#timeline .image_wrapper img {
-	width: 60px;
-	display: block;
-	margin: 0 auto;
-	border-radius: 0.25em;
-}
-
-.info {
-	line-height: 1.25;
-	width: 640px;
-	padding-left: 25px;
-}
-
-.job_title {
-	font-weight: 700;
-	font-size: 1.5em;
-	color: #333;
-}
-
-.job_info {
-	color: #74718f;
-	display: block;
-}
-
-.job_info span {
-	margin: 0 .75em;
-}
-
-.job_type {
-	text-transform: uppercase;
-	font-weight: 700;
-	font-size: 0.75em;
-	position: relative;
-	white-space: nowrap;
-	padding-top: .6em;
-	width: 100px;
-}
-
-.full_time {
-	color: #fd7576;
-}
-
-.part_time {
-	color: #fec85d;
-}
-
-.freelance {
-	color: #4db8de;
-}
-
-.contract {
-	color: #a378fc;
-}
-
 .generic-button {
 	text-align: center;
 }
@@ -192,10 +72,10 @@ body {
 .button {
 	border: 2px solid #a378fc;
 	outline: none;
-	padding: 1em 3.5em;
+	padding: 1em 3em;
 	text-align: center;
 	background: transparent;
-	border-radius: 3em;
+	border-radius: 2em;
 	color: #a378fc;
 	transition: all .3s ease-in-out;
 }
@@ -205,74 +85,13 @@ body {
 	color: white;
 }
 
-@media only screen and (max-width: 414px) {
-	.main_header {
-		margin: 3em 0;
-	}
-	.logo {
-		display: block;
-		text-align: center;
-	}
-	.logo h1 {
-		float: none;
-		margin: 0 auto;
-		text-transform: uppercase;
-	}
-	.job_info {
-		color: #74718f;
-		display: grid;
-	}
-	.nav a {
-		text-decoration: none;
-	}
-	.nav li {
-		display: inline-block;
-	}
-}
 
 /* kanban board */
-
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
-
-body {
-	display: flex;
-	flex-direction: column;
-}
-
-.btn {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font: inherit;
-	background: none;
-	border: none;
-	color: inherit;
-	padding: 0;
-	cursor: pointer;
-}
-
-:focus {
-	outline-color: #fa0;
-}
-
-.lists-container::-webkit-scrollbar {
-	height: 2.4rem;
-}
-
-.lists-container::-webkit-scrollbar-thumb {
-	background-color: #66a3c7;
-	border: 0.8rem solid #0079bf;
-	border-top-width: 0;
-}
 
 .lists-container {
 	display: flex;
 	overflow-x: auto;
-	height: calc(90vh - 15rem);
+	height: calc(100vh - 17rem);
 }
 
 .list {
@@ -280,13 +99,8 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: #e2e4e6;
-	max-height: calc(80vh - 5rem);
 	border-radius: 0.3rem;
 	margin-right: 1rem;
-}
-
-.list:last-of-type {
-	margin-right: 0;
 }
 
 .list-title {
@@ -313,15 +127,6 @@ body {
 	list-style-type: none;
 }
 
-.list-items::-webkit-scrollbar {
-	width: 1.6rem;
-}
-
-.list-items::-webkit-scrollbar-thumb {
-	background-color: #c4c9cc;
-	border-right: 0.6rem solid #e2e4e6;
-}
-
 .list-items li {
 	font-size: 1.2rem;
 	font-weight: 400;
@@ -336,10 +141,6 @@ body {
 	cursor: pointer;
 }
 
-.list-items li:last-of-type {
-	margin-bottom: 0;
-}
-
 .list-items li:hover {
 	background-color: #eee;
 }
@@ -349,6 +150,8 @@ body {
 	font-size: 1.2rem;
 	font-weight: 400;
 	color: #838c91;
+	background: none;
+	border: none;
 	padding: 1rem;
 	text-align: left;
 	cursor: pointer;
@@ -359,6 +162,6 @@ body {
 	color: #4d4d4d;
 }
 
-.add-card-btn::after {
-	content: '...';
+.btn {
+	display: flex;
 }

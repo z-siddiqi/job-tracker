@@ -16,11 +16,6 @@ def all_applications_view(request):
     context = {'applications_list': all_applications}
     return render(request, 'applications_list.html', context)
 
-@login_required
-def job_results_view(request):
-    template_name = 'job_results.html'
-    return render(request, template_name)
-
 class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Job
     template_name = 'application_detail.html'
