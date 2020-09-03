@@ -1,4 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock title %}
 {% block content %}
+{% if user.is_authenticated %}
+<div class="center">
+    <button onclick='location.href="{% url 'applications_list' %}"' type="button" class="btn btn-dark">View Board</button>
+</div>
+{% else %}
+<div class="center">
+    <div class="btn-group btn-group-lg">
+        <button onclick='location.href ="{% url 'login' %}"' type="button" class="btn btn-dark">Login</button>
+        <button onclick='location.href ="{% url 'signup' %}"' type="button" class="btn btn-dark">Sign Up</button>
+    </div>
+</div>
+{% endif %}
 {% endblock content %}

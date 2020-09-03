@@ -5,8 +5,6 @@
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <div class="generic-button">
-        <button class="button" type="submit">Log In</button>
-    </div>
+    <button class="btn btn-dark" type="submit">Log In</button>
 </form>
 {% endblock content %}

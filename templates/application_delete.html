@@ -3,8 +3,6 @@
 <form action="" method="post">
     {% csrf_token %}
     <p>Are you sure you want to delete "{{ application }}"?</p>
-    <div class="generic-button">
-        <button class="button" type="submit">Confirm</button>
-    </div>
+    <button class="btn btn-dark" type="submit">Confirm</button>
 </form>
 {% endblock content %}

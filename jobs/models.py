@@ -10,12 +10,10 @@ class Job(models.Model):
     url = models.URLField(blank=True, null=True)
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
-        ('WI', 'Wishlist'),
         ('AP', 'Applied'),
         ('PH', 'Phone'),
         ('OS', 'Onsite'),
         ('OF', 'Offer'),
-        ('RE', 'Rejected'),
     )
     progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='WI')
     notes = models.TextField(blank=True, null=True)
