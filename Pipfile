@@ -10,6 +10,9 @@ django = "*"
 django-crispy-forms = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
+environs = {extras = ["django"], version = "*"}
+whitenoise = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
