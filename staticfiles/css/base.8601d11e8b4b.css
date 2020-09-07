@@ -1,0 +1,156 @@
+/* base */
+
+html {
+	overflow-y: scroll;
+}
+
+body {
+	font-family: sans-serif;
+	margin: 0px;
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 5em;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+}
+
+.border {
+	height: 6px;
+	border: 1px solid #dee2e6 !important;
+	background-color: #fd7576;
+	background-image: linear-gradient(to right, #fd7576, #fd7576 25%, #fec85d 25%, #fec85d 50%, #4db8de 50%, #4db8de 75%, #a378fc 75%, #a378fc 100%, #a378fc 100%);
+	-webkit-background-size: 50% 100%;
+	-moz-background-size: 50% 100%;
+	background-size: 50% 100%;
+}
+
+.wrapper {
+	width: 900px;
+	max-width: 90%;
+	margin: 0 auto;
+}
+
+.main_header {
+	margin: 0em 0 2em 0;
+}
+
+.logo h1 {
+	float: left;
+	margin: 0 auto;
+	text-transform: uppercase;
+	font-size: 1.34em;
+	padding-top: 1.8em;
+	color: #34324b;
+	font-weight: 700;
+	line-height: normal;
+	text-align: left;
+}
+
+.logo h1 span {
+	font-weight: 400;
+}
+
+.nav {
+	float: right;
+	padding-top: 2.7em;
+}
+
+.nav a {
+	color: #74718f;
+	text-decoration: none;
+	font-weight: 550;
+	line-height: normal;
+	margin-inline-start: 1em;
+}
+
+.nav li {
+	display: inline-block;
+}
+
+
+/* kanban board */
+
+.lists-container {
+	display: flex;
+	overflow-x: auto;
+	height: calc(100vh - 17rem);
+}
+
+.list {
+	flex: 0 0 18rem;
+	display: flex;
+	flex-direction: column;
+	background-color: #e2e4e6;
+	border-radius: 0.3rem;
+	margin-right: 1rem;
+}
+
+.list-title {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333;
+	padding: 1rem;
+}
+
+.list-subtitle {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #333;
+	text-decoration: none;
+}
+
+.list-items {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-content: start;
+	padding: 0 0.6rem 0.5rem;
+	overflow-y: auto;
+	list-style-type: none;
+}
+
+.list-items li {
+	font-size: 1.2rem;
+	font-weight: 400;
+	line-height: 1.3;
+	background-color: #fff;
+	padding: 0.65rem 0.6rem;
+	color: #4d4d4d;
+	border-bottom: 0.1rem solid #ccc;
+	border-radius: 0.3rem;
+	margin-bottom: 0.6rem;
+	word-wrap: break-word;
+	cursor: pointer;
+}
+
+.list-items li:hover {
+	background-color: #eee;
+}
+
+.add-card-btn {
+	display: block;
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: #838c91;
+	background: none;
+	border: none;
+	padding: 1rem;
+	text-align: left;
+	cursor: pointer;
+}
+
+.add-card-btn:hover {
+	background-color: #cdd2d4;
+	color: #4d4d4d;
+}
+
+.btn {
+	display: flex;
+}
