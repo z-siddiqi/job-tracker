@@ -11,6 +11,3 @@ media
 
 # ignore vsc folder 
 .vscode/*
-
-# docker
-docker-compose.yml
