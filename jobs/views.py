@@ -12,7 +12,7 @@ from .models import Job
 # Create your views here.
 @login_required
 def all_applications_view(request):
-    all_applications = Job.objects.filter(user=request.user)
+    all_applications = Job.objects.filter(user=request.user).order_by('deadline')
     context = {'applications_list': all_applications}
     return render(request, 'applications_list.html', context)
 

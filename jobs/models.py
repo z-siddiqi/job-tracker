@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 class Job(models.Model):  
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
-    url = models.URLField(blank=True, null=True)
+    url = models.URLField(blank=True, null=True, max_length=200, help_text = 'Don\'t forget to put "http://" at the beginning.')
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
         ('AP', 'Applied'),
