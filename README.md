@@ -12,7 +12,7 @@
 
 ## Features ✨
 
-- Kanban style board
+- Kanban board
 - CRUD job applications
 
 ## Motivation 🎯
