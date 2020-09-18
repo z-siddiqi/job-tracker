@@ -4,20 +4,15 @@
 
 ![image](media/demo/homepage.png)
 
-## Built Using Modern Tools 💎
+## Overview ✨
+
+- Job Tracker is a web application that allows users to keep track of employment opportunities they are interested in.
+- The application allows users to easily save, edit and delete information on opportunities.
+- The main feature is a Kanban board that shows the user their progress on all saved opportunities.
+
+## Tools Used 💎
 
 - Django web framework
 - PostgreSQL
 - Bootstrap
-
-## Features ✨
-
-- Kanban board
-- CRUD job applications
-
-## Motivation 🎯
-
-- Learn Django web framework
-- Learn HTML
-- Learn CSS
-- Implement deployment best practices
+- Docker

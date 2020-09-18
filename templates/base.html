@@ -16,29 +16,33 @@
     <body>
         <div class="border"></div>
         <div class="wrapper">
-        <header class="main_header clearfix">
-            <div class="logo">
-                {% if user.is_authenticated %}
-                <a href="{% url 'applications_list' %}">
-                    <h1> Job <span>Tracker</span></h1>
-                </a>
-                {% else %}
-                <a href="{% url 'home' %}">
-                    <h1> Job <span>Tracker</span></h1>
-                </a>
-                {% endif %}
-            </div>
-            <div class="nav">
-                <ul>
+            <header class="main_header clearfix">
+                <div class="logo">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'password_change' %}">Settings</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <a href="{% url 'applications_list' %}">
+                        <h1> Job <span>Tracker</span></h1>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'home' %}">
+                        <h1> Job <span>Tracker</span></h1>
+                    </a>
                     {% endif %}
-                </ul>
-            </div>
-        </header>
-        {% block content %}
-        {% endblock content %}
+                </div>
+                <div class="nav">
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'password_change' %}">Settings</a></li>
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href ="{% url 'signup' %}" class="btn btn-dark">Sign up</a></li>
+                        <li><a href="{% url 'login' %}" class="nav-link">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </header>
+            {% block content %}
+            {% endblock content %}
+        </div>
         <!-- Optional JavaScript -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

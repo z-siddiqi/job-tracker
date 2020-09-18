@@ -6,15 +6,24 @@ html {
 
 body {
 	font-family: sans-serif;
+	color: #424650;
 	margin: 0px;
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 5em;
 }
 
+a {
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
 .center {
     position: absolute;
-    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -63,7 +72,6 @@ body {
 }
 
 .nav a {
-	color: #74718f;
 	text-decoration: none;
 	font-weight: 550;
 	line-height: normal;
@@ -72,6 +80,43 @@ body {
 
 .nav li {
 	display: inline-block;
+}
+
+/* Home */
+
+.column {
+	float: left;
+	padding: 5px;
+}
+
+.txt-column {
+	width: 40%;
+	margin-top: 120px;
+}
+
+.img-column {
+	width: 60%;
+}
+  
+.home-row::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.demo-img {
+	max-width: 100%;
+}
+  
+@media screen and (max-width: 1200px) {
+	.txt-column {
+		width: 100%;
+		margin-top: 0px;
+	}
+	
+	.img-column {
+		width: 100%;
+	}
 }
 
 
