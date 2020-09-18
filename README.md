@@ -2,7 +2,7 @@
 
 👉 [View Live](http://job-tracker-zs.herokuapp.com)
 
-![image](media/demo/homepage.png)
+![image](static/img/homepage.png)
 
 ## Overview ✨
 
