@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
+{% block nav-item %}
+<li class="nav-item">
+    <a class="nav-link" style='color: #fd7576' href="{% url 'board_delete' board.pk %}">Delete Board</a>
+</li>
+{% endblock %}
 {% block content %}
+<div class="board-title">
+    <h2>{{ board.title }}</h2>
+</div>
 <section class="lists-container">
     <div class="list">
         <h3 class="list-title">Applied</h3>
         <ul class="list-items" id="applied">
-            {% for application in applications_list %}
+            {% for application in applications %}
             {% if application.progress == 'AP' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
             <h5>{{ application.company }}</h5>
@@ -19,7 +27,7 @@
     <div class="list">
         <h3 class="list-title">Phone</h3>
         <ul class="list-items" id="phone">
-            {% for application in applications_list %}
+            {% for application in applications %}
             {% if application.progress == 'PH' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
             <h5>{{ application.company }}</h5>
@@ -34,7 +42,7 @@
     <div class="list">
         <h3 class="list-title">Onsite</h3>
         <ul class="list-items" id="onsite">
-            {% for application in applications_list %}
+            {% for application in applications %}
             {% if application.progress == 'OS' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
             <h5>{{ application.company }}</h5>
@@ -49,7 +57,7 @@
     <div class="list">
         <h3 class="list-title">Offer</h3>
         <ul class="list-items" id="offer">
-            {% for application in applications_list %}
+            {% for application in applications %}
             {% if application.progress == 'OF' %}
             <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
             <h5>{{ application.company }}</h5>

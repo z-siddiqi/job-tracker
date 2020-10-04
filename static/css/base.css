@@ -22,14 +22,6 @@ a:hover {
 	color: inherit;
 }
 
-.center {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-}
-
 .border {
 	height: 6px;
 	border: 1px solid #dee2e6 !important;
@@ -54,8 +46,7 @@ a:hover {
 	float: left;
 	margin: 0 auto;
 	text-transform: uppercase;
-	font-size: 1.34em;
-	padding-top: 1.8em;
+	font-size: 1.1em;
 	color: #34324b;
 	font-weight: 700;
 	line-height: normal;
@@ -66,38 +57,27 @@ a:hover {
 	font-weight: 400;
 }
 
-.nav {
-	float: right;
-	padding-top: 2.7em;
+.navbar {
+	padding: 1.8em 0em;
+	margin-bottom: 0
 }
 
-.nav a {
-	text-decoration: none;
-	font-weight: 550;
-	line-height: normal;
-	margin-inline-start: 1em;
-}
-
-.nav li {
-	display: inline-block;
-}
 
 /* Home */
 
 .column {
 	float: left;
-	padding: 5px;
 }
 
 .txt-column {
 	width: 40%;
-	margin-top: 120px;
+	margin-top: 80px;
 }
 
 .img-column {
 	width: 60%;
 }
-  
+
 .home-row::after {
 	content: "";
 	clear: both;
@@ -107,20 +87,61 @@ a:hover {
 .demo-img {
 	max-width: 100%;
 }
-  
-@media screen and (max-width: 1200px) {
+
+.home-buttons {
+	margin-top: 32px;
+	display: flex;
+	align-items: center;
+}
+
+.home-login {
+	padding: 12px 20px;
+	color: #5969e2;
+	font-weight: 600;
+	font-size: 18px;
+	border-radius: 6px;
+	transition: 0.2s;
+}
+
+.home-signup {
+	padding: 12px 40px;
+	background: #5969e2;
+	color: white;
+	font-weight: 700;
+	font-size: 18px;
+	border-radius: 6px;
+	transition: 0.2s;
+	display: flex;
+	align-items: center;
+}
+
+.github-link {
+	padding-top: 150px;
+	text-align: center;
+}
+
+@media screen and (max-width: 1300px) {
 	.txt-column {
 		width: 100%;
 		margin-top: 0px;
 	}
-	
+
 	.img-column {
 		width: 100%;
+	}
+	
+	.home-buttons {
+		display: block;
 	}
 }
 
 
 /* kanban board */
+
+.board-title h2 {
+	font-size: 2rem;
+	margin-bottom: .5em;
+}
 
 .lists-container {
 	display: flex;

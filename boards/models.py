@@ -4,6 +4,19 @@ from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
 # Create your models here.
+class Board(models.Model):
+    title = models.CharField(max_length=100)
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return f'{self.title}'
+    
+    def get_absolute_url(self):
+        return reverse('board_detail', kwargs={'pk': self.id})
+
 class Job(models.Model):  
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
@@ -15,10 +28,10 @@ class Job(models.Model):
         ('OS', 'Onsite'),
         ('OF', 'Offer'),
     )
-    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='WI')
+    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='AP')
     notes = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(
-        get_user_model(),
+    board = models.ForeignKey(
+        Board,
         on_delete=models.CASCADE,
     )
 
@@ -26,4 +39,4 @@ class Job(models.Model):
         return f'{self.title} at {self.company}'
 
     def get_absolute_url(self):
-        return reverse('applications_list')
+        return reverse('board_detail', kwargs={'pk': self.id})

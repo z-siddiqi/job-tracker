@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 
     # local
     'accounts.apps.AccountsConfig',
-    'jobs.apps.JobsConfig',
+    'boards.apps.BoardsConfig',
     'pages.apps.PagesConfig',
 
     # 3rd party
@@ -59,6 +59,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'boards.context_processors.boards_processor',
             ],
         },
     },
@@ -123,7 +124,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Url redirects
 
-LOGIN_REDIRECT_URL = 'applications_list'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
