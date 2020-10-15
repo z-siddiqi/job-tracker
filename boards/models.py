@@ -15,7 +15,7 @@ class Board(models.Model):
         return f'{self.title}'
     
     def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'pk': self.id})
+        return reverse('home')
 
 class Job(models.Model):  
     company = models.CharField(max_length=100)
@@ -23,10 +23,10 @@ class Job(models.Model):
     url = models.URLField(blank=True, null=True, max_length=200, help_text = 'Don\'t forget to put "http://" at the beginning.')
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
-        ('AP', 'Applied'),
-        ('PH', 'Phone'),
-        ('OS', 'Onsite'),
-        ('OF', 'Offer'),
+        ('Applied', 'Applied'),
+        ('Phone', 'Phone'),
+        ('Onsite', 'Onsite'),
+        ('Offer', 'Offer'),
     )
     progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='AP')
     notes = models.TextField(blank=True, null=True)
@@ -39,4 +39,4 @@ class Job(models.Model):
         return f'{self.title} at {self.company}'
 
     def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'pk': self.id})
+        return reverse('home')

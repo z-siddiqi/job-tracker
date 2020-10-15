@@ -14,7 +14,13 @@ from .models import Board, Job
 def board_detail(request, pk):
     applications = Job.objects.filter(board=pk).order_by('deadline')
     board = Board.objects.get(id=pk)
-    context = {'applications': applications, 'board': board}
+    columns = (
+        'Applied',
+        'Phone',
+        'Onsite',
+        'Offer',
+    )
+    context = {'applications': applications, 'board': board, 'columns': columns}
     return render(request, 'board_detail.html', context)
     
 class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

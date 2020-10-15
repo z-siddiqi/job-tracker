@@ -3,10 +3,16 @@
 {% block content %}
 <div class="home-row">
     <div class="column txt-column">
-        <h1><strong>Track all of your job applications in one place</strong></h1>
+        <h1>Track all of your job applications in one place</h1>
         <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
         <div class="home-buttons">
-            <div class="home-signup"><a href="{% url 'signup' %}">Sign up</a></div>
+            <div class="home-signup">
+                {% if user.is_authenticated %}
+                <a href="{% url 'home' %}">Sign up</a>
+                {% else %}
+                <a href="{% url 'signup' %}">Sign up</a>
+                {% endif %}
+            </div>
             <div class="home-login">
                 {% if user.is_authenticated %}
                 <a href="{% url 'board_new' %}">or, create a board</a>
