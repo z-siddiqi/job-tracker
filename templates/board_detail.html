@@ -15,7 +15,7 @@
         <ul class="list-items" id="applied">
             {% for application in applications %}
             {% if application.progress == column %}
-            <li onclick='location.href ="{% url 'application_detail' application.pk %}"'>
+            <li onclick='location.href ="{% url 'application_detail' application.board.pk application.pk %}"'>
             <h5>{{ application.company }}</h5>
             <h3 class="list-subtitle">{{ application.title }}</h3>
             <p>{{ application.deadline }}</p>
@@ -23,7 +23,9 @@
             {% endif %}
             {% endfor %}
         </ul>
-        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' %}"'>Add a card...</button>
+        <button class="add-card-btn btn" onclick='location.href="{% url 'application_new' board.pk %}"'>
+            Add a card...
+        </button>
     </div>
     {% endfor %}
 </section>

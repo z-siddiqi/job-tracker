@@ -5,15 +5,16 @@ from django.contrib.auth.mixins import (
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+
 
 from .models import Board, Job
 
 # Create your views here.
 @login_required
-def board_detail(request, pk):
-    applications = Job.objects.filter(board=pk).order_by('deadline')
-    board = Board.objects.get(id=pk)
+def board_detail(request, board_pk):
+    applications = Job.objects.filter(board=board_pk).order_by('deadline')
+    board = Board.objects.get(id=board_pk)
     columns = (
         'Applied',
         'Phone',
@@ -26,6 +27,8 @@ def board_detail(request, pk):
 class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Job
     template_name = 'application_detail.html'
+    pk_url_kwarg = 'app_pk'
+    context_object_name = 'application'
     fields = (
         'board', 
         'company', 
@@ -44,9 +47,13 @@ class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
 class ApplicationDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Job
     template_name = 'application_delete.html'
+    pk_url_kwarg = 'app_pk'
     context_object_name = 'application'
-    success_url = reverse_lazy('home')
     login_url = 'login'
+
+    def get_success_url(self):
+        board_pk = self.kwargs['board_pk']
+        return reverse('board_detail', kwargs={'board_pk': board_pk})
 
     def test_func(self):
         obj = self.get_object()
@@ -73,6 +80,7 @@ class ApplicationCreateView(LoginRequiredMixin, CreateView):
 class BoardDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Board
     template_name = 'board_delete.html'
+    pk_url_kwarg = 'board_pk'
     context_object_name = 'board'
     success_url = reverse_lazy('home')
     login_url = 'login'

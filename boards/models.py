@@ -15,7 +15,7 @@ class Board(models.Model):
         return f'{self.title}'
     
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('board_detail', kwargs={'board_pk': self.pk})
 
 class Job(models.Model):  
     company = models.CharField(max_length=100)
@@ -28,7 +28,7 @@ class Job(models.Model):
         ('Onsite', 'Onsite'),
         ('Offer', 'Offer'),
     )
-    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='AP')
+    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='Applied')
     notes = models.TextField(blank=True, null=True)
     board = models.ForeignKey(
         Board,
@@ -39,4 +39,4 @@ class Job(models.Model):
         return f'{self.title} at {self.company}'
 
     def get_absolute_url(self):
-        return reverse('home')
+        return reverse('board_detail', kwargs={'board_pk': self.board.pk})

@@ -11,9 +11,9 @@ from .views import (
 
 urlpatterns = [
     path('new/', BoardCreateView.as_view(), name='board_new'),
-    path('<int:pk>/detail', board_detail, name='board_detail'),
-    path('<int:pk>/delete', BoardDeleteView.as_view(), name='board_delete'),
-    path('jobs/new/', ApplicationCreateView.as_view(), name='application_new'),
-    path('jobs/<int:pk>/detail', ApplicationUpdateView.as_view(), name='application_detail'),
-    path('jobs/<int:pk>/delete', ApplicationDeleteView.as_view(), name='application_delete'),
+    path('<int:board_pk>/', board_detail, name='board_detail'),
+    path('<int:board_pk>/delete', BoardDeleteView.as_view(), name='board_delete'),
+    path('<int:board_pk>/jobs/new/', ApplicationCreateView.as_view(), name='application_new'),
+    path('<int:board_pk>/jobs/<int:app_pk>/detail', ApplicationUpdateView.as_view(), name='application_detail'),
+    path('<int:board_pk>/jobs/<int:app_pk>/delete', ApplicationDeleteView.as_view(), name='application_delete'),
 ]
