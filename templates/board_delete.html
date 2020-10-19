@@ -1,8 +1,16 @@
-{% extends 'base.html' %}
-{% block content %}
-<form action="" method="post">
+<form method="post" data-url="{% url 'board_delete' board.pk %}" class="delete-form">
     {% csrf_token %}
-    <p>Are you sure you want to delete "{{ board }}"?</p>
-    <button class="btn btn-dark" type="submit">Confirm</button>
+    <div class="modal-header">
+        <h5 class="modal-title">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p class="lead">Are you sure you want to delete "{{ board }}"?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
 </form>
-{% endblock content %}

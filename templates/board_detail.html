@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block nav-item %}
-<li class="nav-item">
-    <a class="nav-link" style='color: #fd7576' href="{% url 'board_delete' board.pk %}">Delete Board</a>
+<li class="nav-item" id='board-nav'>
+    <a class="nav-link show-form-delete" data-url="{% url 'board_delete' board.pk %}" style='color: #fd7576' href="#">Delete Board</a>
 </li>
 {% endblock %}
 {% block content %}
@@ -16,9 +16,9 @@
             {% for application in applications %}
             {% if application.progress == column %}
             <li onclick='location.href ="{% url 'application_detail' application.board.pk application.pk %}"'>
-            <h5>{{ application.company }}</h5>
-            <h3 class="list-subtitle">{{ application.title }}</h3>
-            <p>{{ application.deadline }}</p>
+                <h5>{{ application.company }}</h5>
+                <h3 class="list-subtitle">{{ application.title }}</h3>
+                <p>{{ application.deadline }}</p>
             </li>
             {% endif %}
             {% endfor %}
@@ -29,4 +29,9 @@
     </div>
     {% endfor %}
 </section>
+<div class="modal fade" id="modal-app">
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+    </div>
+</div>
 {% endblock content %}

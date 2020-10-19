@@ -4,11 +4,16 @@
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <div class="btn-group btn-group-lg">
+    <div class="btn-group btn-group-lg" id='application-buttons'>
         <button class="btn btn-dark" type="submit">Edit</button>
-        <button onclick='location.href ="{% url 'application_delete' application.board.pk application.pk %}"' type="button" class="btn btn-danger">
+        <button class="btn btn-danger show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}" type="button">
             Delete
         </button>
      </div>
 </form>
+<div class="modal fade" id="modal-app">
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+    </div>
+</div>
 {% endblock content %}
