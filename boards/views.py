@@ -16,14 +16,17 @@ from .models import Board, Job
 def board_detail(request, board_pk):
     applications = Job.objects.filter(board=board_pk).order_by('deadline')
     board = Board.objects.get(id=board_pk)
-    columns = (
-        'Applied',
-        'Phone',
-        'Onsite',
-        'Offer',
-    )
-    context = {'applications': applications, 'board': board, 'columns': columns}
-    return render(request, 'board_detail.html', context)
+    if board.user == request.user:
+        columns = (
+            'Applied',
+            'Phone',
+            'Onsite',
+            'Offer',
+        )
+        context = {'applications': applications, 'board': board, 'columns': columns}
+        return render(request, 'board_detail.html', context)
+    else:
+        return redirect('home')
 
 
 class ApplicationCreateView(LoginRequiredMixin, CreateView):

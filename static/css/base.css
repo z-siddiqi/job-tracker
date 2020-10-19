@@ -97,6 +97,7 @@ a:hover {
 
 .home-buttons {
 	margin-top: 32px;
+	margin-bottom: 32px;
 	display: flex;
 	align-items: center;
 }
