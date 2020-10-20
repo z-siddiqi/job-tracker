@@ -11,7 +11,14 @@ from django.template.loader import render_to_string
 
 from .models import Board, Job
 
-# Create your views here.
+def custom_handler404(request, exception):
+    return render(request, '404.html', status=404)
+
+
+def custom_handler500(request):
+    return render(request, '500.html', status=500)
+
+
 @login_required
 def board_detail(request, board_pk):
     applications = Job.objects.filter(board=board_pk).order_by('deadline')

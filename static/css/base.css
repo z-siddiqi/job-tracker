@@ -63,7 +63,7 @@ a:hover {
 }
 
 
-/* Home */
+/* home */
 
 .column {
 	float: left;
@@ -228,4 +228,21 @@ a:hover {
 
 .btn {
 	display: flex;
+}
+
+
+/* error pages */
+
+.error-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.error-msg h1 {
+    font-size: 40px;
+    font-family: Raleway, sans-serif;
+    font-weight: 800;
 }
