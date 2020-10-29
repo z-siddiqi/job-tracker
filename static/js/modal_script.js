@@ -32,8 +32,12 @@ $(document).ready(function () {
 		return false;
 	}
 
-	// board
-	$('#board-nav').on('click', '.show-form-delete', ShowForm);
+	// board update
+	$('#board-title').on('click', '.show-form-update', ShowForm);
+	$('#modal-app').on('submit', '.update-form', SaveForm);
+	
+	// board delete
+	$('#board-title').on('click', '.show-form-delete', ShowForm);
 	$('#modal-app').on('submit', '.delete-form', SaveForm);
 
 	// application

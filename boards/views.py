@@ -10,6 +10,26 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 
 from .models import Board, Job
+from .forms import BoardForm
+
+
+def ajax_required(f):
+
+    def wrap(request, *args, **kwargs):
+        if not request.is_ajax():
+            return redirect('home')
+        return f(request, *args, **kwargs)
+    
+    return wrap
+
+
+def save_form(form, data):
+    if form.is_valid():
+        form.save()
+        return True
+    
+    return False
+
 
 def custom_handler404(request, exception):
     return render(request, '404.html', status=404)
@@ -79,6 +99,7 @@ class ApplicationUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
         return redirect('home')
 
 
+@ajax_required
 @login_required
 def application_delete(request, board_pk, app_pk):
     data = dict()
@@ -90,7 +111,11 @@ def application_delete(request, board_pk, app_pk):
             data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': board_pk})
         else:
             context = {'application': application}
-            data['html_form'] = render_to_string('application_delete.html', context=context, request=request)
+            data['html_form'] = render_to_string(
+                'application_delete.html', 
+                context=context, 
+                request=request
+            )
         return JsonResponse(data)
     else:
         return redirect('home')
@@ -109,6 +134,29 @@ class BoardCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+@ajax_required
+@login_required
+def board_update(request, board_pk):
+    data = dict()
+    board = get_object_or_404(Board, pk=board_pk)
+    form = BoardForm(request.POST or None, instance=board)
+    if board.user == request.user:
+        if request.method == 'POST':
+            data['form_is_valid'] = save_form(form, data)
+            data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': board_pk})
+        else:
+            context = {'board': board, 'form': form}
+            data['html_form'] = render_to_string(
+                'board_update.html', 
+                context=context, 
+                request=request
+            )
+        return JsonResponse(data)
+    else:
+        return redirect('home')
+
+
+@ajax_required
 @login_required
 def board_delete(request, board_pk):
     data = dict()
@@ -120,7 +168,11 @@ def board_delete(request, board_pk):
             data['redirect_url'] = reverse('home')
         else:
             context = {'board': board}
-            data['html_form'] = render_to_string('board_delete.html', context=context, request=request)
+            data['html_form'] = render_to_string(
+                'board_delete.html', 
+                context=context, 
+                request=request
+            )
         return JsonResponse(data)
     else:
         return redirect('home')

@@ -128,28 +128,19 @@ a:hover {
 	text-align: center;
 }
 
-@media screen and (max-width: 1300px) {
-	.txt-column {
-		width: 100%;
-		margin-top: 0px;
-		padding-right: 0px;
-	}
-
-	.img-column {
-		width: 100%;
-	}
-	
-	.home-buttons {
-		display: block;
-	}
-}
-
 
 /* kanban board */
 
 .board-title h2 {
 	font-size: 2rem;
 	margin-bottom: .5em;
+	display: inline-block;
+	padding-right: .2em;
+}
+
+.board-title i {
+	vertical-align: middle;
+	padding-bottom: .5em;
 }
 
 .lists-container {
@@ -245,4 +236,23 @@ a:hover {
     font-size: 40px;
     font-family: Raleway, sans-serif;
     font-weight: 800;
+}
+
+
+/* media queries */
+
+@media screen and (max-width: 1300px) {
+	.txt-column {
+		width: 100%;
+		margin-top: 0px;
+		padding-right: 0px;
+	}
+
+	.img-column {
+		width: 100%;
+	}
+	
+	.home-buttons {
+		display: block;
+	}	
 }

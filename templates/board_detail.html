@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
-{% block nav-item %}
-<li class="nav-item" id='board-nav'>
-    <a class="nav-link show-form-delete" data-url="{% url 'board_delete' board.pk %}" style='color: #fd7576' href="#">Delete Board</a>
-</li>
-{% endblock %}
 {% block content %}
-<div class="board-title">
-    <h2>{{ board.title }}</h2>
+<div class="board-title" id="board-title">
+    <div class="dropdown">
+        <h2>{{ board.title }}</h2>
+        <a href="#" data-toggle="dropdown">
+            <i class="fas fa-caret-square-down fa-lg"></i>
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item show-form-update" data-url="{% url 'board_update' board.pk %}" href="#">Edit</a>
+            <a class="dropdown-item show-form-delete" data-url="{% url 'board_delete' board.pk %}" href="#">Delete</a>
+        </div>
+    </div>
 </div>
 <section class="lists-container">
     {% for column in columns %}

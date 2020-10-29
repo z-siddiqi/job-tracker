@@ -42,6 +42,15 @@ class BoardTests(TestCase):
         self.assertRedirects(
             response, '%s?next=/boards/%s/' % (reverse('login'), self.board.pk)
         )
+    
+    def test_board_update_ajax_required(self):
+        response = self.client.get(
+            reverse('board_update', kwargs={'board_pk': self.board.pk})
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response, reverse('home')
+        )
 
 
 class JobTests(TestCase):

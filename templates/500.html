@@ -1,26 +1,5 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>Job Tracker</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <!-- Custom CSS -->
-        <link href="{% static 'css/base.css' %}" rel="stylesheet">
-    </head>
-    <body>
-        <div class="border"></div>
-        <div class="error-msg">
-            <h1>500</h1>
-            <h2>Oops, there was an error!</h2>
-            <h2>Let's go <a style='color: #5969e2' href="{% url 'home' %}">home</a> and try from there.</h2>
-        </div>
-        <!-- Optional JavaScript -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </body>
-</html>
+{% extends 'base_error.html' %}
+{% block content %}
+<h1>500</h1>
+<h2>Oops, there was an error!</h2>
+{% endblock content %}

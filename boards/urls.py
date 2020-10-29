@@ -6,12 +6,14 @@ from .views import (
     ApplicationUpdateView, 
     application_delete, 
     BoardCreateView, 
+    board_update, 
     board_delete, 
 )
 
 urlpatterns = [
     path('new/', BoardCreateView.as_view(), name='board_new'),
     path('<int:board_pk>/', board_detail, name='board_detail'),
+    path('<int:board_pk>/edit', board_update, name='board_update'),
     path('<int:board_pk>/delete', board_delete, name='board_delete'),
     path('<int:board_pk>/jobs/new/', ApplicationCreateView.as_view(), name='application_new'),
     path('<int:board_pk>/jobs/<int:app_pk>/detail', ApplicationUpdateView.as_view(), name='application_detail'),
