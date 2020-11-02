@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="board-title" id="board-title">
+<div class="board-title" id="boardTitle">
     <div class="dropdown">
         <h2>{{ board.title }}</h2>
         <a href="#" data-toggle="dropdown">
-            <i class="fas fa-caret-square-down fa-lg"></i>
+            <i class="fas fa-caret-square-down fa-sm"></i>
         </a>
         <div class="dropdown-menu">
             <a class="dropdown-item show-form-update" data-url="{% url 'board_update' board.pk %}" href="#">Edit</a>
@@ -16,7 +16,7 @@
     {% for column in columns %}
     <div class="list">
         <h3 class="list-title">{{ column }}</h3>
-        <ul class="list-items" id="applied">
+        <ul class="list-items">
             {% for application in applications %}
             {% if application.progress == column %}
             <li onclick='location.href ="{% url 'application_detail' application.board.pk application.pk %}"'>
@@ -33,9 +33,4 @@
     </div>
     {% endfor %}
 </section>
-<div class="modal fade" id="modal-app">
-    <div class="modal-dialog">
-      <div class="modal-content"></div>
-    </div>
-</div>
 {% endblock content %}

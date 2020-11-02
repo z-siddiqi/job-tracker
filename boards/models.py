@@ -20,7 +20,7 @@ class Board(models.Model):
 class Job(models.Model):  
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
-    url = models.URLField(blank=True, null=True, max_length=200, help_text = 'Don\'t forget to put "http://" at the beginning.')
+    url = models.URLField(blank=True, null=True, max_length=200, help_text = 'Don\'t forget to put "https://" at the beginning.')
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
         ('Applied', 'Applied'),
@@ -34,6 +34,9 @@ class Job(models.Model):
         Board,
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        ordering = ['deadline', ]
 
     def __str__(self):
         return f'{self.title} at {self.company}'

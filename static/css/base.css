@@ -10,7 +10,7 @@ body {
 	margin: 0px;
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 5em;
+	padding-bottom: 2em;
 }
 
 a {
@@ -124,8 +124,8 @@ a:hover {
 }
 
 .github-link {
-	padding-top: 150px;
 	text-align: center;
+	padding-top: 5em;
 }
 
 
@@ -140,7 +140,7 @@ a:hover {
 
 .board-title i {
 	vertical-align: middle;
-	padding-bottom: .5em;
+	padding-bottom: .6em;
 }
 
 .lists-container {
@@ -257,5 +257,9 @@ a:hover {
 	
 	.home-buttons {
 		display: block;
-	}	
+	}
+
+	.home-signup {
+		padding: 12px 20px;
+	}
 }

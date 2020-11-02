@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'boards.apps.BoardsConfig',
     'pages.apps.PagesConfig',
+    'tasks.apps.TasksConfig',
 
     # 3rd party
     'crispy_forms',

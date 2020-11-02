@@ -23,14 +23,6 @@ def ajax_required(f):
     return wrap
 
 
-def save_form(form, data):
-    if form.is_valid():
-        form.save()
-        return True
-    
-    return False
-
-
 def custom_handler404(request, exception):
     return render(request, '404.html', status=404)
 
@@ -41,7 +33,7 @@ def custom_handler500(request):
 
 @login_required
 def board_detail(request, board_pk):
-    applications = Job.objects.filter(board=board_pk).order_by('deadline')
+    applications = Job.objects.filter(board=board_pk)
     board = Board.objects.get(id=board_pk)
     if board.user == request.user:
         columns = (
@@ -121,17 +113,28 @@ def application_delete(request, board_pk, app_pk):
         return redirect('home')
 
 
-class BoardCreateView(LoginRequiredMixin, CreateView):
-    model = Board
-    template_name = 'board_new.html'
-    fields = (
-        'title', 
-    )
-    login_url = 'login'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+@ajax_required
+@login_required
+def board_create(request):
+    data = dict()
+    form = BoardForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            new_board = form.save(commit=False)
+            new_board.user = request.user
+            new_board = form.save()
+            data['form_is_valid'] = True
+            data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': new_board.pk})
+        else:
+            data['form_is_valid'] = False
+    else:
+        context = {'form': form}
+        data['html_form'] = render_to_string(
+            'board_new.html', 
+            context=context, 
+            request=request
+        )
+    return JsonResponse(data)
 
 
 @ajax_required
@@ -142,8 +145,12 @@ def board_update(request, board_pk):
     form = BoardForm(request.POST or None, instance=board)
     if board.user == request.user:
         if request.method == 'POST':
-            data['form_is_valid'] = save_form(form, data)
-            data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': board_pk})
+            if form.is_valid():
+                form.save()
+                data['form_is_valid'] = True
+                data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': board_pk})
+            else:
+                data['form_is_valid'] = False
         else:
             context = {'board': board, 'form': form}
             data['html_form'] = render_to_string(
