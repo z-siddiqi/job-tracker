@@ -8,6 +8,7 @@ from .forms import TaskForm
 
 # Create your views here.
 class TaskList(View):
+    
     def get(self, request):
         form = TaskForm()
         tasks = Task.objects.filter(user=request.user)
@@ -16,7 +17,6 @@ class TaskList(View):
     def post(self, request):
         data = dict()
         form = TaskForm(request.POST)
-
         if form.is_valid():
             new_task = form.save(commit=False)
             new_task.user = request.user

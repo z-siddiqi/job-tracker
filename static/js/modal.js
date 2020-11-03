@@ -32,20 +32,17 @@ $(document).ready(function () {
 		return false;
 	}
 
-	// board create
+	// create
 	$("#navbarNavDropdown").on('click', '.show-form-create-navbar', ShowForm);
 	$("#homeButtons").on('click', '.show-form-create-homepage', ShowForm);
 	$("#modal").on('submit', '.create-form', SaveForm);
 
-	// board update
+	// update
 	$("#boardTitle").on('click', '.show-form-update', ShowForm);
 	$("#modal").on('submit', '.update-form', SaveForm);
 	
-	// board delete
+	// delete
 	$("#boardTitle").on('click', '.show-form-delete', ShowForm);
-	$("#modal").on('submit', '.delete-form', SaveForm);
-
-	// application delete
 	$("#applicationButtons").on('click', '.show-form-delete', ShowForm);
 	$("#modal").on('submit', '.delete-form', SaveForm);
 });
