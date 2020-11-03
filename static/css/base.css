@@ -22,6 +22,12 @@ a:hover {
 	color: inherit;
 }
 
+.btn-purple {
+	color: white;
+	background-color: #5969e2;
+	border: none;
+}
+
 .border {
 	height: 6px;
 	border: 1px solid #dee2e6 !important;

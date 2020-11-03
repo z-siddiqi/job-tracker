@@ -58,11 +58,14 @@
                             </li>
                         </ul>
                         {% else %}
+                        <!-- block tag allows the log in button to be overwritten in other templates -->
+                        {% block navbar %}
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <button class="btn btn-dark" onclick='location.href="{% url 'login' %}"'>Log In</button>
                             </li>
                         </ul>
+                        {% endblock navbar %}
                         {% endif %}
                     </div>
                 </nav>
