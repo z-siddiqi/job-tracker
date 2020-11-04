@@ -1,3 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
+<h2>Tasks</h2>
+<form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' %}">
+    {% csrf_token %}
+    <div class="input-group input-group-lg">
+        {{ form.title }}
+        <span class="input-group-append">
+        <button type="button" class="btn btn-dark btn-lg" id="createButton">Create</button>
+        </span>
+    </div>
+</form>
+<div class="" id="taskList">
+    {% for task in tasks %}
+    <div class="card mb-1" id="taskCard" data-id="{{ task.id }}" 
+        style="{% if task.completed %} text-decoration: line-through {% endif %}">
+        <div class="card-body" >
+            {{ task.title }}
+            <button type="button" class="close float-right" data-id="{{ task.id }}">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}

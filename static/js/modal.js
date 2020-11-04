@@ -33,8 +33,8 @@ $(document).ready(function () {
 	}
 
 	// create
-	$("#navbarNavDropdown").on('click', '.show-form-create-navbar', ShowForm);
-	$("#homeButtons").on('click', '.show-form-create-homepage', ShowForm);
+	$("#navbarNavDropdown").on('click', '.show-form-create', ShowForm);
+	$("#homeButtons").on('click', '.show-form-create', ShowForm);
 	$("#modal").on('submit', '.create-form', SaveForm);
 
 	// update

@@ -15,7 +15,7 @@
             </div>
             <div class="home-login">
                 {% if user.is_authenticated %}
-                <a class="show-form-create-homepage" data-url="{% url 'board_new' %}" href="#">or, create a board</a>
+                <a class="show-form-create" data-url="{% url 'board_new' %}" href="#">or, create a board</a>
                 {% else %}
                 <a href="{% url 'login' %}">or, create a board</a>
                 {% endif %}

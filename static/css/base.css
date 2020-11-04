@@ -231,6 +231,13 @@ a:hover {
 }
 
 
+/* tasks */
+
+#taskCard:hover {
+	cursor: pointer;
+}
+
+
 /* error pages */
 
 .error-msg {

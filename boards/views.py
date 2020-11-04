@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,25 +8,8 @@ from django.template.loader import render_to_string
 
 from .models import Board, Job
 from .forms import BoardForm
-from .mixins import CustomLoginRequiredMixin
 
-
-def ajax_required(f):
-
-    def wrap(request, *args, **kwargs):
-        if not request.is_ajax():
-            return redirect('home')
-        return f(request, *args, **kwargs)
-    
-    return wrap
-
-
-def custom_handler404(request, exception):
-    return render(request, '404.html', status=404)
-
-
-def custom_handler500(request):
-    return render(request, '500.html', status=500)
+from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
 
 @login_required
@@ -65,7 +47,7 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ApplicationUpdateView(CustomLoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
     model = Job
     template_name = 'application_detail.html'
     pk_url_kwarg = 'app_pk'
@@ -83,12 +65,9 @@ class ApplicationUpdateView(CustomLoginRequiredMixin, UserPassesTestMixin, Updat
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
-    
-    def handle_no_permission(self):
-        return redirect('home')
 
 
-class ApplicationDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
+class ApplicationDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
         return get_object_or_404(Job, pk=self.kwargs['app_pk'])
@@ -96,9 +75,6 @@ class ApplicationDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, View)
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
-    
-    def handle_no_permission(self):
-        return redirect('home')
     
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
@@ -119,7 +95,6 @@ class ApplicationDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, View)
         application.delete()
         data['form_is_valid'] = True
         data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': kwargs['board_pk']})
-        print('Deleted.')
         return JsonResponse(data)
 
 
@@ -152,7 +127,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
         return JsonResponse(data)
 
 
-class BoardUpdateView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
+class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
         return get_object_or_404(Board, pk=self.kwargs['board_pk'])
@@ -160,9 +135,6 @@ class BoardUpdateView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
-    
-    def handle_no_permission(self):
-        return redirect('home')
     
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
@@ -191,7 +163,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
         return JsonResponse(data)
 
 
-class BoardDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
+class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
         return get_object_or_404(Board, pk=self.kwargs['board_pk'])
@@ -199,9 +171,6 @@ class BoardDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, View):
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
-    
-    def handle_no_permission(self):
-        return redirect('home')
     
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
