@@ -29,11 +29,10 @@ def board_detail(request, board_pk):
         return redirect('home')
 
 
-class ApplicationCreateView(CustomLoginRequiredMixin, CreateView):
+class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
     model = Job
     template_name = 'application_new.html'
     fields = (
-        'board', 
         'company', 
         'title', 
         'url', 
@@ -42,8 +41,16 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CreateView):
         'notes'
     )
 
+    def get_object(self):
+        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
+        
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
+
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.board = Board.objects.get(pk=self.kwargs['board_pk'])
         return super().form_valid(form)
 
 
@@ -53,7 +60,6 @@ class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
     pk_url_kwarg = 'app_pk'
     context_object_name = 'application'
     fields = (
-        'board', 
         'company', 
         'title', 
         'url', 

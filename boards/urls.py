@@ -16,6 +16,6 @@ urlpatterns = [
     path('<int:board_pk>/edit/', BoardUpdateView.as_view(), name='board_update'),
     path('<int:board_pk>/delete/', BoardDeleteView.as_view(), name='board_delete'),
     path('<int:board_pk>/jobs/new/', ApplicationCreateView.as_view(), name='application_new'),
-    path('<int:board_pk>/jobs/<int:app_pk>/detail/', ApplicationUpdateView.as_view(), name='application_detail'),
+    path('<int:board_pk>/jobs/<int:app_pk>/', ApplicationUpdateView.as_view(), name='application_detail'),
     path('<int:board_pk>/jobs/<int:app_pk>/delete/', ApplicationDeleteView.as_view(), name='application_delete'),
 ]

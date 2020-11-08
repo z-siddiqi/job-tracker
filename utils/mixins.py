@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
 from django.contrib.auth.views import redirect_to_login
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import redirect
 
 
 def ajax_required(f):

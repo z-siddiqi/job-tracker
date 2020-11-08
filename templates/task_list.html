@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Tasks</h2>
-<form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' %}">
+<h2>{{ application.title }}</h2>
+<h5>{{ application.company }}</h5>
+<br>
+<nav class="nav nav-pills nav-justified">
+    <a class="nav-item nav-link" href="{% url 'application_detail' application.board.pk application.pk %}">Job Info</a>
+    <a class="nav-item nav-link active" href="#">Tasks</a>
+</nav>
+<br>
+<form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' application.pk %}">
     {% csrf_token %}
-    <div class="input-group input-group-lg">
+    <div class="input-group input-group-lg mb-4">
         {{ form.title }}
         <span class="input-group-append">
         <button type="button" class="btn btn-dark btn-lg" id="createButton">Create</button>

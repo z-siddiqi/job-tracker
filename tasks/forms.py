@@ -9,5 +9,5 @@ class TaskForm(ModelForm):
         fields = ('title', )
 
         widgets = {
-            'title': TextInput(attrs={'class': 'form-control input-lg mb-5'})
+            'title': TextInput(attrs={'class': 'form-control input-lg'})
         }

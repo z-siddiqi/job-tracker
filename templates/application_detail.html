@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<h2>{{ application.title }}</h2>
+<h5>{{ application.company }}</h5>
+<br>
+<nav class="nav nav-pills nav-justified">
+    <a class="nav-item nav-link active" href="#">Job Info</a>
+    <a class="nav-item nav-link" href="{% url 'task_list' application.pk %}">Tasks</a>
+</nav>
+<br>
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form|crispy }}

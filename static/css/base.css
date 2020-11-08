@@ -68,6 +68,10 @@ a:hover {
 	margin-bottom: 0
 }
 
+.nav-pills > .nav-link.active {
+	background-color: #5969e2;
+}
+
 
 /* home */
 
