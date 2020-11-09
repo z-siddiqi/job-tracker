@@ -19,6 +19,12 @@ $(document).ready(function(){
         $("#createTaskForm")[0].reset();
     });
 
+    $("#task").keypress(function(event) {
+        if (event.key === "Enter") {
+            $("#createButton").click();
+        }
+    });
+
     $("#taskList").on('click', '.card', function() {
         var dataID = $(this).data('id');
         

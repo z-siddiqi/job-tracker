@@ -43,6 +43,6 @@ $(document).ready(function () {
 	
 	// delete
 	$("#boardTitle").on('click', '.show-form-delete', ShowForm);
-	$("#applicationButtons").on('click', '.show-form-delete', ShowForm);
+	$("#applied, #phone, #onsite, #offer").on('click', '.show-form-delete', ShowForm);
 	$("#modal").on('submit', '.delete-form', SaveForm);
 });

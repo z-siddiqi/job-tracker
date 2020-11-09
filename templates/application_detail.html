@@ -12,11 +12,6 @@
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form|crispy }}
-    <div class="btn-toolbar" id="applicationButtons">
-        <button class="btn btn-dark" type="submit">Edit</button>
-        <button class="btn btn-danger ml-2 show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}" type="button">
-            Delete
-        </button>
-    </div>
+    <button class="btn btn-dark" type="submit">Edit</button>
 </form>
 {% endblock content %}
