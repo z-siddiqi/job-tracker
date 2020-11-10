@@ -72,7 +72,7 @@ class JobTests(TestCase):
             url='https://www.url.com/',
             deadline=date(2020, 10, 26),
             progress='Applied',
-            notes='This is a test.'
+            description='This is a test.'
         )
         
     def test_job_create(self):
@@ -81,7 +81,7 @@ class JobTests(TestCase):
         self.assertEqual(f'{self.job.url}', 'https://www.url.com/')
         self.assertEqual(f'{self.job.deadline}', '2020-10-26')  # str since value is not saved as python obj
         self.assertEqual(f'{self.job.progress}', 'Applied')
-        self.assertEqual(f'{self.job.notes}', 'This is a test.')
+        self.assertEqual(f'{self.job.description}', 'This is a test.')
 
     def test_job_detail_view_for_logged_in_user(self):
         self.client.login(username='testuser', password='testpass123')

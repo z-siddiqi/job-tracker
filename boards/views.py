@@ -38,7 +38,7 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
         'url', 
         'deadline', 
         'progress', 
-        'notes'
+        'description'
     )
 
     def get_object(self):
@@ -65,7 +65,7 @@ class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
         'url', 
         'deadline', 
         'progress', 
-        'notes'
+        'description'
     )
 
     def test_func(self):

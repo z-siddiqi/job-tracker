@@ -13,4 +13,5 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('boards/', include('boards.urls')),
     path('tasks/', include('tasks.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
