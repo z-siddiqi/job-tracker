@@ -1,9 +1,12 @@
+import re
 import requests
 
 from lxml import html, etree
 from itertools import chain
 
 def scrape_indeed_posting(url):
+    url = re.sub(r'\.uk/m/', '.uk/', url)
+
     page = requests.get(url)
     page_html = html.fromstring(page.content)
 

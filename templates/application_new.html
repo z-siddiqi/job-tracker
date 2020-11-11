@@ -4,12 +4,13 @@
 <h2>Add Job</h2>
 <br>
 <label for="inputUrl">URL</label>
-<div class="input-group mb-3">
-    <input class="form-control" type="url" placeholder="https://example.com" id="inputUrl">
+<div class="input-group">
+    <input class="form-control" type="url" placeholder="https://www.indeed.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="inputUrl">
     <span class="input-group-append">
     <button type="button" class="btn btn-dark" id="scrapeButton" data-url="{% url 'scrape_job' board.pk %}">Scrape</button>
     </span>
 </div>
+<small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on indeed.</small>
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form.media }}

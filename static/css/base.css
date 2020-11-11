@@ -45,7 +45,7 @@ a:hover {
 }
 
 .main_header {
-	margin: 0em 0 2em 0;
+	margin: 0em 0 1em 0;
 }
 
 .logo h1 {
@@ -156,7 +156,7 @@ a:hover {
 .lists-container {
 	display: flex;
 	overflow-x: auto;
-	height: calc(100vh - 17rem);
+	height: calc(100vh - 15rem);
 }
 
 .list {
