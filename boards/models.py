@@ -22,7 +22,6 @@ class Board(models.Model):
 class Job(models.Model):  
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
-    url = models.URLField(blank=True, null=True, max_length=200, help_text = 'Don\'t forget to put "https://" at the beginning.')
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
         ('Applied', 'Applied'),

@@ -8,8 +8,21 @@ from django.template.loader import render_to_string
 
 from .models import Board, Job
 from .forms import BoardForm
+from .scrape import scrape_indeed_posting
 
 from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
+
+
+@ajax_required
+@login_required
+def scrape_job(request, board_pk):
+    if request.method == 'POST':
+        url = request.POST.get('jobUrl')
+        data = scrape_indeed_posting(url)
+        return JsonResponse(data)
+    else:
+        redirect_url = reverse('application_new', kwargs={'board_pk': board_pk})
+        return redirect(redirect_url)
 
 
 @login_required
@@ -35,7 +48,6 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
     fields = (
         'company', 
         'title', 
-        'url', 
         'deadline', 
         'progress', 
         'description'
@@ -47,10 +59,15 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
+    
+    def get_context_data(self):
+        context = super().get_context_data()
+        context["board"] = self.get_object()
+        return context
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.board = Board.objects.get(pk=self.kwargs['board_pk'])
+        form.instance.board = self.get_object()
         return super().form_valid(form)
 
 
@@ -62,7 +79,6 @@ class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
     fields = (
         'company', 
         'title', 
-        'url', 
         'deadline', 
         'progress', 
         'description'

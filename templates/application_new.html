@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<h2>Add Job</h2>
+<br>
+<label for="inputUrl">URL</label>
+<div class="input-group mb-3">
+    <input class="form-control" type="url" placeholder="https://example.com" id="inputUrl">
+    <span class="input-group-append">
+    <button type="button" class="btn btn-dark" id="scrapeButton" data-url="{% url 'scrape_job' board.pk %}">Scrape</button>
+    </span>
+</div>
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form.media }}
