@@ -59,7 +59,10 @@ class TaskCompleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View
     def post(self, request, *args, **kwargs):
         data = dict()
         task = Task.objects.get(pk=self.kwargs['task_pk'])
-        task.completed = True
+        if not task.completed:
+            task.completed = True
+        else:
+            task.completed = False
         task.save()
         data['task'] = model_to_dict(task)
         return JsonResponse(data)

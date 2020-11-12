@@ -10,7 +10,6 @@ body {
 	margin: 0px;
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 2em;
 }
 
 a {
@@ -32,7 +31,7 @@ a:hover {
 	height: 6px;
 	border: 1px solid #dee2e6 !important;
 	background-color: #fd7576;
-	background-image: linear-gradient(to right, #fd7576, #fd7576 25%, #fec85d 25%, #fec85d 50%, #4db8de 50%, #4db8de 75%, #a378fc 75%, #a378fc 100%, #a378fc 100%);
+	background-image: linear-gradient(to right, #fd7576, #fd7576 25%, #fec85d 25%, #fec85d 50%, #4db8de 50%, #4db8de 75%, #5969e2 75%, #5969e2 100%, #5969e2 100%);
 	-webkit-background-size: 50% 100%;
 	-moz-background-size: 50% 100%;
 	background-size: 50% 100%;
@@ -42,6 +41,7 @@ a:hover {
 	width: 1200px;
 	max-width: 90%;
 	margin: 0 auto;
+	margin-bottom: 5em;
 }
 
 .main_header {
@@ -69,7 +69,7 @@ a:hover {
 }
 
 .nav-pills > .nav-link.active {
-	background-color: #5969e2;
+	background-color: #343a40;
 }
 
 
@@ -133,10 +133,26 @@ a:hover {
 	align-items: center;
 }
 
-.github-link {
-	text-align: center;
-	padding-top: 5em;
+/* .divider {
+	z-index: -1;
+    position: absolute;
+    height: 700px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fbfbff;
+    border-bottom: 1px solid rgba(25,4,69,0.1);
 }
+
+.card-deck {
+	margin-top: 10em;
+}
+
+.card-deck h5 {
+    font-family: Raleway, sans-serif;
+    font-weight: 800;
+} */
+
 
 
 /* kanban board */
@@ -237,8 +253,12 @@ a:hover {
 
 /* tasks */
 
-#taskCard:hover {
+.form-check-input:hover {
 	cursor: pointer;
+}
+
+.form-check-input {
+    margin-top: .28rem;
 }
 
 
@@ -279,4 +299,8 @@ a:hover {
 	.home-signup {
 		padding: 12px 20px;
 	}
+	
+	/* .card-deck {
+		margin-top: 4em;
+	} */
 }

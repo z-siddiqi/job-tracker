@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
 <h2>Add Job</h2>
@@ -18,3 +19,6 @@
     <button class="btn btn-dark" type="submit">Create</button>
 </form>
 {% endblock content %}
+{% block script %}
+<script src="{% static 'js/scrape.js' %}"></script>
+{% endblock %}

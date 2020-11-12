@@ -1,31 +1,31 @@
-$(document).ready(function () {
-	var ShowForm = function () {
+$(document).ready(function() {
+	var ShowForm = function() {
 		var btn = $(this);
 		$.ajax({
 			url: btn.attr('data-url'),
 			type: 'get',
 			dataType: 'json',
-			beforeSend: function () {
+			beforeSend: function() {
 				$("#modal").modal('show');
 			},
-			success: function (data) {
-				$("#modal .modal-content").html(data.html_form);
+			success: function(response) {
+				$("#modal .modal-content").html(response.html_form);
 			}
 		});
 	}
 
-	var SaveForm = function () {
+	var SaveForm = function() {
 		var form = $(this);
 		$.ajax({
 			url: form.attr('data-url'),
 			data: form.serialize(),
 			type: form.attr('method'),
 			dataType: 'json',
-			success: function (data) {
-				if (data.form_is_valid) {
-					window.location.href = data.redirect_url;
+			success: function(response) {
+				if (response.form_is_valid) {
+					window.location.href = response.redirect_url;
 				} else {
-					$("#modal .modal-content").html(data.html_form);
+					$("#modal .modal-content").html(response.html_form);
 				}
 			}
 		});

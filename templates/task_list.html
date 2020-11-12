@@ -1,33 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <h2>{{ application.title }}</h2>
 <h5>{{ application.company }}</h5>
 <br>
-<nav class="nav nav-pills nav-justified">
+<nav class="nav nav-pills nav-justified breadcrumb">
     <a class="nav-item nav-link" href="{% url 'application_detail' application.board.pk application.pk %}">Job Info</a>
     <a class="nav-item nav-link active" href="#">Tasks</a>
 </nav>
-<br>
 <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' application.pk %}">
     {% csrf_token %}
-    <div class="input-group input-group-lg mb-4">
+    <div class="input-group py-3">
         {{ form.title }}
         <span class="input-group-append">
-        <button type="button" class="btn btn-dark btn-lg" id="createButton">Add</button>
+        <button type="button" class="btn btn-dark" id="createButton">Add</button>
         </span>
     </div>
 </form>
-<div class="" id="taskList">
+<div id="taskList">
     {% for task in tasks %}
-    <div class="card mb-1" id="taskCard" data-id="{{ task.id }}" 
-        style="{% if task.completed %} text-decoration: line-through {% endif %}">
-        <div class="card-body" >
-            {{ task.title }}
-            <button type="button" class="close float-right" data-id="{{ task.id }}">
-            <span aria-hidden="true">&times;</span>
-            </button>
+    <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input float-left" type="checkbox" {% if task.completed %}checked{% endif %}>
+                <label class="form-check-label">
+                    {{ task.title }}
+                </label>
+                <button type="button" class="close float-right">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% endblock content %}
+{% block script %}
+<script src="{% static 'js/task.js' %}"></script>
+{% endblock %}

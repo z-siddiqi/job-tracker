@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
     var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
 
     $("#createButton").click(function() {
@@ -9,10 +9,11 @@ $(document).ready(function(){
             data: serializedData,
             type: 'post',
             success: function(response) {
-                $("#taskList").append('<div class="card mb-1" id="taskCard" data-id="' + 
-                response.task.id + '"><div class="card-body">' + response.task.title + 
-                '<button type="button" class="close float-right" data-id="' + response.task.id + 
-                '"><span aria-hidden="true">&times;</span></button></div></div>');
+                $("#taskList").append('<div class="card mb-1" id="taskCard" data-id="' + response.task.id + 
+                '"><div class="card-body"><div class="form-check"><input class="form-check-input float-left"' + 
+                'type="checkbox"><label class="form-check-label">' 
+                + response.task.title + '</label><button type="button" class="close float-right">' + 
+                '<span aria-hidden="true">&times;</span></button></div></div></div>');
             }
         });
 
@@ -25,8 +26,8 @@ $(document).ready(function(){
         }
     });
 
-    $("#taskList").on('click', '.card', function() {
-        var dataID = $(this).data('id');
+    $("#taskList").on('click', 'input.form-check-input', function() {
+        var dataID = $(this).closest('div.card').data('id');
         
         $.ajax({
             url: '/tasks/' + dataID + '/complete/',
@@ -34,17 +35,12 @@ $(document).ready(function(){
                 csrfmiddlewaretoken: csrfToken,
                 id: dataID
             },
-            type: 'post',
-            success: function() {
-                var cardItem = $('#taskCard[data-id="' + dataID + '"]');
-                cardItem.css('text-decoration', 'line-through').hide().slideDown();
-                $("#taskList").append(cardItem);
-            }
+            type: 'post'
         });
     }).on('click', 'button.close', function(event) {
         event.stopPropagation();
 
-        var dataID = $(this).data('id');
+        var dataID = $(this).closest('div.card').data('id');
 
         $.ajax({
             url: '/tasks/' + dataID + '/delete/',
