@@ -13,7 +13,7 @@ $(document).ready(function() {
                 '"><div class="card-body"><div class="form-check"><input class="form-check-input float-left"' + 
                 'type="checkbox"><label class="form-check-label">' 
                 + response.task.title + '</label><button type="button" class="close float-right">' + 
-                '<span aria-hidden="true">&times;</span></button></div></div></div>');
+                '<span aria-hidden="true"><i class="fas fa-times-circle fa-sm"></i></span></button></div></div></div>');
             }
         });
 

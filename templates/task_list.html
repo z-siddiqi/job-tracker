@@ -22,14 +22,14 @@
     {% for task in tasks %}
     <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
         <div class="card-body">
-            <div class="form-check-inline">
+            <div class="form-check-inline overflow">
                 <input class="form-check-input float-left" type="checkbox" {% if task.completed %}checked{% endif %}>
                 <label class="form-check-label">
                     {{ task.title }}
                 </label>
             </div>
             <button type="button" class="close float-right">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true"><i class="fas fa-times-circle fa-sm"></i></span>
             </button>
         </div>
     </div>

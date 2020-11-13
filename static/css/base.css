@@ -152,6 +152,11 @@ a:hover {
     font-weight: 800;
 }
 
+.border-m {
+	border-width: medium;
+	border-radius: .5em;
+}
+
 
 /* kanban board */
 
@@ -253,6 +258,11 @@ a:hover {
 
 .form-check-input:hover {
 	cursor: pointer;
+}
+
+.overflow {
+	max-width: 85%;
+	overflow: hidden;
 }
 
 

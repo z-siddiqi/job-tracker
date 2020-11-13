@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from boards.models import Job
 from tinymce.models import HTMLField
@@ -10,3 +11,6 @@ class Note(models.Model):
         Job,
         on_delete=models.CASCADE,
     )
+
+    def get_absolute_url(self):
+        return reverse('note_update', kwargs={'app_pk': self.job.pk})
