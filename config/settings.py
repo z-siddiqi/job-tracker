@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'boards.apps.BoardsConfig',
     'pages.apps.PagesConfig',
     'tasks.apps.TasksConfig',
+    'notes.apps.NotesConfig',
 
     # 3rd party
     'crispy_forms',
@@ -130,9 +131,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "height": 500,
     "menubar": False,
-    "plugins": "advlist,autolink,lists,link,image,charmap,print,preview,anchor,"
-    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
-    "code,wordcount",
+    "plugins": "autolink,lists,link,image,anchor,media,paste,wordcount",
     "toolbar": "undo redo | formatselect | "
     "bold italic backcolor | alignleft aligncenter "
     "alignright alignjustify | bullist numlist outdent indent | "

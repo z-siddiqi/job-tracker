@@ -5,11 +5,10 @@
 <h5>{{ application.company }}</h5>
 <br>
 <nav class="nav nav-pills nav-justified breadcrumb">
-    <a class="nav-item nav-link active" href="#">Job Info</a>
+    <a class="nav-item nav-link" href="{% url 'application_detail' application.board.pk application.pk %}">Job Info</a>
     <a class="nav-item nav-link" href="{% url 'task_list' application.pk %}">Tasks</a>
-    <a class="nav-item nav-link" href="{% url 'note_update' application.pk %}">Notes</a>
+    <a class="nav-item nav-link active" href="#">Notes</a>
 </nav>
-<br>
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form.media }}

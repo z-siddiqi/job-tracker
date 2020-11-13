@@ -13,16 +13,16 @@ from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPass
 
 class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
-    def get_object(self):
+    def get_job(self):
         return get_object_or_404(Job, pk=self.kwargs['app_pk'])
     
     def test_func(self):
-        obj = self.get_object()
+        obj = self.get_job()
         return obj.board.user == self.request.user
 
     def get(self, request, *args, **kwargs):
         form = TaskForm()
-        application = self.get_object()
+        application = self.get_job()
         tasks = Task.objects.filter(job=application)
         context={'form': form, 'application': application, 'tasks': tasks}
         return render(request, 'task_list.html', context)
@@ -31,7 +31,7 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     def post(self, request, *args, **kwargs):
         data = dict()
         form = TaskForm(request.POST)
-        application = self.get_object()
+        application = self.get_job()
         if form.is_valid():
             new_task = form.save(commit=False)
             new_task.job = application

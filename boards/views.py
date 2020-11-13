@@ -3,13 +3,14 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, CreateView, UpdateView
 from django.urls import reverse
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 
 from .models import Board, Job
 from .forms import BoardForm
 from .scrape import scrape_indeed_posting
 
+from notes.models import Note
 from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
 
@@ -53,22 +54,25 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
         'description'
     )
 
-    def get_object(self):
+    def get_board(self):
         return get_object_or_404(Board, pk=self.kwargs['board_pk'])
         
     def test_func(self):
-        obj = self.get_object()
+        obj = self.get_board()
         return obj.user == self.request.user
     
     def get_context_data(self):
         context = super().get_context_data()
-        context["board"] = self.get_object()
+        context["board"] = self.get_board()
         return context
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.board = self.get_object()
-        return super().form_valid(form)
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.board = self.get_board()
+        self.object = form.save()
+        Note.objects.create(job=self.object)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
