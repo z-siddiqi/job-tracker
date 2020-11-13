@@ -5,7 +5,7 @@ from tinymce.models import HTMLField
 
 # Create your models here.
 class Note(models.Model):
-    note = HTMLField(blank=True, null=True)
+    note = HTMLField(verbose_name="", blank=True, null=True)
     job = models.ForeignKey(
         Job,
         on_delete=models.CASCADE,

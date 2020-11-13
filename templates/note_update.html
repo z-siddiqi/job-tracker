@@ -9,7 +9,7 @@
     <a class="nav-item nav-link" href="{% url 'task_list' application.pk %}">Tasks</a>
     <a class="nav-item nav-link active" href="#">Notes</a>
 </nav>
-<form class="form-login" method="post">
+<form class="form-login py-3" method="post">
     {% csrf_token %}
     {{ form.media }}
     {{ form|crispy }}

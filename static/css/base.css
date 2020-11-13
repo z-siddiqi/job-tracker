@@ -41,7 +41,7 @@ a:hover {
 	width: 1200px;
 	max-width: 90%;
 	margin: 0 auto;
-	margin-bottom: 5em;
+	margin-bottom: 4em;
 }
 
 .main_header {
@@ -133,7 +133,7 @@ a:hover {
 	align-items: center;
 }
 
-/* .divider {
+.divider {
 	z-index: -1;
     position: absolute;
     height: 700px;
@@ -149,9 +149,8 @@ a:hover {
 }
 
 .card-deck h5 {
-    font-family: Raleway, sans-serif;
     font-weight: 800;
-} */
+}
 
 
 /* kanban board */
@@ -295,7 +294,7 @@ a:hover {
 		padding: 12px 20px;
 	}
 	
-	/* .card-deck {
-		margin-top: 4em;
-	} */
+	.card-deck {
+		margin-top: 3em;
+	}
 }
