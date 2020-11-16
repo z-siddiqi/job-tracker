@@ -11,7 +11,7 @@
     <button type="button" class="btn btn-dark" id="scrapeButton" data-url="{% url 'scrape_job' board.pk %}">Scrape</button>
     </span>
 </div>
-<small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on indeed.</small>
+<small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed, Totaljobs and Reed.</small>
 <form class="form-login" method="post">
     {% csrf_token %}
     {{ form.media }}

@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 
 from .models import Board, Job
 from .forms import BoardForm
-from .scrape import scrape_indeed_posting
+from .scrape import get_job_info
 
 from notes.models import Note
 from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
@@ -19,7 +19,7 @@ from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPass
 def scrape_job(request, board_pk):
     if request.method == 'POST':
         url = request.POST.get('jobUrl')
-        data = scrape_indeed_posting(url)
+        data = get_job_info(url)
         return JsonResponse(data)
     else:
         redirect_url = reverse('application_new', kwargs={'board_pk': board_pk})

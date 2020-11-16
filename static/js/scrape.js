@@ -3,7 +3,6 @@ $(document).ready(function(){
 
     $("#scrapeButton").click(function() {
         var inputUrl = $("#inputUrl").val();
-
         $.ajax({
             url: $(this).data('url'),
             data: {
