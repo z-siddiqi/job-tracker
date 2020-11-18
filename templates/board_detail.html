@@ -20,11 +20,11 @@
             {% for application in applications %}
             {% if application.progress == column %}
             <li>
-                <div class="float-right show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">
+                <div class="delete-icon show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">
                     <i class="fas fa-trash"></i>
                 </div>
                 <br>
-                <div onclick='location.href ="{% url 'application_detail' application.board.pk application.pk %}"'>
+                <div class="job-card" onclick='location.href ="{% url 'application_detail' application.board.pk application.pk %}"'>
                     <h5>{{ application.company }}</h5>
                     <h3 class="list-subtitle">{{ application.title }}</h3>
                     <p style="margin-bottom: 0rem;">{{ application.deadline }}</p>

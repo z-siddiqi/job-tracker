@@ -129,13 +129,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
-    "height": 500,
+    "height": 350,
     "menubar": False,
-    "plugins": "autolink,lists,link,image,anchor,media,paste,wordcount",
-    "toolbar": "undo redo | formatselect | "
-    "bold italic backcolor | alignleft aligncenter "
-    "alignright alignjustify | bullist numlist outdent indent | "
-    "removeformat"
+    "plugins": "autolink,lists,link,paste,wordcount",
+    "toolbar": "formatselect | bold italic underline | "
+    "bullist numlist outdent indent | removeformat"
 }
 
 

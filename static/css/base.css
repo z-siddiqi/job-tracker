@@ -72,6 +72,10 @@ a:hover {
 	background-color: #343a40;
 }
 
+.tox-tinymce {
+	border-radius: 0.25rem !important;
+}
+
 
 /* home */
 
@@ -227,6 +231,12 @@ a:hover {
 
 .list-items li:hover {
 	background-color: #eee;
+}
+
+.delete-icon {
+	float: right;
+	margin-bottom: .25rem;
+	padding: 0.25rem;
 }
 
 .add-card-btn {

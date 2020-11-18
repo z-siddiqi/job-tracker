@@ -13,9 +13,9 @@ python-dotenv = "*"
 environs = {extras = ["django"], version = "*"}
 whitenoise = "*"
 gunicorn = "*"
-django-tinymce = "*"
 lxml = "*"
 requests = "*"
+django-tinymce = "*"
 
 [requires]
 python_version = "3.8"
