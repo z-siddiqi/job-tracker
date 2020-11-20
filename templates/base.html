@@ -24,19 +24,11 @@
                         </div>
                     </a>
                     <ul class="navbar-nav ml-auto">
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a href="{% url 'logout' %}">
-                                <i class='bx bx-log-out icon-lg logout-logo'></i>
-                            </a>
-                        </li>
-                        {% else %}
                         {% block navbar %}
                         <li class="nav-item">
                             <button class="btn btn-dark" onclick='location.href="{% url 'login' %}"'>Log In</button>
                         </li>
                         {% endblock navbar %}
-                        {% endif %}
                     </ul>
                 </nav>
             </div>

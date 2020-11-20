@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     board_detail, 
+    BoardListView, 
     ApplicationCreateView, 
     ApplicationUpdateView, 
     ApplicationDeleteView, 
@@ -12,6 +13,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path('', BoardListView.as_view(), name='board_list'),
     path('new/', BoardCreateView.as_view(), name='board_new'),
     path('<int:board_pk>/', board_detail, name='board_detail'),
     path('<int:board_pk>/edit/', BoardUpdateView.as_view(), name='board_update'),

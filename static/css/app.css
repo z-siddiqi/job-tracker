@@ -31,6 +31,11 @@ a:hover {
 	color: inherit;
 }
 
+.cp {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .bx-lg {
 	font-size: 1.5rem;
 }
@@ -42,6 +47,10 @@ a:hover {
 
 .nav-pills > .nav-link.active {
 	background-color: #343a40;
+}
+
+.breadcrumb {
+    background-color: #e2e4e6;
 }
 
 .tox-tinymce {
@@ -146,11 +155,11 @@ a:hover {
 	padding-left: calc(var(--nav-width) + 1rem);
 }
 
-.cust-active {
+.active-link {
 	color: #f7f6fb;
 }
 
-.cust-active::before {
+.active-link::before {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -255,7 +264,7 @@ a:hover {
 		padding-left: calc(var(--nav-width) + 188px);
 	}
 
-	#columns {
-		margin-right: 0;
+	.cp {
+		padding-right: 15px !important;
 	}
 }

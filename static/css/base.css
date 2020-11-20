@@ -1,7 +1,7 @@
 /* base */
 
 .icon-lg {
-	font-size: 2rem;
+	font-size: 1.5rem;
 }
 
 body {
@@ -25,10 +25,6 @@ a:hover {
 	color: white;
 	background-color: #5969e2;
 	border: none;
-}
-
-.logout-logo {
-	margin-top: 0.2rem;
 }
 
 .border {

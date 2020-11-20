@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, CreateView, UpdateView
+from django.views.generic import View, CreateView, UpdateView, ListView
 from django.urls import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -41,6 +41,12 @@ def board_detail(request, board_pk):
         return render(request, 'app/board_detail.html', context)
     else:
         return redirect('home')
+
+
+class BoardListView(CustomLoginRequiredMixin, ListView):
+    model = Board
+    template_name = 'app/board_list.html'
+    context_object_name = 'boards'
 
 
 class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):

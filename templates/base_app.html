@@ -27,26 +27,26 @@
         <div class="side-bar" id="sideNav">
             <nav class="side-nav">
                 <div>
-                    <a href="{% url 'home' %}" class="side-nav-logo">
+                    <div class="side-nav-logo">
                         <i class="bx bx-layer side-nav-logo-icon"></i>
                         <span class="side-nav-logo-name">
                             Job <span>Tracker</span>
                         </span>
-                    </a>
+                    </div>
                     <div>
-                        <a href="#" class="side-nav-link active">
+                        <a href="{% url 'board_detail' 1 %}" class="side-nav-link" id="boards">
                             <i class="bx bx-grid-alt side-nav-icon"></i>
                             <span>Boards</span>
                         </a>
-                        <a href="#" class="side-nav-link">
+                        <!-- <a href="#" class="side-nav-link" id="">
                             <i class="bx bx-bookmark side-nav-icon"></i>
                             <span>Favourites</span>
                         </a>
-                        <a href="#" class="side-nav-link">
+                        <a href="#" class="side-nav-link" id="">
                             <i class="bx bx-bar-chart-alt-2 side-nav-icon"></i>
                             <span>Analytics</span>
-                        </a>
-                        <a href="{% url 'password_change' %}" class="side-nav-link">
+                        </a> -->
+                        <a href="{% url 'password_change' %}" class="side-nav-link" id="accounts">
                             <i class="bx bx-user-circle side-nav-icon"></i>
                             <span>Account</span>
                         </a>
@@ -59,7 +59,7 @@
             </nav>
         </div>
         <main class="content">
-            <div class="container-fluid px-0 pt-3">
+            <div class="container-fluid cp pt-3">
                 {% block content %}
                 {% endblock content %}
             </div>

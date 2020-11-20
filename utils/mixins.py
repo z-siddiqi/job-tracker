@@ -24,4 +24,4 @@ class CustomLoginRequiredMixin(AccessMixin):
 class CustomUserPassesTestMixin(UserPassesTestMixin):
 
     def handle_no_permission(self):
-        return redirect('home')
+        return redirect('board_list')
