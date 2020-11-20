@@ -1,0 +1,35 @@
+{% extends 'base_app.html' %}
+{% block content %}
+<h3 class="mb-3">{{ board }}</h3>
+<div class="row flex-row flex-nowrap" id="columns">
+    {% for column in columns %}
+    <div class="col-12 col-lg-6 col-xl-3" id="{{ column.lower }}">
+        <div class="card mb-3" id="outerColumn">
+            <div class="card-header">
+                <h5 class="card-title bold-txt">{{ column }}</h5>
+            </div>
+            <div class="card-body dyn-height" id="innerColumn">
+                {% for application in applications %}
+                {% if application.progress == column %}
+                <div class="card" id="jobCard">
+                    <div class="card-body">
+                        <h5>{{ application.company }}</h5>
+                        <h3 class="bold-txt">{{ application.title }}</h3>
+                        <p style="margin-bottom: 0rem;">{{ application.deadline }}</p>
+                        <div class="float-right">
+                            <a href="{% url 'application_detail' application.board.pk application.pk %}" class="btn btn-outline-dark btn-sm">View</a>
+                            <a href="#" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <a href="{% url 'application_new' board.pk %}" class="add-card-btn btn">
+                +
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

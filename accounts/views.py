@@ -8,5 +8,5 @@ from .models import CustomUser
 class SignUpView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
-    template_name = 'signup.html'
+    template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')

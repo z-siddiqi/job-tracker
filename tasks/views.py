@@ -25,7 +25,7 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         application = self.get_job()
         tasks = Task.objects.filter(job=application)
         context={'form': form, 'application': application, 'tasks': tasks}
-        return render(request, 'task_list.html', context)
+        return render(request, 'app/task_list.html', context)
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):

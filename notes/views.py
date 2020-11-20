@@ -9,7 +9,7 @@ from utils.mixins import CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
 class NoteUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
     model = Note
-    template_name = 'note_update.html'
+    template_name = 'app/note_update.html'
     fields = ('note', )
 
     def get_application(self):

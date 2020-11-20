@@ -1,49 +1,51 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="home-row">
-    <div class="column txt-column">
-        <h1>Track all of your job applications in one place</h1>
-        <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
-        <div class="home-buttons" id="homeButtons">
-            <div class="home-signup">
-                {% if user.is_authenticated %}
-                <a href="#">Sign up</a>
-                {% else %}
-                <a href="{% url 'signup' %}">Sign up</a>
-                {% endif %}
+<div class="content">
+    <div class="home-row">
+        <div class="column txt-column">
+            <h1>Track all of your job applications in one place</h1>
+            <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
+            <div class="home-buttons" id="homeButtons">
+                <div class="home-signup">
+                    {% if user.is_authenticated %}
+                    <a href="#">Sign up</a>
+                    {% else %}
+                    <a href="{% url 'signup' %}">Sign up</a>
+                    {% endif %}
+                </div>
+                <div class="home-login">
+                    {% if user.is_authenticated %}
+                    <a class="show-form-create" data-url="{% url 'board_new' %}" href="#">or, create a board</a>
+                    {% else %}
+                    <a href="{% url 'login' %}">or, create a board</a>
+                    {% endif %}
+                </div>
             </div>
-            <div class="home-login">
-                {% if user.is_authenticated %}
-                <a class="show-form-create" data-url="{% url 'board_new' %}" href="#">or, create a board</a>
-                {% else %}
-                <a href="{% url 'login' %}">or, create a board</a>
-                {% endif %}
+        </div>
+        <div class="column img-column">
+            <img src="{% static 'img/homepage.png' %}" class="demo-img">
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="card-deck">
+        <div class="card border-m mb-3" style="border-color:#fd7576;">
+            <div class="card-body">
+                <h5 class="card-title">Save Jobs</h5>
+                <p class="card-text">Use the scraping tool to easily save jobs from popular job boards such as Indeed and Totaljobs.</p>
             </div>
         </div>
-    </div>
-    <div class="column img-column">
-        <img src="{% static 'img/homepage.png' %}" class="demo-img">
-    </div>
-</div>
-<div class="divider"></div>
-<div class="card-deck">
-    <div class="card border-m mb-3" style="border-color:#fd7576;">
-        <div class="card-body">
-            <h5 class="card-title">Save Jobs</h5>
-            <p class="card-text">Use the scraping tool to easily save jobs from popular job boards such as Indeed and Totaljobs.</p>
+        <div class="card border-m mb-3" style="border-color:#fec85d;">
+            <div class="card-body">
+                <h5 class="card-title">Create Tasks</h5>
+                <p class="card-text">Track the steps you need to take to land that job, from writing a cover letter to preparing for the big interview.</p>
+            </div>
         </div>
-    </div>
-    <div class="card border-m mb-3" style="border-color:#fec85d;">
-        <div class="card-body">
-            <h5 class="card-title">Create Tasks</h5>
-            <p class="card-text">Track the steps you need to take to land that job, from writing a cover letter to preparing for the big interview.</p>
-        </div>
-    </div>
-    <div class="card border-m mb-3" style="border-color:#4db8de;">
-        <div class="card-body">
-            <h5 class="card-title">Take Notes</h5>
-            <p class="card-text">Document every detail of your journey and keep important job information handy with notes.</p>
+        <div class="card border-m mb-3" style="border-color:#4db8de;">
+            <div class="card-body">
+                <h5 class="card-title">Take Notes</h5>
+                <p class="card-text">Document every detail of your journey and keep important job information handy with notes.</p>
+            </div>
         </div>
     </div>
 </div>
@@ -52,7 +54,7 @@
 <footer class="footer py-3">
     <div class="container text-center">
         <a href="https://github.com/z-siddiqi/job-tracker" target="_blank">
-        <i class="fab fa-github fa-lg"></i>
+            <i class="bx bxl-github icon-lg"></i>
         </a>
     </div>
 </footer>

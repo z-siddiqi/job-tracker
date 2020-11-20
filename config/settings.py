@@ -131,6 +131,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "theme": "silver",
     "height": 350,
     "menubar": False,
+    "elementpath": False,
     "plugins": "autolink,lists,link,paste,wordcount",
     "toolbar": "formatselect | bold italic underline | "
     "bullist numlist outdent indent | removeformat"

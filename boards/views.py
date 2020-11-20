@@ -38,14 +38,14 @@ def board_detail(request, board_pk):
             'Offer',
         )
         context = {'applications': applications, 'board': board, 'columns': columns}
-        return render(request, 'board_detail.html', context)
+        return render(request, 'app/board_detail.html', context)
     else:
         return redirect('home')
 
 
 class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
     model = Job
-    template_name = 'application_new.html'
+    template_name = 'app/application_new.html'
     fields = (
         'company', 
         'title', 
@@ -77,7 +77,7 @@ class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
 
 class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
     model = Job
-    template_name = 'application_detail.html'
+    template_name = 'app/application_detail.html'
     pk_url_kwarg = 'app_pk'
     context_object_name = 'application'
     fields = (
@@ -108,7 +108,7 @@ class ApplicationDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin,
         application = self.get_object()
         context = {'application': application}
         data['html_form'] = render_to_string(
-            'application_delete.html', 
+            'app/application_delete.html', 
             context=context, 
             request=request
         )
@@ -132,7 +132,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
         form = BoardForm()
         context = {'form': form}
         data['html_form'] = render_to_string(
-            'board_new.html', 
+            'app/board_new.html', 
             context=context, 
             request=request
         )
@@ -169,7 +169,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         form = BoardForm(instance=board)
         context = {'board': board, 'form': form}
         data['html_form'] = render_to_string(
-            'board_update.html', 
+            'app/board_update.html', 
             context=context, 
             request=request
         )
@@ -204,7 +204,7 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board = self.get_object()
         context = {'board': board}
         data['html_form'] = render_to_string(
-            'board_delete.html', 
+            'app/board_delete.html', 
             context=context, 
             request=request
         )

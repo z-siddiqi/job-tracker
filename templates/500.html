@@ -1,5 +1,10 @@
-{% extends 'base_error.html' %}
+{% extends 'base.html' %}
 {% block content %}
-<h1>500</h1>
-<h2>Oops, there was an error!</h2>
+<div class="content">
+    <div class="error-msg">
+        <h1>500</h1>
+        <h2>Oops, there was an error!</h2>
+        <h2>Let's go <a style='color: #5969e2' href="{% url 'home' %}">home</a> and try from there.</h2>
+    </div>
+</div>
 {% endblock content %}

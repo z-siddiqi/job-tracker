@@ -14,7 +14,7 @@
 body {
 	font-family: sans-serif;
 	position: relative;
-	margin: var(--header-height) 0 0 0;
+	margin: var(--header-height) 0 2rem 0;
 	padding: 0 1rem;
 	font-size: 1rem;
 	transition: .5s;
@@ -33,6 +33,19 @@ a:hover {
 
 .bx-lg {
 	font-size: 1.5rem;
+}
+
+.navbar {
+	padding: 1.8em 0em;
+	margin-bottom: 0
+}
+
+.nav-pills > .nav-link.active {
+	background-color: #343a40;
+}
+
+.tox-tinymce {
+	border-radius: 0.25rem !important;
 }
 
 
@@ -62,7 +75,7 @@ a:hover {
 
 /* side navbar */
 
-.side-navbar {
+.side-bar {
 	position: fixed;
 	top: 0;
 	left: -30%;
@@ -74,7 +87,7 @@ a:hover {
 	z-index: 100;
 }
 
-.nav {
+.side-nav {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -82,8 +95,8 @@ a:hover {
 	overflow: hidden;
 }
 
-.nav-logo,
-.nav-link {
+.side-nav-logo,
+.side-nav-link {
 	display: grid;
 	grid-template-columns: max-content max-content;
 	align-items: center;
@@ -91,41 +104,41 @@ a:hover {
 	padding: .5rem 0 .5rem 1.5rem;
 }
 
-.nav-logo {
+.side-nav-logo {
 	margin-bottom: 2rem;
 }
 
-.nav-logo-icon {
+.side-nav-logo-icon {
 	font-size: 1.25rem;
 	color: #f7f6fb;
 }
 
-.nav-logo-name {
+.side-nav-logo-name {
 	color: #f7f6fb;
 	font-weight: 700;
 	text-transform: uppercase;
 }
 
-.nav-logo-name span {
+.side-nav-logo-name span {
 	font-weight: 400;
 }
 
-.nav-link {
+.side-nav-link {
 	position: relative;
 	color: #caceed;
 	margin-bottom: 1.5rem;
 	transition: .3s;
 }
 
-.nav-link:hover {
+.side-nav-link:hover {
 	color: #f7f6fb;
 }
 
-.nav-icon {
+.side-nav-icon {
 	font-size: 1.25rem;
 }
 
-.show {
+.show-nav {
 	left: 0;
 }
 
@@ -133,11 +146,11 @@ a:hover {
 	padding-left: calc(var(--nav-width) + 1rem);
 }
 
-.active {
+.cust-active {
 	color: #f7f6fb;
 }
 
-.active::before {
+.cust-active::before {
 	content: '';
 	position: absolute;
 	left: 0;
@@ -148,6 +161,10 @@ a:hover {
 
 
 /* kanban */
+
+#columns {
+	overflow-y: hidden;
+}
 
 #outerColumn {
 	background-color: #e2e4e6 !important;
@@ -200,11 +217,23 @@ a:hover {
 }
 
 
+/* tasks */
+
+.form-check-input:hover {
+	cursor: pointer;
+}
+
+.overflow {
+	max-width: 85%;
+	overflow: hidden;
+}
+
+
 /* media queries */
 
 @media screen and (min-width: 768px) {
 	body {
-		margin: calc(var(--header-height) + 1rem) 0 0 0;
+		margin: calc(var(--header-height) + 1rem) 0 2rem 0;
 		padding-left: calc(var(--nav-width) + 2rem);
 	}
 
@@ -213,16 +242,20 @@ a:hover {
 		padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
 	}
 
-	.side-navbar {
+	.side-bar {
 		left: 0;
 		padding: 1rem 1rem 0 0;
 	}
 
-	.show {
+	.show-nav {
 		width: calc(var(--nav-width) + 156px);
 	}
 
 	.body-pd {
 		padding-left: calc(var(--nav-width) + 188px);
+	}
+
+	#columns {
+		margin-right: 0;
 	}
 }
