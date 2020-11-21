@@ -2,38 +2,40 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h2>Add Job</h2>
-<br>
-<label for="inputUrl">URL</label>
-<div class="input-group">
-    <input class="form-control" type="url" placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="inputUrl">
-    <span class="input-group-append">
-    <button type="button" class="btn btn-dark" id="scrapeButton" data-url="{% url 'scrape_job' board.pk %}">Scrape</button>
-    </span>
+<div class="wrapper">
+    <h2>Add Job</h2>
+    <br>
+    <label for="inputUrl">URL</label>
+    <div class="input-group">
+        <input class="form-control" type="url" placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="inputUrl">
+        <span class="input-group-append">
+        <button type="button" class="btn btn-dark" id="scrapeButton" data-url="{% url 'scrape_job' board.pk %}">Scrape</button>
+        </span>
+    </div>
+    <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed, Totaljobs and Reed.</small>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="form-row">
+            <div class="col-md-6">
+                {{ form.company|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ form.title|as_crispy_field }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                {{ form.deadline|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+                {{ form.progress|as_crispy_field }}
+            </div>
+        </div>
+        {{ form.description|as_crispy_field }}
+        <button class="btn btn-dark" type="submit">Create</button>
+    </form>
 </div>
-<small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed, Totaljobs and Reed.</small>
-<form method="post">
-    {% csrf_token %}
-    {{ form.media }}
-    <div class="form-row">
-        <div class="col-md-6">
-            {{ form.company|as_crispy_field }}
-        </div>
-        <div class="col-md-6">
-            {{ form.title|as_crispy_field }}
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-6">
-            {{ form.deadline|as_crispy_field }}
-        </div>
-        <div class="col-md-6">
-            {{ form.progress|as_crispy_field }}
-        </div>
-    </div>
-    {{ form.description|as_crispy_field }}
-    <button class="btn btn-dark" type="submit">Create</button>
-</form>
 {% endblock content %}
 {% block script %}
 <script src="{% static 'js/scrape.js' %}"></script>

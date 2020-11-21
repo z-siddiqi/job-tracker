@@ -1,13 +1,17 @@
 {% extends 'base_app.html' %}
 {% block content %}
-<h3>Boards</h3>
-{% for board in boards %}
-<div class="card-deck">
-    <a href="{% url 'board_detail' board.pk %}" class="card mb-3">
-        <div class="card-body">
-            {{ board }}
-        </div>
-    </a>
+<div class="wrapper">
+    <div class="mb-3">
+        <h3>Boards</h3>
+    </div>
+    {% for board in boards %}
+    <div class="card-deck">
+        <a href="{% url 'board_detail' board.pk %}" class="card mb-3">
+            <div class="card-body">
+                {{ board }}
+            </div>
+        </a>
+    </div>
 </div>
 {% endfor %}
 {% endblock content %}
