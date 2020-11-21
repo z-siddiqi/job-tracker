@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="wrapper">
-    <h2>{{ application.title }}</h2>
-    <h5>{{ application.company }}</h5>
+    <h2>{{ job.title }}</h2>
+    <h5>{{ job.company }}</h5>
     <br>
     <nav class="nav nav-pills nav-justified breadcrumb">
         <a class="nav-item nav-link active" href="#">Job Info</a>
-        <a class="nav-item nav-link" href="{% url 'task_list' application.pk %}">Tasks</a>
-        <a class="nav-item nav-link" href="{% url 'note_update' application.pk %}">Notes</a>
+        <a class="nav-item nav-link" href="{% url 'task_list' job.pk %}">Tasks</a>
+        <a class="nav-item nav-link" href="{% url 'note_update' job.pk %}">Notes</a>
     </nav>
     <br>
     <form method="post">

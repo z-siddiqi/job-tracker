@@ -22,14 +22,14 @@ def scrape_job(request, board_pk):
         data = get_job_info(url)
         return JsonResponse(data)
     else:
-        redirect_url = reverse('application_new', kwargs={'board_pk': board_pk})
+        redirect_url = reverse('job_create', kwargs={'board_pk': board_pk})
         return redirect(redirect_url)
 
 
 @login_required
 def board_detail(request, board_pk):
     board = get_object_or_404(Board, pk=board_pk)
-    applications = Job.objects.filter(board=board)
+    jobs = Job.objects.filter(board=board)
     if board.user == request.user:
         columns = (
             'Applied',
@@ -37,7 +37,7 @@ def board_detail(request, board_pk):
             'Onsite',
             'Offer',
         )
-        context = {'applications': applications, 'board': board, 'columns': columns}
+        context = {'jobs': jobs, 'board': board, 'columns': columns}
         return render(request, 'app/board_detail.html', context)
     else:
         return redirect('home')
@@ -51,87 +51,6 @@ class BoardListView(CustomLoginRequiredMixin, ListView):
     def get_queryset(self):
         objs = self.model.objects
         return objs.filter(user=self.request.user)
-
-
-class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
-    model = Job
-    template_name = 'app/application_new.html'
-    fields = (
-        'company', 
-        'title', 
-        'deadline', 
-        'progress', 
-        'description'
-    )
-
-    def get_board(self):
-        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
-        
-    def test_func(self):
-        obj = self.get_board()
-        return obj.user == self.request.user
-    
-    def get_context_data(self):
-        context = super().get_context_data()
-        context["board"] = self.get_board()
-        return context
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.board = self.get_board()
-        self.object = form.save()
-        Note.objects.create(job=self.object)
-        return HttpResponseRedirect(self.get_success_url())
-
-
-class ApplicationUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
-    model = Job
-    template_name = 'app/application_detail.html'
-    pk_url_kwarg = 'app_pk'
-    context_object_name = 'application'
-    fields = (
-        'company', 
-        'title', 
-        'deadline', 
-        'progress', 
-        'description'
-    )
-
-    def test_func(self):
-        obj = self.get_object()
-        return obj.board.user == self.request.user
-
-
-class ApplicationDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
-    
-    def get_object(self):
-        return get_object_or_404(Job, pk=self.kwargs['app_pk'])
-    
-    def test_func(self):
-        obj = self.get_object()
-        return obj.board.user == self.request.user
-    
-    @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        data = dict()
-        application = self.get_object()
-        context = {'application': application}
-        data['html_form'] = render_to_string(
-            'app/application_delete.html', 
-            context=context, 
-            request=request
-        )
-        return JsonResponse(data)
-
-    @method_decorator(ajax_required)
-    def post(self, request, *args, **kwargs):
-        data = dict()
-        application = self.get_object()
-        application.delete()
-        data['form_is_valid'] = True
-        data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': kwargs['board_pk']})
-        return JsonResponse(data)
 
 
 class BoardCreateView(CustomLoginRequiredMixin, View):
@@ -227,4 +146,85 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board.delete()
         data['form_is_valid'] = True
         data['redirect_url'] = reverse('home')
+        return JsonResponse(data)
+
+
+class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
+    model = Job
+    template_name = 'app/job_create.html'
+    fields = (
+        'company', 
+        'title', 
+        'deadline', 
+        'progress', 
+        'description'
+    )
+
+    def get_board(self):
+        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
+        
+    def test_func(self):
+        obj = self.get_board()
+        return obj.user == self.request.user
+    
+    def get_context_data(self):
+        context = super().get_context_data()
+        context["board"] = self.get_board()
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.board = self.get_board()
+        self.object = form.save()
+        Note.objects.create(job=self.object)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
+    model = Job
+    template_name = 'app/job_update.html'
+    pk_url_kwarg = 'app_pk'
+    context_object_name = 'job'
+    fields = (
+        'company', 
+        'title', 
+        'deadline', 
+        'progress', 
+        'description'
+    )
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.board.user == self.request.user
+
+
+class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
+    
+    def get_object(self):
+        return get_object_or_404(Job, pk=self.kwargs['app_pk'])
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.board.user == self.request.user
+    
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        data = dict()
+        job = self.get_object()
+        context = {'job': job}
+        data['html_form'] = render_to_string(
+            'app/job_delete.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        job = self.get_object()
+        job.delete()
+        data['form_is_valid'] = True
+        data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': kwargs['board_pk']})
         return JsonResponse(data)

@@ -22,19 +22,19 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
     def get(self, request, *args, **kwargs):
         form = TaskForm()
-        application = self.get_job()
-        tasks = Task.objects.filter(job=application)
-        context={'form': form, 'application': application, 'tasks': tasks}
+        job = self.get_job()
+        tasks = Task.objects.filter(job=job)
+        context={'form': form, 'job': job, 'tasks': tasks}
         return render(request, 'app/task_list.html', context)
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         data = dict()
         form = TaskForm(request.POST)
-        application = self.get_job()
+        job = self.get_job()
         if form.is_valid():
             new_task = form.save(commit=False)
-            new_task.job = application
+            new_task.job = job
             new_task = form.save()
             data['task'] = model_to_dict(new_task)
             return JsonResponse(data)

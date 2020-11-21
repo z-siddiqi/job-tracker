@@ -1,18 +1,20 @@
 {% extends 'base_app.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h2>{{ application.title }}</h2>
-<h5>{{ application.company }}</h5>
-<br>
-<nav class="nav nav-pills nav-justified breadcrumb">
-    <a class="nav-item nav-link" href="{% url 'application_detail' application.board.pk application.pk %}">Job Info</a>
-    <a class="nav-item nav-link" href="{% url 'task_list' application.pk %}">Tasks</a>
-    <a class="nav-item nav-link active" href="#">Notes</a>
-</nav>
-<form class="form-login py-3" method="post">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form|crispy }}
-    <button class="btn btn-dark" type="submit">Edit</button>
-</form>
+<div class="wrapper">
+    <h2>{{ job.title }}</h2>
+    <h5>{{ job.company }}</h5>
+    <br>
+    <nav class="nav nav-pills nav-justified breadcrumb">
+        <a class="nav-item nav-link" href="{% url 'job_update' job.board.pk job.pk %}">Job Info</a>
+        <a class="nav-item nav-link" href="{% url 'task_list' job.pk %}">Tasks</a>
+        <a class="nav-item nav-link active" href="#">Notes</a>
+    </nav>
+    <form class="form-login py-3" method="post">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button class="btn btn-dark" type="submit">Edit</button>
+    </form>
+</div>
 {% endblock content %}

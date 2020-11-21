@@ -12,11 +12,11 @@ class NoteUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, Update
     template_name = 'app/note_update.html'
     fields = ('note', )
 
-    def get_application(self):
+    def get_job(self):
         return get_object_or_404(Job, pk=self.kwargs['app_pk'])
 
     def get_object(self):
-        job = self.get_application()
+        job = self.get_job()
         return Note.objects.get(job=job)
 
     def test_func(self):
@@ -25,5 +25,5 @@ class NoteUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, Update
     
     def get_context_data(self):
         context = super().get_context_data()
-        context["application"] = self.get_application()
+        context["job"] = self.get_job()
         return context

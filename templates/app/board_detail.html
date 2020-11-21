@@ -21,22 +21,22 @@
                 <h5 class="card-title bold-txt">{{ column }}</h5>
             </div>
             <div class="card-body dyn-height" id="innerColumn">
-                {% for application in applications %}
-                {% if application.progress == column %}
+                {% for job in jobs %}
+                {% if job.progress == column %}
                 <div class="card" id="jobCard">
-                    <a href="{% url 'application_detail' application.board.pk application.pk %}" class="card-body">
-                        <h5>{{ application.company }}</h5>
-                        <h3 class="bold-txt">{{ application.title }}</h3>
-                        <p style="margin-bottom: 0rem;">{{ application.deadline }}</p>
+                    <a href="{% url 'job_update' job.board.pk job.pk %}" class="card-body">
+                        <h5>{{ job.company }}</h5>
+                        <h3 class="bold-txt">{{ job.title }}</h3>
+                        <p style="margin-bottom: 0rem;">{{ job.deadline }}</p>
                     </a>
                     <div class="ml-auto px-2 pb-2 pt-0">
-                        <a href="#" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">Delete</a>
+                        <a href="#" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'job_delete' job.board.pk job.pk %}">Delete</a>
                     </div>
                 </div>
                 {% endif %}
                 {% endfor %}
             </div>
-            <a href="{% url 'application_new' board.pk %}" class="add-card-btn btn">
+            <a href="{% url 'job_create' board.pk %}" class="add-card-btn btn">
                 +
             </a>
         </div>

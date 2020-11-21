@@ -1,39 +1,41 @@
 {% extends 'base_app.html' %}
 {% load static %}
 {% block content %}
-<h2>{{ application.title }}</h2>
-<h5>{{ application.company }}</h5>
-<br>
-<nav class="nav nav-pills nav-justified breadcrumb">
-    <a class="nav-item nav-link" href="{% url 'application_detail' application.board.pk application.pk %}">Job Info</a>
-    <a class="nav-item nav-link active" href="#">Tasks</a>
-    <a class="nav-item nav-link" href="{% url 'note_update' application.pk %}">Notes</a>
-</nav>
-<form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' application.pk %}">
-    {% csrf_token %}
-    <div class="input-group py-3">
-        {{ form.title }}
-        <span class="input-group-append">
-        <button type="button" class="btn btn-dark" id="createButton">Add</button>
-        </span>
-    </div>
-</form>
-<div id="taskList">
-    {% for task in tasks %}
-    <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
-        <div class="card-body">
-            <div class="form-check-inline overflow">
-                <input class="form-check-input float-left" type="checkbox" {% if task.completed %}checked{% endif %}>
-                <label class="form-check-label">
-                    {{ task.title }}
-                </label>
-            </div>
-            <button type="button" class="close float-right">
-                <span aria-hidden="true"><i class="bx bxs-x-square"></i></span>
-            </button>
+<div class="wrapper">
+    <h2>{{ job.title }}</h2>
+    <h5>{{ job.company }}</h5>
+    <br>
+    <nav class="nav nav-pills nav-justified breadcrumb">
+        <a class="nav-item nav-link" href="{% url 'job_update' job.board.pk job.pk %}">Job Info</a>
+        <a class="nav-item nav-link active" href="#">Tasks</a>
+        <a class="nav-item nav-link" href="{% url 'note_update' job.pk %}">Notes</a>
+    </nav>
+    <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' job.pk %}">
+        {% csrf_token %}
+        <div class="input-group py-3">
+            {{ form.title }}
+            <span class="input-group-append">
+            <button type="button" class="btn btn-dark" id="createButton">Add</button>
+            </span>
         </div>
+    </form>
+    <div id="taskList">
+        {% for task in tasks %}
+        <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
+            <div class="card-body">
+                <div class="form-check-inline overflow">
+                    <input class="form-check-input float-left" type="checkbox" {% if task.completed %}checked{% endif %}>
+                    <label class="form-check-label">
+                        {{ task.title }}
+                    </label>
+                </div>
+                <button type="button" class="close float-right">
+                    <span aria-hidden="true"><i class="bx bxs-x-square"></i></span>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}
 {% block script %}
