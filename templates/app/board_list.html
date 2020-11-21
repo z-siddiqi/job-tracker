@@ -1,6 +1,8 @@
 {% extends 'base_app.html' %}
 {% block content %}
 {% for board in boards %}
-    <h5>{{ board }}</h5>
+<h5>
+    <a href="{% url 'board_detail' board.pk %}">{{ board }}</a>
+</h5>
 {% endfor %}
 {% endblock content %}

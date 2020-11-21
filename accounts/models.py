@@ -3,4 +3,4 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    age = models.PositiveIntegerField(null=True, blank=True)
+    is_guest = models.BooleanField(default=False)

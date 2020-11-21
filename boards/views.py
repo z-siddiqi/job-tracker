@@ -48,6 +48,10 @@ class BoardListView(CustomLoginRequiredMixin, ListView):
     template_name = 'app/board_list.html'
     context_object_name = 'boards'
 
+    def get_queryset(self):
+        objs = self.model.objects
+        return objs.filter(user=self.request.user)
+
 
 class ApplicationCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
     model = Job

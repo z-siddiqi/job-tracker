@@ -16,6 +16,7 @@ gunicorn = "*"
 lxml = "*"
 requests = "*"
 django-tinymce = "*"
+shortuuid = "*"
 
 [requires]
 python_version = "3.8"
