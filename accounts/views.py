@@ -1,7 +1,7 @@
 import uuid
 import shortuuid
 
-from django.views.generic import View, CreateView
+from django.views.generic import View, CreateView, TemplateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model, authenticate, login
@@ -43,3 +43,7 @@ class GuestSignUpView(View):
 
     def post(self, request, *args, **kwargs):
         return redirect('home')
+
+
+class AccountDetailView(TemplateView):
+    template_name = 'registration/account_detail.html'

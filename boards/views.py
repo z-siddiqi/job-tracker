@@ -61,7 +61,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
         form = BoardForm()
         context = {'form': form}
         data['html_form'] = render_to_string(
-            'app/board_new.html', 
+            'app/board_create.html', 
             context=context, 
             request=request
         )
@@ -145,7 +145,7 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board = self.get_object()
         board.delete()
         data['form_is_valid'] = True
-        data['redirect_url'] = reverse('home')
+        data['redirect_url'] = reverse('board_list')
         return JsonResponse(data)
 
 

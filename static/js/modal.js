@@ -33,15 +33,15 @@ $(document).ready(function() {
 	}
 
 	// create
-	$("#pageTitle").on('click', '.show-form-create', ShowForm);
+	$("#addBoard").on('click', '.show-form-create', ShowForm);
 	$("#modal").on('submit', '.create-form', SaveForm);
 
 	// update
-	$("#pageTitle").on('click', '.show-form-update', ShowForm);
+	$("#boardTitle").on('click', '.show-form-update', ShowForm);
 	$("#modal").on('submit', '.update-form', SaveForm);
 	
 	// delete
-	$("#pageTitle").on('click', '.show-form-delete', ShowForm);
+	$("#boardTitle").on('click', '.show-form-delete', ShowForm);
 	$("#applied, #phone, #onsite, #offer").on('click', '.show-form-delete', ShowForm);
 	$("#modal").on('submit', '.delete-form', SaveForm);
 });

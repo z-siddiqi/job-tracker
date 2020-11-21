@@ -1,6 +1,6 @@
 {% extends 'base_app.html' %}
 {% block content %}
-<div class="mb-3" id="pageTitle">
+<div class="mb-3" id="boardTitle">
     <div class="h3 d-inline">{{ board }}</div>
     <div class="d-inline ml-1">
         <a href="#" class="show-form-update" data-url="{% url 'board_update' board.pk %}">

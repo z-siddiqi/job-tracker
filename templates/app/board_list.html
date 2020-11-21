@@ -4,14 +4,27 @@
     <div class="mb-3">
         <h3>Boards</h3>
     </div>
-    {% for board in boards %}
-    <div class="card-deck">
-        <a href="{% url 'board_detail' board.pk %}" class="card mb-3">
-            <div class="card-body">
-                {{ board }}
-            </div>
-        </a>
+    <div class="row">
+        <div class="col-12 col-sm-6" id="addBoard">
+            <a href="#" class="card mb-3 show-form-create" data-url="{% url 'board_create' %}">
+                <div class="card-body d-flex justify-content-center">
+                    <div class="card-text text-truncate">
+                        Add Board
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% for board in boards %}
+        <div class="col-12 col-sm-6">
+            <a href="{% url 'board_detail' board.pk %}" class="card mb-3">
+                <div class="card-body d-flex justify-content-center">
+                    <div class="card-text text-truncate">
+                        {{ board }}
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 {% endblock content %}
