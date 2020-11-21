@@ -12,14 +12,13 @@
                 {% for application in applications %}
                 {% if application.progress == column %}
                 <div class="card" id="jobCard">
-                    <div class="card-body">
+                    <a href="{% url 'application_detail' application.board.pk application.pk %}" class="card-body">
                         <h5>{{ application.company }}</h5>
                         <h3 class="bold-txt">{{ application.title }}</h3>
                         <p style="margin-bottom: 0rem;">{{ application.deadline }}</p>
-                        <div class="float-right">
-                            <a href="{% url 'application_detail' application.board.pk application.pk %}" class="btn btn-outline-dark btn-sm">View</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">Delete</a>
-                        </div>
+                    </a>
+                    <div class="ml-auto p-2">
+                        <a href="#" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'application_delete' application.board.pk application.pk %}">Delete</a>
                     </div>
                 </div>
                 {% endif %}
