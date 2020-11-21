@@ -1,9 +1,5 @@
 /* base */
 
-.icon-lg {
-	font-size: 1.5rem;
-}
-
 body {
 	font-family: sans-serif;
 	color: #424650;
@@ -86,44 +82,21 @@ a:hover {
 
 /* home */
 
-.column {
-	float: left;
+#textColumn {
+	margin-top: 3rem;
 }
 
-.txt-column {
-	width: 40%;
-	margin-top: 65px;
-	padding-right: 10px;
-}
-
-.txt-column h1 {
+#textColumn h1 {
     font-size: 40px;
     font-family: Raleway, sans-serif;
     font-weight: 800;
 }
 
-.img-column {
-	width: 60%;
-}
-
-.home-row::after {
-	content: "";
-	clear: both;
-	display: table;
-}
-
-.demo-img {
-	max-width: 100%;
-}
-
-.home-buttons {
-	margin-top: 32px;
-	margin-bottom: 32px;
+#homeButtons {
 	display: flex;
-	align-items: center;
 }
 
-.home-login {
+#homeGuestSignup {
 	padding: 12px 20px;
 	color: #5969e2;
 	font-weight: 600;
@@ -132,7 +105,7 @@ a:hover {
 	transition: 0.2s;
 }
 
-.home-signup {
+#homeSignup {
 	padding: 12px 40px;
 	background: #5969e2;
 	color: white;
@@ -147,7 +120,7 @@ a:hover {
 .divider {
 	z-index: -1;
     position: absolute;
-    height: 700px;
+    height: 680px;
     width: 100%;
     top: 0;
     left: 0;
@@ -155,17 +128,21 @@ a:hover {
     border-bottom: 1px solid rgba(25,4,69,0.1);
 }
 
-.card-deck {
+#homeCards {
 	margin-top: 8em;
 }
 
-.card-deck h5 {
+#homeCards h5 {
     font-weight: 800;
 }
 
 .border-m {
 	border-width: medium;
 	border-radius: .5em;
+}
+
+#icon {
+	font-size: 1.5rem !important;
 }
 
 
@@ -188,25 +165,19 @@ a:hover {
 
 /* media queries */
 
-@media screen and (max-width: 1300px) {
-	.txt-column {
-		width: 100%;
-		margin-top: 0px;
-		padding-right: 0px;
+@media screen and (max-width: 1200px) {
+	#textColumn {
+		margin-top: 0;
 	}
 
-	.img-column {
-		width: 100%;
-	}
-	
-	.home-buttons {
+	#homeButtons {
 		display: block;
 	}
 
-	.home-signup {
+	#homeSignup {
 		padding: 12px 20px;
 	}
-	
+
 	.card-deck {
 		margin-top: 3em;
 	}

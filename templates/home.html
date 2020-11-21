@@ -2,25 +2,25 @@
 {% load static %}
 {% block content %}
 <div class="content">
-    <div class="home-row">
-        <div class="column txt-column">
+    <div class="row">
+        <div class="col-12 col-xl-5" id="textColumn">
             <h1>Track all of your job applications in one place</h1>
             <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
-            <div class="home-buttons" id="homeButtons">
-                <div class="home-signup">
+            <div class="my-4" id="homeButtons">
+                <div id="homeSignup">
                     <a href="{% url 'signup' %}">Sign up</a>
                 </div>
-                <div class="home-login">
+                <div id="homeGuestSignup">
                     <a href="{% url 'guest_signup' %}">or, view a demo board</a>
                 </div>
             </div>
         </div>
-        <div class="column img-column">
-            <img src="{% static 'img/homepage.png' %}" class="demo-img">
+        <div class="col-12 col-xl-7">
+            <img src="{% static 'img/homepage.png' %}" class="mw-100">
         </div>
     </div>
     <div class="divider"></div>
-    <div class="card-deck">
+    <div class="card-deck" id="homeCards">
         <div class="card border-m mb-3" style="border-color:#fd7576;">
             <div class="card-body">
                 <h5 class="card-title">Save Jobs</h5>
@@ -46,7 +46,7 @@
 <footer class="footer py-3">
     <div class="container text-center">
         <a href="https://github.com/z-siddiqi/job-tracker" target="_blank">
-            <i class="bx bxl-github icon-lg"></i>
+            <i class="bx bxl-github" id="icon"></i>
         </a>
     </div>
 </footer>
