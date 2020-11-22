@@ -197,6 +197,10 @@ a:hover {
 	cursor: pointer;
 }
 
+#jobCard .card-body:hover {
+	background-color: #eee;
+}
+
 .bold-txt {
 	font-size: 1.2rem;
 	font-weight: 700;

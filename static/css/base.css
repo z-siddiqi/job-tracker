@@ -2,6 +2,7 @@
 
 body {
 	font-family: sans-serif;
+	background-color: #fbfbff;
 	color: #424650;
 	margin: 0px;
 	display: flex;
@@ -126,17 +127,6 @@ a:hover {
 #homeSignup:hover {
 	background-color: #7795f8;
     color: #fff;
-}
-
-.divider {
-	z-index: -1;
-    position: absolute;
-    height: 680px;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-color: #fbfbff;
-    border-bottom: 1px solid rgba(25,4,69,0.1);
 }
 
 #homeCards {

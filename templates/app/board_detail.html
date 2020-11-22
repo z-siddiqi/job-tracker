@@ -15,7 +15,7 @@
 </div>
 <div class="row flex-row flex-nowrap" id="columns">
     {% for column in columns %}
-    <div class="col-12 col-sm-6 col-lg-6 col-xl-3" id="{{ column.lower }}">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3" id="{{ column.lower }}">
         <div class="card mb-3" id="outerColumn">
             <div class="card-header">
                 <h5 class="card-title bold-txt">{{ column }}</h5>
@@ -23,8 +23,8 @@
             <div class="card-body dyn-height" id="innerColumn">
                 {% for job in jobs %}
                 {% if job.progress == column %}
-                <div class="card" id="jobCard">
-                    <div class="card-body" data-url="{% url 'job_update' job.board.pk job.pk %}">
+                <div class="card" id="jobCard" data-url="{% url 'job_update' job.board.pk job.pk %}">
+                    <div class="card-body">
                         <div class="row no-gutters">
                             <div class="col-11" id="jobCompany">
                                 <h5 class="mr-3">{{ job.company }}</h5>
@@ -54,7 +54,7 @@
 <script>
     $(document).ready(function() {
         $("#jobCompany, #jobTitle, #jobDeadline").click(function() {
-            window.location.href = $("#jobCard .card-body").data('url');
+            window.location.href = $(this).closest('#jobCard').data('url');
         });
     });
 </script>
