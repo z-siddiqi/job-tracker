@@ -2,15 +2,15 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="wrapper">
-    <h2>{{ job.title }}</h2>
-    <h5>{{ job.company }}</h5>
-    <br>
+    <div class="mb-3">
+        <h3>{{ job.title }}</h3>
+        <h5>{{ job.company }}</h5>
+    </div>
     <nav class="nav nav-pills nav-justified breadcrumb">
         <a class="nav-item nav-link active" href="#">Job Info</a>
         <a class="nav-item nav-link" href="{% url 'task_list' job.pk %}">Tasks</a>
         <a class="nav-item nav-link" href="{% url 'note_update' job.pk %}">Notes</a>
     </nav>
-    <br>
     <form method="post">
         {% csrf_token %}
         {{ form.media }}

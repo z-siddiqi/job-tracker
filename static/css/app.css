@@ -190,6 +190,10 @@ a:hover {
 	border-radius: 0.3rem;
 	border-bottom: 0.1rem solid #ccc;
 	margin-bottom: 0.6rem;
+}
+
+#jobCard .card-body {
+	padding: 1rem;
 	cursor: pointer;
 }
 

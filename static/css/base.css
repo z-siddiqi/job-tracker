@@ -18,9 +18,15 @@ a:hover {
 }
 
 .btn-purple {
-	color: white;
+	color: #fff;
 	background-color: #5969e2;
-	border: none;
+	border-color: #5969e2;
+}
+
+.btn-purple:hover {
+	color: #fff;
+	background-color: #7795f8;
+	border-color: #7795f8;
 }
 
 .border {
@@ -108,13 +114,18 @@ a:hover {
 #homeSignup {
 	padding: 12px 40px;
 	background: #5969e2;
-	color: white;
+	color: #fff;
 	font-weight: 700;
 	font-size: 18px;
 	border-radius: 6px;
 	transition: 0.2s;
 	display: flex;
 	align-items: center;
+}
+
+#homeSignup:hover {
+	background-color: #7795f8;
+    color: #fff;
 }
 
 .divider {
@@ -178,7 +189,7 @@ a:hover {
 		padding: 12px 20px;
 	}
 
-	.card-deck {
+	#homeCards {
 		margin-top: 3em;
 	}
 }

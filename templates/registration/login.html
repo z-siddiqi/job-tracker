@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block navbar %}
 <li class="nav-item">
-    <button class="btn btn-purple" onclick='location.href="{% url 'signup' %}"'>Sign Up</button>
+    <a href="{% url 'signup' %}" class="btn btn-purple">Sign Up</a>
 </li>
 {% endblock navbar %}
 {% block content %}
