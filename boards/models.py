@@ -20,6 +20,7 @@ class Board(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        # only generate slug on first save
         if not self.pk:
             rand_slug = str(shortuuid.uuid())[:8]
             self.slug = rand_slug

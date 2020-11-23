@@ -1,11 +1,31 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
-{% block navbar %}
-<li class="nav-item">
-    <a href="{% url 'signup' %}" class="btn btn-purple">Sign Up</a>
-</li>
-{% endblock navbar %}
+
+{% block style %}
+<link href="{% static 'css/pages.css' %}" rel="stylesheet">
+{% endblock style %}
+
+{% block body_id %}id="baseBody"{% endblock body_id %}
+
 {% block content %}
+<div class="border"></div>
+<header class="pages-header">
+    <div id="nav">
+        <nav class="navbar navbar-expand navbar-light">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <div class="logo">
+                    <h1>Job <span>Tracker</span></h1>
+                </div>
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{% url 'signup' %}" class="btn btn-purple">Sign Up</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
 <div class="content">
     <h2>Log In</h2>
     <form class="form-login" method="post">

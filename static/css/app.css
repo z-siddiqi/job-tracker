@@ -1,66 +1,31 @@
-/* base */
+/* app */
 
 :root {
 	--header-height: 3rem;
 	--nav-width: 68px;
 }
 
-body {
+#appBody {
 	font-family: sans-serif;
+	font-size: 1rem;
+	background-color: #fbfbff;
+	color: #424650;
 	position: relative;
 	margin: var(--header-height) 0 2rem 0;
 	padding: 0 1rem;
-	font-size: 1rem;
 	transition: .5s;
-	background: #fbfbff;
-	color: #424650;
 }
 
-a {
-	color: inherit;
-}
-
-a:hover {
-	text-decoration: none;
-	color: inherit;
-}
-
-.wrapper {
+#appBody .content {
 	width: 1250px;
     max-width: 100%;
     margin: auto;
 }
 
-.cp {
-	padding-left: 0;
-	padding-right: 0;
-}
-
-#icon {
-	font-size: 1.5rem !important;
-}
-
-.navbar {
-	padding: 1.8em 0em;
-	margin-bottom: 0
-}
-
-.nav-pills > .nav-link.active {
-	background-color: #343a40;
-}
-
-.breadcrumb {
-    background-color: #e2e4e6;
-}
-
-.tox-tinymce {
-	border-radius: 0.25rem !important;
-}
-
 
 /* header */
 
-.header {
+.app-header {
 	width: 100%;
 	height: var(--header-height);
 	position: fixed;
@@ -75,14 +40,18 @@ a:hover {
 	transition: .5s;
 }
 
-.header-toggle {
+.app-header-toggle {
 	color: #5969e2;
 	font-size: 1.5rem;
 	cursor: pointer;
 }
 
+.body-pd {
+	padding-left: calc(var(--nav-width) + 1rem) !important;
+}
 
-/* side navbar */
+
+/* sidenav */
 
 .side-bar {
 	position: fixed;
@@ -152,7 +121,7 @@ a:hover {
 }
 
 .body-pd {
-	padding-left: calc(var(--nav-width) + 1rem);
+	padding-left: calc(var(--nav-width) + 1rem) !important;
 }
 
 .active-link {
@@ -201,20 +170,9 @@ a:hover {
 	background-color: #eee;
 }
 
-.bold-txt {
-	font-size: 1.2rem;
-	font-weight: 700;
-	color: #333;
-}
-
 .card-header {
 	background-color: transparent;
 	border-bottom: none;
-}
-
-.dyn-height {
-	max-height: calc(100vh - 20rem);
-	overflow-y: auto;
 }
 
 .add-card-btn {
@@ -234,27 +192,22 @@ a:hover {
 }
 
 
-/* tasks */
+/* tinymce editor */
 
-.form-check-input:hover {
-	cursor: pointer;
-}
-
-.overflow {
-	max-width: 85%;
-	overflow: hidden;
+.tox-tinymce {
+	border-radius: 0.25rem !important;
 }
 
 
 /* media queries */
 
 @media screen and (min-width: 768px) {
-	body {
+	#appBody {
 		margin: calc(var(--header-height) + 1rem) 0 2rem 0;
 		padding-left: calc(var(--nav-width) + 2rem);
 	}
 
-	.header {
+	.app-header {
 		height: calc(var(--header-height) + 1rem);
 		padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
 	}
@@ -269,10 +222,6 @@ a:hover {
 	}
 
 	.body-pd {
-		padding-left: calc(var(--nav-width) + 188px);
-	}
-
-	.cp {
-		padding-right: 15px !important;
+		padding-left: calc(var(--nav-width) + 188px) !important;
 	}
 }

@@ -1,44 +1,60 @@
-{% extends 'base_app.html' %}
+{% extends 'base.html' %}
 {% load static %}
+
+{% block style %}
+<link href="{% static 'css/app.css' %}" rel="stylesheet">
+{% endblock style %}
+
+{% block body_id %}id="appBody"{% endblock body_id %}
+
 {% block content %}
-<div class="wrapper">
-    <div class="mb-3">
-        <h3>{{ job.title }}</h3>
-        <h5>{{ job.company }}</h5>
-    </div>
-    <nav class="nav nav-pills nav-justified breadcrumb">
-        <a class="nav-item nav-link" href="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
-        <a class="nav-item nav-link active" href="#">Tasks</a>
-        <a class="nav-item nav-link" href="{% url 'note_update' job.slug %}">Notes</a>
-    </nav>
-    <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' job.slug %}">
-        {% csrf_token %}
-        <div class="input-group py-3">
-            {{ form.title }}
-            <span class="input-group-append">
-            <button type="button" class="btn btn-dark" id="createButton">Add</button>
-            </span>
-        </div>
-    </form>
-    <div id="taskList">
-        {% for task in tasks %}
-        <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
-            <div class="card-body">
-                <div class="form-check-inline overflow">
-                    <input class="form-check-input float-left" type="checkbox" {% if task.completed %}checked{% endif %}>
-                    <label class="form-check-label">
-                        {{ task.title }}
-                    </label>
+{% include 'app/header.html' %}
+{% include 'app/sidebar.html' %}
+<main>
+    <div class="container-fluid cpx-0 pt-3">
+        <div class="content">
+            <div class="mb-3">
+                <h3>{{ job.title }}</h3>
+                <h5>{{ job.company }}</h5>
+            </div>
+            <nav class="nav nav-pills nav-justified breadcrumb">
+                <a class="nav-item nav-link" href="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
+                <a class="nav-item nav-link active" href="#">Tasks</a>
+                <a class="nav-item nav-link" href="{% url 'note_update' job.slug %}">Notes</a>
+            </nav>
+            <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' job.slug %}">
+                {% csrf_token %}
+                <div class="input-group py-3">
+                    {{ form.title }}
+                    <span class="input-group-append">
+                        <button type="button" class="btn btn-dark" id="createButton">Add</button>
+                    </span>
                 </div>
-                <button type="button" class="close float-right">
-                    <span aria-hidden="true"><i class="bx bxs-x-square"></i></span>
-                </button>
+            </form>
+            <div id="taskList">
+                {% for task in tasks %}
+                <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
+                    <div class="card-body">
+                        <div class="form-check-inline overflow">
+                            <input class="form-check-input float-left" type="checkbox"
+                                {% if task.completed %}checked{% endif %}>
+                            <label class="form-check-label">
+                                {{ task.title }}
+                            </label>
+                        </div>
+                        <button type="button" class="close float-right">
+                            <span aria-hidden="true"><i class="bx bxs-x-square"></i></span>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
-</div>
+</main>
 {% endblock content %}
+
 {% block script %}
+<script src="{% static 'js/sidenav.js' %}"></script>
 <script src="{% static 'js/task.js' %}"></script>
-{% endblock %}
+{% endblock script %}

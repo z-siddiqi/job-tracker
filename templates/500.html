@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link href="{% static 'css/pages.css' %}" rel="stylesheet">
+{% endblock style %}
+
+{% block body_id %}id="baseBody"{% endblock body_id %}
+
 {% block content %}
 <div class="content">
     <div class="error-msg">

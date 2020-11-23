@@ -1,0 +1,22 @@
+<div class="side-bar" id="sideNav">
+    <nav class="side-nav">
+        <div>
+            <div class="side-nav-logo">
+                <i class="bx bx-layer side-nav-logo-icon"></i>
+                <span class="side-nav-logo-name">
+                    Job <span>Tracker</span>
+                </span>
+            </div>
+            <div>
+                <a href="{% url 'board_list' %}" class="side-nav-link" id="boards">
+                    <i class="bx bx-grid-alt side-nav-icon"></i>
+                    <span>Boards</span>
+                </a>
+                <a href="{% url 'account_detail' %}" class="side-nav-link" id="accounts">
+                    <i class="bx bx-user-circle side-nav-icon"></i>
+                    <span>Account</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
