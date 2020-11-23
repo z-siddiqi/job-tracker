@@ -14,7 +14,7 @@ from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPass
 class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
     def get_job(self):
-        return get_object_or_404(Job, pk=self.kwargs['app_pk'])
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
     
     def test_func(self):
         obj = self.get_job()

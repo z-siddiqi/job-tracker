@@ -7,8 +7,8 @@
         <h5>{{ job.company }}</h5>
     </div>
     <nav class="nav nav-pills nav-justified breadcrumb">
-        <a class="nav-item nav-link" href="{% url 'job_update' job.board.pk job.pk %}">Job Info</a>
-        <a class="nav-item nav-link" href="{% url 'task_list' job.pk %}">Tasks</a>
+        <a class="nav-item nav-link" href="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
+        <a class="nav-item nav-link" href="{% url 'task_list' job.slug %}">Tasks</a>
         <a class="nav-item nav-link active" href="#">Notes</a>
     </nav>
     <form class="form-login py-3" method="post">

@@ -8,8 +8,8 @@
     </div>
     <nav class="nav nav-pills nav-justified breadcrumb">
         <a class="nav-item nav-link active" href="#">Job Info</a>
-        <a class="nav-item nav-link" href="{% url 'task_list' job.pk %}">Tasks</a>
-        <a class="nav-item nav-link" href="{% url 'note_update' job.pk %}">Notes</a>
+        <a class="nav-item nav-link" href="{% url 'task_list' job.slug %}">Tasks</a>
+        <a class="nav-item nav-link" href="{% url 'note_update' job.slug %}">Notes</a>
     </nav>
     <form method="post">
         {% csrf_token %}

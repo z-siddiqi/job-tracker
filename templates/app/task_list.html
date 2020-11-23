@@ -7,11 +7,11 @@
         <h5>{{ job.company }}</h5>
     </div>
     <nav class="nav nav-pills nav-justified breadcrumb">
-        <a class="nav-item nav-link" href="{% url 'job_update' job.board.pk job.pk %}">Job Info</a>
+        <a class="nav-item nav-link" href="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
         <a class="nav-item nav-link active" href="#">Tasks</a>
-        <a class="nav-item nav-link" href="{% url 'note_update' job.pk %}">Notes</a>
+        <a class="nav-item nav-link" href="{% url 'note_update' job.slug %}">Notes</a>
     </nav>
-    <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' job.pk %}">
+    <form class="" id="createTaskForm" method="POST" data-url="{% url 'task_list' job.slug %}">
         {% csrf_token %}
         <div class="input-group py-3">
             {{ form.title }}

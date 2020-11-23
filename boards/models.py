@@ -1,3 +1,5 @@
+import shortuuid
+
 from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
@@ -12,6 +14,16 @@ class Board(models.Model):
         get_user_model(),
         on_delete=models.CASCADE,
     )
+    slug = models.SlugField(
+        default='',
+        max_length=8,
+    )
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            rand_slug = str(shortuuid.uuid())[:8]
+            self.slug = rand_slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.title}'
@@ -35,12 +47,22 @@ class Job(models.Model):
         Board,
         on_delete=models.CASCADE,
     )
+    slug = models.SlugField(
+        default='',
+        max_length=8,
+    )
 
     class Meta:
         ordering = ['deadline', ]
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            rand_slug = str(shortuuid.uuid())[:8]
+            self.slug = rand_slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.title} at {self.company}'
 
     def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'board_pk': self.board.pk})
+        return reverse('board_detail', kwargs={'board_slug': self.board.slug})

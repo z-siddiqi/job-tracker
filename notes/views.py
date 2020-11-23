@@ -13,7 +13,7 @@ class NoteUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, Update
     fields = ('note', )
 
     def get_job(self):
-        return get_object_or_404(Job, pk=self.kwargs['app_pk'])
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
 
     def get_object(self):
         job = self.get_job()

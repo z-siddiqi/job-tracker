@@ -10,6 +10,7 @@ from .forms import CustomUserCreationForm
 from .models import CustomUser 
 
 from boards.demo import create_demo_board
+from utils.mixins import CustomLoginRequiredMixin
 
 class SignUpView(CreateView):
     model = CustomUser
@@ -45,5 +46,5 @@ class GuestSignUpView(View):
         return redirect('home')
 
 
-class AccountDetailView(TemplateView):
+class AccountDetailView(CustomLoginRequiredMixin, TemplateView):
     template_name = 'registration/account_detail.html'

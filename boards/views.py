@@ -16,19 +16,19 @@ from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPass
 
 @ajax_required
 @login_required
-def scrape_job(request, board_pk):
+def scrape_job(request, board_slug):
     if request.method == 'POST':
         url = request.POST.get('jobUrl')
         data = get_job_info(url)
         return JsonResponse(data)
     else:
-        redirect_url = reverse('job_create', kwargs={'board_pk': board_pk})
+        redirect_url = reverse('job_create', kwargs={'board_slug': board_slug})
         return redirect(redirect_url)
 
 
 @login_required
-def board_detail(request, board_pk):
-    board = get_object_or_404(Board, pk=board_pk)
+def board_detail(request, board_slug):
+    board = get_object_or_404(Board, slug=board_slug)
     jobs = Job.objects.filter(board=board)
     if board.user == request.user:
         columns = (
@@ -76,7 +76,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
             new_board.user = request.user
             new_board = form.save()
             data['form_is_valid'] = True
-            data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': new_board.pk})
+            data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': new_board.slug})
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)
@@ -85,7 +85,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
 class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
-        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
+        return get_object_or_404(Board, slug=self.kwargs['board_slug'])
     
     def test_func(self):
         obj = self.get_object()
@@ -112,7 +112,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
-            data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': kwargs['board_pk']})
+            data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': kwargs['board_slug']})
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)
@@ -121,7 +121,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
 class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
-        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
+        return get_object_or_404(Board, slug=self.kwargs['board_slug'])
     
     def test_func(self):
         obj = self.get_object()
@@ -161,7 +161,7 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateV
     )
 
     def get_board(self):
-        return get_object_or_404(Board, pk=self.kwargs['board_pk'])
+        return get_object_or_404(Board, slug=self.kwargs['board_slug'])
         
     def test_func(self):
         obj = self.get_board()
@@ -184,7 +184,6 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateV
 class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
     model = Job
     template_name = 'app/job_update.html'
-    pk_url_kwarg = 'app_pk'
     context_object_name = 'job'
     fields = (
         'company', 
@@ -194,6 +193,9 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateV
         'description'
     )
 
+    def get_object(self):
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
@@ -202,7 +204,7 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateV
 class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     
     def get_object(self):
-        return get_object_or_404(Job, pk=self.kwargs['app_pk'])
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
     
     def test_func(self):
         obj = self.get_object()
@@ -226,5 +228,5 @@ class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         job = self.get_object()
         job.delete()
         data['form_is_valid'] = True
-        data['redirect_url'] = reverse('board_detail', kwargs={'board_pk': kwargs['board_pk']})
+        data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': kwargs['board_slug']})
         return JsonResponse(data)

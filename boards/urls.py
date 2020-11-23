@@ -15,11 +15,11 @@ from .views import (
 urlpatterns = [
     path('', BoardListView.as_view(), name='board_list'),
     path('new/', BoardCreateView.as_view(), name='board_create'),
-    path('<int:board_pk>/', board_detail, name='board_detail'),
-    path('<int:board_pk>/edit/', BoardUpdateView.as_view(), name='board_update'),
-    path('<int:board_pk>/delete/', BoardDeleteView.as_view(), name='board_delete'),
-    path('<int:board_pk>/jobs/new/', JobCreateView.as_view(), name='job_create'),
-    path('<int:board_pk>/jobs/new/scrape/', scrape_job, name='scrape_job'),
-    path('<int:board_pk>/jobs/<int:app_pk>/', JobUpdateView.as_view(), name='job_update'),
-    path('<int:board_pk>/jobs/<int:app_pk>/delete/', JobDeleteView.as_view(), name='job_delete'),
+    path('<str:board_slug>/', board_detail, name='board_detail'),
+    path('<str:board_slug>/edit/', BoardUpdateView.as_view(), name='board_update'),
+    path('<str:board_slug>/delete/', BoardDeleteView.as_view(), name='board_delete'),
+    path('<str:board_slug>/jobs/new/', JobCreateView.as_view(), name='job_create'),
+    path('<str:board_slug>/jobs/new/scrape/', scrape_job, name='scrape_job'),
+    path('<str:board_slug>/jobs/<str:job_slug>/', JobUpdateView.as_view(), name='job_update'),
+    path('<str:board_slug>/jobs/<str:job_slug>/delete/', JobDeleteView.as_view(), name='job_delete'),
 ]
