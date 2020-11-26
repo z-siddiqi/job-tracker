@@ -35,7 +35,7 @@
                     <div class="card-body dyn-height" id="innerColumn">
                         {% for job in jobs %}
                         {% if job.progress == column %}
-                        <div class="card" id="jobCard" data-url="{% url 'job_update' job.board.slug job.slug %}">
+                        <div class="card" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
                             <div class="card-body">
                                 <div class="row no-gutters">
                                     <div class="col-11" id="jobCompany">

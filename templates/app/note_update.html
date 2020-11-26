@@ -1,39 +1,7 @@
-{% extends 'base.html' %}
-{% load static %}
 {% load crispy_forms_tags %}
-
-{% block style %}
-<link href="{% static 'css/app.css' %}" rel="stylesheet">
-{% endblock style %}
-
-{% block body_id %}id="appBody"{% endblock body_id %}
-
-{% block content %}
-{% include 'app/header.html' %}
-{% include 'app/sidebar.html' %}
-<main>
-    <div class="container-fluid cpx-0 pt-3">
-        <div class="content">
-            <div class="mb-3">
-                <h3>{{ job.title }}</h3>
-                <h5>{{ job.company }}</h5>
-            </div>
-            <nav class="nav nav-pills nav-justified breadcrumb">
-                <a class="nav-item nav-link" href="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
-                <a class="nav-item nav-link" href="{% url 'task_list' job.slug %}">Tasks</a>
-                <a class="nav-item nav-link active" href="#">Notes</a>
-            </nav>
-            <form class="form-login py-3" method="post">
-                {% csrf_token %}
-                {{ form.media }}
-                {{ form|crispy }}
-                <button class="btn btn-dark" type="submit">Edit</button>
-            </form>
-        </div>
-    </div>
-</main>
-{% endblock content %}
-
-{% block script %}
-<script src="{% static 'js/sidenav.js' %}"></script>
-{% endblock script %}
+<form method="post" data-url="{% url 'note_update' job.slug %}" class="form py-3">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form|crispy }}
+    <button class="btn btn-dark" type="submit">Edit</button>
+</form>

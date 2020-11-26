@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var sideNavActiveLink = window.location.pathname.split("/")[1];
-    $('#'+sideNavActiveLink).addClass('active-link');
+    $("#"+sideNavActiveLink).addClass('active-link');
 
     $("#appHeaderToggle").click(function() { 
         $("#sideNav").toggleClass('show-nav');  // show navbar

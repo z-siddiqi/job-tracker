@@ -1,13 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, CreateView, UpdateView, ListView
+from django.views.generic import View, CreateView, UpdateView, ListView, TemplateView
 from django.urls import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
 
 from .models import Board, Job
-from .forms import BoardForm
+from .forms import BoardForm, JobForm
 from .scrape import get_job_info
 
 from notes.models import Note
@@ -167,7 +167,7 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateV
         obj = self.get_board()
         return obj.user == self.request.user
     
-    def get_context_data(self):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data()
         context["board"] = self.get_board()
         return context
@@ -181,24 +181,55 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateV
         return HttpResponseRedirect(self.get_success_url())
 
 
-class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, UpdateView):
-    model = Job
-    template_name = 'app/job_update.html'
-    context_object_name = 'job'
-    fields = (
-        'company', 
-        'title', 
-        'deadline', 
-        'progress', 
-        'description'
-    )
+class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, TemplateView):
+    template_name = 'app/job_detail.html'
 
     def get_object(self):
         return get_object_or_404(Job, slug=self.kwargs['job_slug'])
-
+    
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data()
+        context["job"] = self.get_object()
+        return context
+
+
+class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
+    
+    def get_object(self):
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.board.user == self.request.user
+    
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        data = dict()
+        job = self.get_object()
+        form = JobForm(instance=job)
+        context = {'job': job, 'form': form}
+        data['html'] = render_to_string(
+            'app/job_update.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        job = self.get_object()
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            data['form_is_valid'] = True
+        else:
+            data['form_is_valid'] = False
+        return JsonResponse(data)
 
 
 class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):

@@ -4,6 +4,7 @@ from .views import (
     board_detail, 
     BoardListView, 
     JobCreateView, 
+    JobDetailView, 
     JobUpdateView, 
     JobDeleteView, 
     BoardCreateView, 
@@ -20,6 +21,7 @@ urlpatterns = [
     path('<str:board_slug>/delete/', BoardDeleteView.as_view(), name='board_delete'),
     path('<str:board_slug>/jobs/new/', JobCreateView.as_view(), name='job_create'),
     path('<str:board_slug>/jobs/new/scrape/', scrape_job, name='scrape_job'),
-    path('<str:board_slug>/jobs/<str:job_slug>/', JobUpdateView.as_view(), name='job_update'),
+    path('<str:board_slug>/jobs/<str:job_slug>/', JobDetailView.as_view(), name='job_detail'),
+    path('<str:board_slug>/jobs/<str:job_slug>/edit', JobUpdateView.as_view(), name='job_update'),
     path('<str:board_slug>/jobs/<str:job_slug>/delete/', JobDeleteView.as_view(), name='job_delete'),
 ]

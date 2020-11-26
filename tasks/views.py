@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
+from django.template.loader import render_to_string
 
 from .models import Task
 from .forms import TaskForm
@@ -20,12 +21,19 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         obj = self.get_job()
         return obj.board.user == self.request.user
 
+    @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
+        data = dict()
         form = TaskForm()
         job = self.get_job()
         tasks = Task.objects.filter(job=job)
-        context={'form': form, 'job': job, 'tasks': tasks}
-        return render(request, 'app/task_list.html', context)
+        context={'job': job, 'tasks': tasks, 'form': form}
+        data['html'] = render_to_string(
+            'app/task_list.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
@@ -37,9 +45,11 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
             new_task.job = job
             new_task = form.save()
             data['task'] = model_to_dict(new_task)
+            data['form_is_valid'] = True
             return JsonResponse(data)
         else:
-            return redirect('task_list')
+            data['form_is_valid'] = False
+        return JsonResponse(data)
 
 
 class TaskCompleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):

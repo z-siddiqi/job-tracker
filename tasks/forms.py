@@ -6,8 +6,8 @@ class TaskForm(ModelForm):
 
     class Meta:
         model = Task
-        fields = ('title', )
+        fields = ('task', )
 
         widgets = {
-            'title': TextInput(attrs={'class': 'form-control', 'id': 'task'})
+            'task': TextInput(attrs={'class': 'form-control', 'id': 'task'})
         }
