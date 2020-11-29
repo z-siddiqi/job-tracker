@@ -213,10 +213,21 @@
 }
 
 
-/* tinymce editor */
+/* quill editor */
 
-.tox-tinymce {
-	border-radius: 0.25rem !important;
+.django-quill-widget-container {
+	border: 1px solid #ccc;
+	border-radius: .25rem;
+}
+
+.ql-toolbar.ql-snow {
+	border: none !important;
+	border-bottom: 1px solid #ccc !important;
+}
+
+.ql-container {
+	border: none !important;
+	height: 250px !important;
 }
 
 

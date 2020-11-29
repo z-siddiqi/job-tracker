@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
-from tinymce.models import HTMLField
+from django_quill.fields import QuillField
 
 # Create your models here.
 class Board(models.Model):
@@ -43,7 +43,7 @@ class Job(models.Model):
         ('Offer', 'Offer'),
     )
     progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='Applied')
-    description = HTMLField(blank=True, null=True)
+    description = QuillField(blank=True, null=True)
     board = models.ForeignKey(
         Board,
         on_delete=models.CASCADE,

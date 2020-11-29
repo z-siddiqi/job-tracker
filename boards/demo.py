@@ -1,5 +1,3 @@
-# from datetime import today
-
 from .models import Board, Job
 
 from notes.models import Note

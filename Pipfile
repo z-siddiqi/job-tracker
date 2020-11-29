@@ -15,8 +15,8 @@ whitenoise = "*"
 gunicorn = "*"
 lxml = "*"
 requests = "*"
-django-tinymce = "*"
 shortuuid = "*"
+django-quill-editor = "*"
 
 [requires]
 python_version = "3.8"

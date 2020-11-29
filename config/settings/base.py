@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'crispy_forms',
-    'tinymce',
+    'django_quill',
 ]
 
 MIDDLEWARE = [
@@ -125,16 +125,23 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-# django-tinymce
+# django-quill
 
-TINYMCE_DEFAULT_CONFIG = {
-    "theme": "silver",
-    "height": 350,
-    "menubar": False,
-    "elementpath": False,
-    "plugins": "autolink,lists,link,paste,wordcount",
-    "toolbar": "formatselect | bold italic underline | "
-    "bullist numlist outdent indent | removeformat"
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'header': []},
+                    {'align': []},
+                    'bold', 'italic', 'underline',
+                ],
+                ['clean'],
+            ]
+        }
+    }
 }
 
 

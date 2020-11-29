@@ -1,7 +1,6 @@
 {% load crispy_forms_tags %}
 <form method="post" data-url="{% url 'job_update' job.board.slug job.slug %}" class="form pb-3">
     {% csrf_token %}
-    {{ form.media }}
     <div class="form-row">
         <div class="col-md-6">
             {{ form.company|as_crispy_field }}
