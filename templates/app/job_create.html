@@ -19,7 +19,6 @@
         Totaljobs and Reed.</small>
     <form method="post" data-url="{% url 'job_create' board.slug %}" class="form pb-3">
         {% csrf_token %}
-        {{ form.media }}
         <div class="form-row">
             <div class="col-md-6">
                 {{ form.company|as_crispy_field }}

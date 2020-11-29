@@ -133,10 +133,11 @@ QUILL_CONFIGS = {
         'modules': {
             'syntax': True,
             'toolbar': [
+                [{'header': []},],
+                ['bold', 'italic', 'underline',],
                 [
-                    {'header': []},
+                    {'list': 'bullet'},
                     {'align': []},
-                    'bold', 'italic', 'underline',
                 ],
                 ['clean'],
             ]

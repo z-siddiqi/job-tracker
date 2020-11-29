@@ -194,6 +194,10 @@
 
 /* modals */
 
+.modal-content {
+	background-color: #fbfbff;
+}
+
 #largeModal .modal-dialog,
 #largeModal .modal-content {
     height: 80%;
@@ -218,6 +222,7 @@
 .django-quill-widget-container {
 	border: 1px solid #ccc;
 	border-radius: .25rem;
+	background-color: #fff;
 }
 
 .ql-toolbar.ql-snow {
@@ -228,6 +233,10 @@
 .ql-container {
 	border: none !important;
 	height: 250px !important;
+}
+
+.ql-tooltip {
+    left: 0px !important;
 }
 
 

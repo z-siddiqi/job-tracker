@@ -13,7 +13,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#id_company").val(response.company);
                 $("#id_title").val(response.title);
-                tinymce.get("id_description").setContent(response.description);
+                $(".ql-editor").html(response.description);
             }
         });
     }
