@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
-<form method="post" data-url="{% url 'note_update' job.slug %}" class="form py-3">
+<form method="post" data-url="{% url 'note_update' job.slug %}" class="form pb-3">
     {% csrf_token %}
     {{ form.media }}
     {{ form|crispy }}
-    <button class="btn btn-dark" type="submit">Edit</button>
+    <button class="btn btn-dark" type="submit">Save</button>
 </form>

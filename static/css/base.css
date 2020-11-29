@@ -17,14 +17,6 @@ a #icon {
 	cursor: pointer;
 }
 
-.nav-pills > .nav-link.active {
-	background-color: #343a40;
-}
-
-.breadcrumb {
-    background-color: #e2e4e6;
-}
-
 
 /* utility classes */
 

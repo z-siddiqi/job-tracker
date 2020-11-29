@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View, CreateView, UpdateView, ListView, TemplateView
+from django.views.generic import View, CreateView, ListView
 from django.urls import reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from django.template.loader import render_to_string
@@ -56,11 +56,11 @@ class BoardListView(CustomLoginRequiredMixin, ListView):
 class BoardCreateView(CustomLoginRequiredMixin, View):
     
     @method_decorator(ajax_required)
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         data = dict()
         form = BoardForm()
         context = {'form': form}
-        data['html_form'] = render_to_string(
+        data['html'] = render_to_string(
             'app/board_create.html', 
             context=context, 
             request=request
@@ -68,7 +68,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
         return JsonResponse(data)
 
     @method_decorator(ajax_required)
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         data = dict()
         form = BoardForm(request.POST)
         if form.is_valid():
@@ -76,7 +76,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
             new_board.user = request.user
             new_board = form.save()
             data['form_is_valid'] = True
-            data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': new_board.slug})
+            data['redirect_url'] = new_board.get_absolute_url()
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)
@@ -97,7 +97,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board = self.get_object()
         form = BoardForm(instance=board)
         context = {'board': board, 'form': form}
-        data['html_form'] = render_to_string(
+        data['html'] = render_to_string(
             'app/board_update.html', 
             context=context, 
             request=request
@@ -112,7 +112,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
-            data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': kwargs['board_slug']})
+            data['redirect_url'] = board.get_absolute_url()
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)
@@ -127,12 +127,15 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         obj = self.get_object()
         return obj.user == self.request.user
     
+    def get_success_url(self):
+        return reverse('board_list')
+
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
         data = dict()
         board = self.get_object()
         context = {'board': board}
-        data['html_form'] = render_to_string(
+        data['html'] = render_to_string(
             'app/board_delete.html', 
             context=context, 
             request=request
@@ -145,20 +148,11 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board = self.get_object()
         board.delete()
         data['form_is_valid'] = True
-        data['redirect_url'] = reverse('board_list')
+        data['redirect_url'] = self.get_success_url()
         return JsonResponse(data)
 
 
-class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateView):
-    model = Job
-    template_name = 'app/job_create.html'
-    fields = (
-        'company', 
-        'title', 
-        'deadline', 
-        'progress', 
-        'description'
-    )
+class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
     def get_board(self):
         return get_object_or_404(Board, slug=self.kwargs['board_slug'])
@@ -166,23 +160,67 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, CreateV
     def test_func(self):
         obj = self.get_board()
         return obj.user == self.request.user
+
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        data = dict()
+        board = self.get_board()
+        form = JobForm()
+        context = {'board': board, 'form': form}
+        data['html'] = render_to_string(
+            'app/job_create.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
+
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        form = JobForm(request.POST)
+        if form.is_valid():
+            new_job = form.save(commit=False)
+            new_job.user = request.user
+            new_job.board = self.get_board()
+            new_job = form.save()
+            Note.objects.create(job=new_job)
+            data['form_is_valid'] = True
+            data['redirect_url'] = new_job.get_absolute_url()
+        else:
+            data['form_is_valid'] = False
+        return JsonResponse(data)
+
+
+class BoardCreateView(CustomLoginRequiredMixin, View):
     
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        context["board"] = self.get_board()
-        return context
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        data = dict()
+        form = BoardForm()
+        context = {'form': form}
+        data['html'] = render_to_string(
+            'app/board_create.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.board = self.get_board()
-        self.object = form.save()
-        Note.objects.create(job=self.object)
-        return HttpResponseRedirect(self.get_success_url())
+    @method_decorator(ajax_required)
+    def post(self, request, *args, **kwargs):
+        data = dict()
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            new_board = form.save(commit=False)
+            new_board.user = request.user
+            new_board = form.save()
+            data['form_is_valid'] = True
+            data['redirect_url'] = new_board.get_absolute_url()
+        else:
+            data['form_is_valid'] = False
+        return JsonResponse(data)
 
 
-class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, TemplateView):
-    template_name = 'app/job_detail.html'
+class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
     def get_object(self):
         return get_object_or_404(Job, slug=self.kwargs['job_slug'])
@@ -191,10 +229,17 @@ class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, Templat
         obj = self.get_object()
         return obj.board.user == self.request.user
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data()
-        context["job"] = self.get_object()
-        return context
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        data = dict()
+        job = self.get_object()
+        context = {'job': job}
+        data['html'] = render_to_string(
+            'app/job_detail.html', 
+            context=context, 
+            request=request
+        )
+        return JsonResponse(data)
 
 
 class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
@@ -227,6 +272,7 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
+            data['redirect_url'] = job.get_absolute_url()
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)
@@ -240,13 +286,16 @@ class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
+
+    def get_success_url(self):
+        return reverse('board_detail', kwargs={'board_slug': self.kwargs['board_slug']})
     
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
         data = dict()
         job = self.get_object()
         context = {'job': job}
-        data['html_form'] = render_to_string(
+        data['html'] = render_to_string(
             'app/job_delete.html', 
             context=context, 
             request=request
@@ -259,5 +308,5 @@ class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         job = self.get_object()
         job.delete()
         data['form_is_valid'] = True
-        data['redirect_url'] = reverse('board_detail', kwargs={'board_slug': kwargs['board_slug']})
+        data['redirect_url'] = self.get_success_url()
         return JsonResponse(data)

@@ -1,17 +1,5 @@
 $(document).ready(function () {
-    var showContent = function () {
-        var btn = $(this);
-        $.ajax({
-            url: btn.data('url'),
-            type: 'get',
-            dataType: 'json',
-            success: function (response) {
-                $("#jobContent").html(response.html);
-            }
-        });
-    }
-
-    var saveContent = function () {
+    var createTask = function () {
         var form = $(this);
         $.ajax({
             url: form.data('url'),
@@ -20,22 +8,20 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response.form_is_valid) {
-                    if (response.task) {
-                        addTask(response.task);
-                        form[0].reset();  // remove text from input box
-                    }
+                    appendTask(response.task);
+                    form[0].reset();  // remove text from input box
                 } else {
-                    $("#jobContent").html(response.html);
+                    form.closest('.modal').html(response.html)
                 }
             }
         });
         return false;
     }
 
-    var addTask = function (task) {
+    var appendTask = function (task) {
         $("#taskList").append('<div class="card mb-1" id="taskCard" data-id="' + task.id +
-            '"><div class="card-body"><div class="form-check-inline overflow">' + 
-            '<input class="form-check-input float-left task-complete" type="checkbox"><label class="form-check-label">' + 
+            '"><div class="card-body"><div class="form-check-inline overflow">' +
+            '<input class="form-check-input float-left task-complete" type="checkbox"><label class="form-check-label">' +
             task.task + '</label></div><button type="button" class="close float-right task-delete">' +
             '<span aria-hidden="true"><i class="bx bxs-x-square"></i></span></button></div></div>');
     }
@@ -69,16 +55,10 @@ $(document).ready(function () {
         });
     }
 
-    // show content
-    $("#nav").on('click', '.show-content', showContent);
-
-    // save content
-    $("#jobContent").on('submit', '.form', saveContent);
+    // create task
+    $("#largeModal").on('submit', '.task-form', createTask);
 
     // update task
-    $("#jobContent").on('click', '.task-complete', completeTask);
-    $("#jobContent").on('click', '.task-delete', deleteTask);
-
-    // trigger click to initially load job info
-    $("a:contains('Job Info')").trigger('click');
+    $("#largeModal").on('click', '.task-complete', completeTask);
+    $("#largeModal").on('click', '.task-delete', deleteTask);
 });

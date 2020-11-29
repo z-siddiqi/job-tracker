@@ -11,16 +11,16 @@
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
 <main>
-    <div class="container-fluid cpx-0 pt-3">
+    <div class="container-fluid cpx-0 pt-3" id="container">
         <div class="row no-gutters align-items-center mb-3" id="boardTitle">
             <div class="col-8 text-truncate">
                 <h3>{{ board }}</h3>
             </div>
             <div class="col-4 pb-1 text-right">
-                <a href="#" class="show-form-update" data-url="{% url 'board_update' board.slug %}">
+                <a href="#" class="show-small-modal" data-url="{% url 'board_update' board.slug %}">
                     <i class="bx bx-edit-alt" id="icon"></i>
                 </a>
-                <a href="#" class="show-form-delete" data-url="{% url 'board_delete' board.slug %}">
+                <a href="#" class="show-small-modal" data-url="{% url 'board_delete' board.slug %}">
                     <i class="bx bx-trash ml-2" id="icon"></i>
                 </a>
             </div>
@@ -35,27 +35,27 @@
                     <div class="card-body dyn-height" id="innerColumn">
                         {% for job in jobs %}
                         {% if job.progress == column %}
-                        <div class="card" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
+                        <div class="card has-data" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
                             <div class="card-body">
                                 <div class="row no-gutters">
-                                    <div class="col-11" id="jobCompany">
+                                    <div class="col-11 show-large-modal">
                                         <h5 class="mr-3">{{ job.company }}</h5>
                                     </div>
                                     <div class="col-1">
-                                        <a href="#" class="float-right show-form-delete"
+                                        <a href="#" class="float-right show-small-modal"
                                             data-url="{% url 'job_delete' job.board.slug job.slug %}">
                                             <i class="bx bx-trash" id="icon"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <h3 class="bold-txt" id="jobTitle">{{ job.title }}</h3>
-                                <p class="mb-0" id="jobDeadline">{{ job.deadline }}</p>
+                                <h3 class="bold-txt show-large-modal">{{ job.title }}</h3>
+                                <p class="mb-0 show-large-modal">{{ job.deadline }}</p>
                             </div>
                         </div>
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <a href="{% url 'job_create' board.slug %}" class="add-card-btn btn">
+                    <a href="#" data-url="{% url 'job_create' board.slug %}" class="add-card-btn btn show-large-modal has-data">
                         +
                     </a>
                 </div>
@@ -69,11 +69,6 @@
 {% block script %}
 <script src="{% static 'js/sidenav.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
-<script>
-    $(document).ready(function () {
-        $("#jobCompany, #jobTitle, #jobDeadline").click(function () {
-            window.location.href = $(this).closest('#jobCard').data('url');
-        });
-    });
-</script>
+<script src="{% static 'js/scrape.js' %}"></script>
+<script src="{% static 'js/task.js' %}"></script>
 {% endblock script %}

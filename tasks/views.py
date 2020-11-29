@@ -60,10 +60,6 @@ class TaskCompleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View
     def test_func(self):
         obj = self.get_object()
         return obj.job.board.user == self.request.user
-    
-    @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        return redirect('task_list')
 
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
@@ -86,10 +82,6 @@ class TaskDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
     def test_func(self):
         obj = self.get_object()
         return obj.job.board.user == self.request.user
-    
-    @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        return redirect('task_list')
     
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):

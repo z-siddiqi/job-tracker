@@ -30,7 +30,7 @@ class Board(models.Model):
         return f'{self.title}'
     
     def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'board_pk': self.pk})
+        return reverse('board_detail', kwargs={'board_slug': self.slug})
 
 class Job(models.Model):  
     company = models.CharField(max_length=100)

@@ -1,35 +1,25 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block style %}
-<link href="{% static 'css/app.css' %}" rel="stylesheet">
-{% endblock style %}
-
-{% block body_id %}id="appBody"{% endblock body_id %}
-
-{% block content %}
-{% include 'app/header.html' %}
-{% include 'app/sidebar.html' %}
-<main>
-    <div class="container-fluid cpx-0 pt-3">
-        <div class="content">
-            <div class="mb-3">
-                <h3>{{ job.title }}</h3>
-                <h5>{{ job.company }}</h5>
-            </div>
-            <nav class="nav nav-pills nav-justified breadcrumb" id="nav">
-                <a class="nav-item nav-link show-content" href="#" data-url="{% url 'job_update' job.board.slug job.slug %}">Job Info</a>
-                <a class="nav-item nav-link show-content" href="#" data-url="{% url 'task_list' job.slug %}">Tasks</a>
-                <a class="nav-item nav-link show-content" href="#" data-url="{% url 'note_update' job.slug %}">Notes</a>
-            </nav>
-            <div id="jobContent">
-            </div>
-        </div>
+<div class="modal-header d-block pb-0">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="mb-3">
+        <h3>{{ job.title }}</h3>
+        <h5>{{ job.company }}</h5>
     </div>
-</main>
-{% endblock content %}
-
-{% block script %}
-<script src="{% static 'js/sidenav.js' %}"></script>
-<script src="{% static 'js/job_detail.js' %}"></script>
-{% endblock script %}
+    <nav class="nav nav-justified mb-0">
+        <a class="nav-item nav-link load-job-info active" href="#" data-url="{% url 'job_update' job.board.slug job.slug %}">
+            <i class="bx bx-info-square" id="icon"></i>
+            Info
+        </a>
+        <a class="nav-item nav-link load-job-info" href="#" data-url="{% url 'task_list' job.slug %}">
+            <i class="bx bx-task" id="icon"></i>
+            Tasks
+        </a>
+        <a class="nav-item nav-link load-job-info" href="#" data-url="{% url 'note_update' job.slug %}">
+            <i class="bx bx-note" id="icon"></i>
+            Notes
+        </a>
+    </nav>
+</div>
+<div class="modal-body">
+</div>

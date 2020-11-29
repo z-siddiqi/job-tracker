@@ -192,6 +192,27 @@
 }
 
 
+/* modals */
+
+#largeModal .modal-dialog,
+#largeModal .modal-content {
+    height: 80%;
+}
+
+#largeModal .modal-body {
+    overflow-y: scroll;
+}
+
+#largeModal a.active {
+    border-bottom: 2px solid #343a40;
+}
+
+#largeModal i {
+	vertical-align: middle;
+	margin-bottom: 0.25rem;
+}
+
+
 /* tinymce editor */
 
 .tox-tinymce {

@@ -11,14 +11,14 @@
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
 <main>
-    <div class="container-fluid cpx-0 pt-3">
+    <div class="container-fluid cpx-0 pt-3" id="container">
         <div class="content">
             <div class="mb-3">
                 <h3>Boards</h3>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-6" id="addBoard">
-                    <a href="#" class="card mb-3 show-form-create" data-url="{% url 'board_create' %}">
+                <div class="col-12 col-sm-6">
+                    <a href="#" class="card mb-3 show-small-modal" data-url="{% url 'board_create' %}">
                         <div class="card-body d-flex justify-content-center">
                             <div class="card-text text-truncate">
                                 Add Board

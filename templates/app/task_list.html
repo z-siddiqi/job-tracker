@@ -1,13 +1,13 @@
-<form method="post" data-url="{% url 'task_list' job.slug %}" class="form">
+<form method="post" data-url="{% url 'task_list' job.slug %}" class="task-form">
     {% csrf_token %}
-    <div class="input-group py-3">
+    <div class="input-group pb-3">
         {{ form.task }}
         <span class="input-group-append">
             <button class="btn btn-dark" type="submit">Add</button>
         </span>
     </div>
 </form>
-<div id="taskList">
+<div class="pb-3" id="taskList">
     {% for task in tasks %}
     <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
         <div class="card-body">

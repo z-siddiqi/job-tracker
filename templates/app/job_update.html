@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-<form method="post" data-url="{% url 'job_update' job.board.slug job.slug %}" class="form">
+<form method="post" data-url="{% url 'job_update' job.board.slug job.slug %}" class="form pb-3">
     {% csrf_token %}
     {{ form.media }}
     <div class="form-row">
@@ -19,5 +19,5 @@
         </div>
     </div>
     {{ form.description|as_crispy_field }}
-    <button class="btn btn-dark" type="submit">Edit</button>
+    <button class="btn btn-dark" type="submit">Save</button>
 </form>

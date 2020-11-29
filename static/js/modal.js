@@ -1,47 +1,80 @@
-$(document).ready(function() {
-	var ShowForm = function() {
+$(document).ready(function () {
+	var showSmallModal = function () {
 		var btn = $(this);
 		$.ajax({
 			url: btn.data('url'),
 			type: 'get',
 			dataType: 'json',
-			beforeSend: function() {
-				$("#modal").modal('show');
+			beforeSend: function () {
+				$("#smallModal").modal('show');
 			},
-			success: function(response) {
-				$("#modal .modal-content").html(response.html_form);
+			success: function (response) {
+				$("#smallModal .modal-content").html(response.html);
 			}
 		});
 	}
 
-	var SaveForm = function() {
+	var showLargeModal = function () {
+		var btn = $(this);
+		$.ajax({
+			url: btn.closest('.has-data').data('url'),
+			type: 'get',
+			dataType: 'json',
+			beforeSend: function () {
+				$("#largeModal").modal('show');
+			},
+			success: function (response) {
+				$("#largeModal .modal-content").html(response.html);
+				if ($("a:contains('Info')").length > 0) {
+					$("a:contains('Info')").trigger('click');  // initially load job info
+				}
+			}
+		});
+	}
+
+	var saveModalForm = function () {
 		var form = $(this);
 		$.ajax({
 			url: form.data('url'),
 			data: form.serialize(),
 			type: 'post',
 			dataType: 'json',
-			success: function(response) {
+			success: function (response) {
 				if (response.form_is_valid) {
-					window.location.href = response.redirect_url;
+					if (response.redirect_url) {
+						window.location.href = response.redirect_url;
+					}
 				} else {
-					$("#modal .modal-content").html(response.html_form);
+					form.closest('.modal').html(response.html)
 				}
 			}
 		});
 		return false;
 	}
 
-	// create
-	$("#addBoard").on('click', '.show-form-create', ShowForm);
-	$("#modal").on('submit', '.create-form', SaveForm);
+	var loadJobInfo = function () {
+		$('a.active').each(function () {
+			$(this).removeClass('active');  // remove active class from current button
+		});
+		var btn = $(this);
+		btn.addClass('active');  // add active class to clicked button
+		$.ajax({
+			url: btn.data('url'),
+			type: 'get',
+			dataType: 'json',
+			success: function (response) {
+				$("#largeModal .modal-body").html(response.html);
+			}
+		});
+	}
 
-	// update
-	$("#boardTitle").on('click', '.show-form-update', ShowForm);
-	$("#modal").on('submit', '.update-form', SaveForm);
-	
-	// delete
-	$("#boardTitle").on('click', '.show-form-delete', ShowForm);
-	$("#applied, #phone, #onsite, #offer").on('click', '.show-form-delete', ShowForm);
-	$("#modal").on('submit', '.delete-form', SaveForm);
+	// show modal
+	$("#container").on('click', '.show-large-modal', showLargeModal);
+	$("#container").on('click', '.show-small-modal', showSmallModal);
+
+	// save form
+	$("#smallModal, #largeModal").on('submit', '.form', saveModalForm);
+
+	// load job info
+	$("#largeModal").on('click', '.load-job-info', loadJobInfo);
 });
