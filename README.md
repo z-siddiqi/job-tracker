@@ -12,14 +12,14 @@
 
 ![image](static/img/readme/job.png)
 
-### Tools Used 💎
+### Tools Used 🛠
 
 - Django web framework
 - Bootstrap
 - PostgreSQL
 - Docker
 
-### Setup Locally 🛠
+### Setup Locally ⚙️
 
 1. [Clone the repository locally.](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 
