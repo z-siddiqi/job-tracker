@@ -1,18 +1,51 @@
+[![Made with Django.](https://www.djangoproject.com/m/img/badges/djangomade124x25.gif)](http://www.djangoproject.com/)
+
+👉 [View Live](http://job-tracker-zs.herokuapp.com) 
+
 <h1 align="center">Job Tracker</h1>
+ 
+### Screenshots 📸
 
-👉 [View Live](http://job-tracker-zs.herokuapp.com)
+![image](static/img/readme/home.png)
 
-![image](static/img/homepage.png)
+![image](static/img/readme/board.png)
 
-## Overview ✨
+![image](static/img/readme/job.png)
 
-- Job Tracker is a web application that allows users to keep track of employment opportunities they are interested in.
-- The application allows users to easily save, edit and delete information on opportunities.
-- The main feature is a Kanban board that shows the user their progress on all saved opportunities.
-
-## Tools Used 💎
+### Tools Used 💎
 
 - Django web framework
-- PostgreSQL
 - Bootstrap
+- PostgreSQL
 - Docker
+
+### Setup Locally 🛠
+
+1. [Clone the repository locally.](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
+
+2. Set up all necessary dependencies:
+   ```sh
+   python -m venv .venv
+   
+   source .venv/bin/activate
+   
+   # Windows users
+   # source .venv/scripts/activate
+
+   pip install -r requirements.txt
+   ```
+   
+3. Set environment variables:
+   ```sh
+   export 'DJANGO_SECRET_KEY=secret'
+   ```
+  
+4. Apply all migrations:
+   ```sh
+   python manage.py migrate
+   ```
+   
+5. Deploy web app on localhost:
+   ```sh
+   python manage.py runserver
+   ```

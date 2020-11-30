@@ -46,6 +46,14 @@ a #icon {
 	padding-right: 0;
 }
 
+.grey-hover:hover {
+	background-color: #eee;
+}
+
+.btm-shadow {
+	border-bottom: 0.1rem solid #ccc;
+}
+
 
 /* buttons */
 

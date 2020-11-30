@@ -8,6 +8,6 @@ def create_demo_board(user):
         board=board,
         company='Company',
         title='Title',
-        description='This is a demo job application.'
+        description=''
     )
     note = Note.objects.create(job=job)

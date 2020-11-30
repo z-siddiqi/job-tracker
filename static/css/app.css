@@ -157,17 +157,13 @@
 #jobCard {
 	background-color: #fff !important;
 	border-radius: 0.3rem;
-	border-bottom: 0.1rem solid #ccc;
 	margin-bottom: 0.6rem;
 }
 
 #jobCard .card-body {
 	padding: 1rem;
 	cursor: pointer;
-}
-
-#jobCard .card-body:hover {
-	background-color: #eee;
+	border-radius: inherit;
 }
 
 .card-header {

@@ -35,8 +35,8 @@
                     <div class="card-body dyn-height" id="innerColumn">
                         {% for job in jobs %}
                         {% if job.progress == column %}
-                        <div class="card has-data" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
-                            <div class="card-body">
+                        <div class="card btm-shadow has-data" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
+                            <div class="card-body grey-hover">
                                 <div class="row no-gutters">
                                     <div class="col-11 show-large-modal">
                                         <h5 class="mr-3">{{ job.company }}</h5>
