@@ -39,7 +39,7 @@ def get_job_info(url):
     job_info = {
         'company': company_node.text_content(),
         'title': title_node.text_content(),
-        'description': url + etree.tostring(description_node, encoding='unicode')
+        'description': url + description_node.text_content()
     }
     
     return job_info
