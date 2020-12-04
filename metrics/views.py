@@ -1,19 +1,23 @@
 from datetime import datetime
 
-from django.contrib.admin.models import LogEntry
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from chartjs.views.lines import BaseLineChartView
 
 from boards.models import Board, Job
+from utils.mixins import ajax_required, CustomLoginRequiredMixin
 
-class MetricsView(TemplateView):
-    template_name = 'app/metrics.html'
-
+class MetricsMixin():
+    
     def get_users_jobs(self, *args, **kwargs):
         boards = Board.objects.filter(user=self.request.user)
         jobs = Job.objects.filter(board__in=boards)
         return jobs
+
+
+class MetricsView(CustomLoginRequiredMixin, MetricsMixin, TemplateView):
+    template_name = 'app/metrics.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(MetricsView, self).get_context_data(*args, **kwargs)
@@ -26,7 +30,7 @@ class MetricsView(TemplateView):
         return context
 
 
-class LineChartView(MetricsView, BaseLineChartView):
+class MetricsChartView(CustomLoginRequiredMixin, MetricsMixin, BaseLineChartView):
 
     def get_labels(self, *args, **kwargs):
         return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -36,6 +40,11 @@ class LineChartView(MetricsView, BaseLineChartView):
 
     def get_data(self, *args, **kwargs):
         current_year = datetime.now().strftime('%Y')
-        jobs_added_this_year = self.get_users_jobs().filter(created_at__year=current_year)
+        jobs = self.get_users_jobs()
+        jobs_added_this_year = jobs.filter(created_at__year=current_year)
         jobs_by_month = [(jobs_added_this_year.filter(created_at__month=str(x)).count()) for x in range(1, 13)]
         return [jobs_by_month]
+    
+    @method_decorator(ajax_required)
+    def get(self, request, *args, **kwargs):
+        return super(BaseLineChartView, self).get(request, *args, **kwargs)

@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views import MetricsView, LineChartView
+from .views import MetricsView, MetricsChartView
 
 urlpatterns = [
   path('', MetricsView.as_view(), name='metrics'),
-  path('chart/', LineChartView.as_view(), name='metrics_chart'),
+  path('chart/', MetricsChartView.as_view(), name='metrics_chart'),
 ]
