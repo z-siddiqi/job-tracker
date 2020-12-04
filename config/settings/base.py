@@ -32,10 +32,12 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'tasks.apps.TasksConfig',
     'notes.apps.NotesConfig',
+    'metrics.apps.MetricsConfig',
 
     # 3rd party
     'crispy_forms',
     'django_quill',
+    'chartjs',
 ]
 
 MIDDLEWARE = [

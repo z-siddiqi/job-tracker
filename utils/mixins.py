@@ -1,3 +1,4 @@
+from django.db import models
 from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect
@@ -25,3 +26,11 @@ class CustomUserPassesTestMixin(UserPassesTestMixin):
 
     def handle_no_permission(self):
         return redirect('board_list')
+
+
+class TimeStampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True

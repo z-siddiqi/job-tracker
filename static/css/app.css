@@ -5,7 +5,7 @@
 	--nav-width: 68px;
 }
 
-#appBody {
+body {
 	font-family: sans-serif;
 	font-size: 1rem;
 	background-color: #fbfbff;
@@ -16,7 +16,7 @@
 	transition: .5s;
 }
 
-#appBody .content {
+.content {
 	width: 1250px;
     max-width: 100%;
     margin: auto;
@@ -239,7 +239,7 @@
 /* media queries */
 
 @media screen and (min-width: 768px) {
-	#appBody {
+	body {
 		margin: calc(var(--header-height) + 1rem) 0 2rem 0;
 		padding-left: calc(var(--nav-width) + 2rem);
 	}

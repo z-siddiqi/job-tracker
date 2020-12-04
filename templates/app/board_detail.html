@@ -5,8 +5,6 @@
 <link href="{% static 'css/app.css' %}" rel="stylesheet">
 {% endblock style %}
 
-{% block body_id %}id="appBody"{% endblock body_id %}
-
 {% block content %}
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
@@ -30,7 +28,7 @@
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3" id="{{ column.lower }}">
                 <div class="card mb-3" id="outerColumn">
                     <div class="card-header">
-                        <h5 class="card-title bold-txt">{{ column }}</h5>
+                        <h5 class="card-title fw-700">{{ column }}</h5>
                     </div>
                     <div class="card-body dyn-height" id="innerColumn">
                         {% for job in jobs %}
@@ -48,8 +46,8 @@
                                         </a>
                                     </div>
                                 </div>
-                                <h3 class="bold-txt show-large-modal">{{ job.title }}</h3>
-                                <p class="mb-0 show-large-modal">{{ job.deadline }}</p>
+                                <h5 class="fw-700 show-large-modal">{{ job.title }}</h5>
+                                <p class="text-muted mb-0 show-large-modal">{{ job.deadline }}</p>
                             </div>
                         </div>
                         {% endif %}

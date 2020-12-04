@@ -7,8 +7,10 @@ from django.contrib.auth import get_user_model
 
 from django_quill.fields import QuillField
 
+from utils.mixins import TimeStampMixin
+
 # Create your models here.
-class Board(models.Model):
+class Board(TimeStampMixin):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(
         get_user_model(),
@@ -32,7 +34,7 @@ class Board(models.Model):
     def get_absolute_url(self):
         return reverse('board_detail', kwargs={'board_slug': self.slug})
 
-class Job(models.Model):  
+class Job(TimeStampMixin):  
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     deadline = models.DateField(default=now, blank=True)

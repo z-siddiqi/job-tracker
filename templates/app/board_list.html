@@ -5,23 +5,19 @@
 <link href="{% static 'css/app.css' %}" rel="stylesheet">
 {% endblock style %}
 
-{% block body_id %}id="appBody"{% endblock body_id %}
-
 {% block content %}
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
 <main>
     <div class="container-fluid cpx-0 pt-3" id="container">
         <div class="content">
-            <div class="mb-3">
-                <h3>Boards</h3>
-            </div>
+            <h3 class="mb-3">Boards</h3>
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <a href="#" class="card mb-3 grey-hover btm-shadow show-small-modal" data-url="{% url 'board_create' %}">
                         <div class="card-body d-flex justify-content-center">
                             <div class="card-text text-truncate">
-                                Add Board
+                                <h5 class="fw-700 mb-0">Add Board</h5>
                             </div>
                         </div>
                     </a>
@@ -31,7 +27,7 @@
                     <a href="{% url 'board_detail' board.slug %}" class="card mb-3 grey-hover btm-shadow">
                         <div class="card-body d-flex justify-content-center">
                             <div class="card-text text-truncate">
-                                {{ board }}
+                                <h5 class="fw-700 mb-0">{{ board }}</h5>
                             </div>
                         </div>
                     </a>

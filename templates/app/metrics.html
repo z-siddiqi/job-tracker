@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_tags %}
+
+{% block style %}
+<link href="{% static 'css/app.css' %}" rel="stylesheet">
+{% endblock style %}
+
+{% block content %}
+{% include 'app/header.html' %}
+{% include 'app/sidebar.html' %}
+<main>
+    <div class="container-fluid cpx-0 pt-3" id="container">
+        <div class="content">
+            <h3 class="mb-3">Metrics</h3>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="mr-3">
+                                    <i class="bx bx-calendar-alt" style="font-size: 2.5rem;"></i>
+                                </span>
+                                <div class="media-body text-right">
+                                    <h5 class="fw-700">Applied</h5>
+                                    <h5 class="fw-700 mb-0">{{ applied_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="mr-3">
+                                    <i class="bx bx-phone" style="font-size: 2.5rem;"></i>
+                                </span>
+                                <div class="media-body text-right">
+                                    <h5 class="fw-700">Phone</h5>
+                                    <h5 class="fw-700 mb-0">{{ phone_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="mr-3">
+                                    <i class="bx bx-building" style="font-size: 2.5rem;"></i>
+                                </span>
+                                <div class="media-body text-right">
+                                    <h5 class="fw-700">Onsite</h5>
+                                    <h5 class="fw-700 mb-0">{{ onsite_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-3">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+                                <span class="mr-3">
+                                    <i class="bx bx-check-square" style="font-size: 2.5rem;"></i>
+                                </span>
+                                <div class="media-body text-right">
+                                    <h5 class="fw-700">Offer</h5>
+                                    <h5 class="fw-700 mb-0">{{ offer_count }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <div class="card mb-3" style="height: 32.7rem;">
+                        <div class="card-header">
+                            <h5 class="fw-700">Recent Jobs</h5>
+                        </div>
+                        <div class="card-body pt-0" style="overflow: auto;">
+                            {% for job in recent_jobs %}
+                            <div class="card btm-shadow mb-2">
+                                <div class="card-body">
+                                    <h6 class="fw-700">{{ job }}</h6>
+                                    <p class="text-muted mb-0">{{ job.updated_at|timesince|upto:"," }} ago</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div style="padding-bottom: 0.75rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5 class="fw-700">Activity Chart</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="card">
+                                <canvas id="activityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/sidenav.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+<script type="text/javascript">
+    $.get('{% url "metrics_chart" %}', function (data) {
+        var ctx = $("#activityChart").get(0).getContext("2d");
+        new Chart(ctx, {
+            type: 'line', data: data
+        });
+    });
+</script>
+{% endblock script %}

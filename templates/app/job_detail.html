@@ -3,8 +3,8 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="mb-3">
-        <h3>{{ job.title }}</h3>
-        <h5>{{ job.company }}</h5>
+        <h3>{{ job.company }}</h3>
+        <h5>{{ job.title }}</h5>
     </div>
     <nav class="nav nav-justified mb-0">
         <a class="nav-item nav-link load-job-info active" href="#" data-url="{% url 'job_update' job.board.slug job.slug %}">

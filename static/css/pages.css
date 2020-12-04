@@ -1,6 +1,6 @@
 /* pages */
 
-#baseBody {
+body {
 	font-family: sans-serif;
 	background-color: #fbfbff;
 	color: #424650;
@@ -8,7 +8,7 @@
 	flex-direction: column;
 }
 
-#baseBody .content {
+.content {
 	width: 1200px;
 	max-width: 90%;
 	margin: 0 auto;

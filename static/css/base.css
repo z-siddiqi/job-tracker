@@ -20,10 +20,8 @@ a #icon {
 
 /* utility classes */
 
-.bold-txt {
-	font-size: 1.2rem;
+.fw-700 {
 	font-weight: 700;
-	color: #333;
 }
 
 .overflow {
