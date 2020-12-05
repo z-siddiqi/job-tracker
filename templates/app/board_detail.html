@@ -33,10 +33,10 @@
                     <div class="card-body dyn-height" id="innerColumn">
                         {% for job in jobs %}
                         {% if job.progress == column %}
-                        <div class="card btm-shadow has-data" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
+                        <div class="card btm-shadow show-large-modal" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
                             <div class="card-body grey-hover">
                                 <div class="row no-gutters">
-                                    <div class="col-11 show-large-modal">
+                                    <div class="col-11">
                                         <h5 class="mr-3">{{ job.company }}</h5>
                                     </div>
                                     <div class="col-1">
@@ -46,14 +46,14 @@
                                         </a>
                                     </div>
                                 </div>
-                                <h5 class="fw-700 show-large-modal">{{ job.title }}</h5>
-                                <p class="text-muted mb-0 show-large-modal">{{ job.deadline }}</p>
+                                <h5 class="fw-700 ">{{ job.title }}</h5>
+                                <p class="text-muted mb-0">{{ job.deadline }}</p>
                             </div>
                         </div>
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <a href="#" data-url="{% url 'job_create' board.slug %}" class="add-card-btn btn show-large-modal has-data">
+                    <a href="#" data-url="{% url 'job_create' board.slug %}" class="add-card-btn btn show-large-modal">
                         +
                     </a>
                 </div>

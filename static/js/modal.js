@@ -12,12 +12,13 @@ $(document).ready(function () {
 				$("#smallModal .modal-content").html(response.html);
 			}
 		});
+		return false;
 	}
 
 	var showLargeModal = function () {
 		var btn = $(this);
 		$.ajax({
-			url: btn.closest('.has-data').data('url'),
+			url: btn.data('url'),
 			type: 'get',
 			dataType: 'json',
 			beforeSend: function () {
@@ -30,6 +31,7 @@ $(document).ready(function () {
 				}
 			}
 		});
+		return false;
 	}
 
 	var saveModalForm = function () {
@@ -66,6 +68,7 @@ $(document).ready(function () {
 				$("#largeModal .modal-body").html(response.html);
 			}
 		});
+		return false;
 	}
 
 	// show modal
