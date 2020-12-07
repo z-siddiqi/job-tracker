@@ -2,6 +2,8 @@ from django.forms import ModelForm
 
 from .models import Board, Job
 
+from summernote.widgets import SummernoteInplaceWidget
+
 class BoardForm(ModelForm):
 
 	class Meta:
@@ -20,3 +22,7 @@ class JobForm(ModelForm):
 			'progress', 
 			'description'
     	)
+
+		widgets = {
+            'description': SummernoteInplaceWidget()
+        }

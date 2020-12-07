@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b012723a801df2a7aa58330cf99bdfb0f01ed9dc41e738f8128c81da11df3e68"
+            "sha256": "f6f3672b83e6281b9cf12aa12077fa4a21212ac914c81d305457e845a9c4b1d1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,10 +26,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:1f422849db327d534e3d0c5f02a263458c3955ec0aae4ff09b95f195c59f4edd",
-                "sha256:f05def092c44fbf25834a51509ef6e631dc19765ab8a57b4e7ab85531f0a9cf4"
+                "sha256:1a4995114262bffbc2413b159f2a1a480c969de6e6eb13ee966d470af86af59c",
+                "sha256:719a74fb9e33b9bd44cc7f3a8d94bc35e4049deebe19ba7d8e108280cfd59830"
             ],
-            "version": "==2020.11.8"
+            "version": "==2020.12.5"
         },
         "chardet": {
             "hashes": [
@@ -82,14 +82,6 @@
             ],
             "index": "pypi",
             "version": "==1.10.0"
-        },
-        "django-quill-editor": {
-            "hashes": [
-                "sha256:5c91886caa345802c21430ea7b0523d8081b494c6d3ecf312a91917922bc2fea",
-                "sha256:d1511622ba78810806516a14899d6819b4b2f4e1c6536e652221bb711e66ebc6"
-            ],
-            "index": "pypi",
-            "version": "==0.1.16"
         },
         "environs": {
             "extras": [

@@ -213,26 +213,10 @@ body {
 }
 
 
-/* quill editor */
+/* summernote editor */
 
-.django-quill-widget-container {
-	border: 1px solid #ccc;
-	border-radius: .25rem;
-	background-color: #fff;
-}
-
-.ql-toolbar.ql-snow {
-	border: none !important;
-	border-bottom: 1px solid #ccc !important;
-}
-
-.ql-container {
-	border: none !important;
-	height: 250px !important;
-}
-
-.ql-tooltip {
-    left: 0px !important;
+.note-toolbar {
+    border-bottom: 1px solid #ccc;
 }
 
 

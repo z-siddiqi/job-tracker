@@ -33,10 +33,10 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'notes.apps.NotesConfig',
     'metrics.apps.MetricsConfig',
+    'summernote.apps.SummernoteConfig',
 
     # 3rd party
     'crispy_forms',
-    'django_quill',
     'chartjs',
 ]
 
@@ -125,27 +125,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # django-crispy-forms
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-
-# django-quill
-
-QUILL_CONFIGS = {
-    'default':{
-        'theme': 'snow',
-        'modules': {
-            'syntax': True,
-            'toolbar': [
-                [{'header': []},],
-                ['bold', 'italic', 'underline',],
-                [
-                    {'list': 'bullet'},
-                    {'align': []},
-                ],
-                ['clean'],
-            ]
-        }
-    }
-}
 
 
 # Url redirects

@@ -13,7 +13,7 @@ $(document).ready(function () {
             success: function (response) {
                 $("#id_company").val(response.company);
                 $("#id_title").val(response.title);
-                $(".ql-editor").html(response.description);
+                $("#id_description").summernote('code', response.description);
             }
         });
     }

@@ -1,13 +1,12 @@
 -i https://pypi.org/simple
 asgiref==3.3.1; python_version >= '3.5'
-certifi==2020.11.8
+certifi==2020.12.5
 chardet==3.0.4
 dj-database-url==0.5.0
 dj-email-url==1.0.1
 django-cache-url==3.1.2
 django-chartjs==2.2.1
 django-crispy-forms==1.10.0
-django-quill-editor==0.1.16
 django==3.1.4
 environs[django]==9.2.0
 gunicorn==20.0.4

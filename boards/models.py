@@ -5,8 +5,6 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
-from django_quill.fields import QuillField
-
 from utils.mixins import TimeStampMixin
 
 # Create your models here.
@@ -45,7 +43,7 @@ class Job(TimeStampMixin):
         ('Offer', 'Offer'),
     )
     progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='Applied')
-    description = QuillField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     board = models.ForeignKey(
         Board,
         on_delete=models.CASCADE,

@@ -16,7 +16,6 @@ gunicorn = "*"
 lxml = "*"
 requests = "*"
 shortuuid = "*"
-django-quill-editor = "*"
 django-chartjs = "*"
 
 [requires]
