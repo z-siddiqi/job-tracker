@@ -3,23 +3,41 @@
         <span aria-hidden="true">&times;</span>
     </button>
     <div class="mb-3">
-        <h3>{{ job.company }}</h3>
-        <h5>{{ job.title }}</h5>
+        <h3>Job: {{ job.slug }}</h3>
     </div>
-    <nav class="nav nav-justified mb-0">
-        <a class="nav-item nav-link load-job-info" href="#" data-url="{% url 'job_update' job.board.slug job.slug %}">
+    <nav class="nav nav-justified mb-0" id="tabs">
+        <a class="nav-item nav-link active" href="#" data-id="job">
             <i class="bx bx-info-square" id="icon"></i>
             Info
         </a>
-        <a class="nav-item nav-link load-job-info" href="#" data-url="{% url 'task_list' job.slug %}">
+        <a class="nav-item nav-link" href="#" data-id="tasks">
             <i class="bx bx-task" id="icon"></i>
             Tasks
         </a>
-        <a class="nav-item nav-link load-job-info" href="#" data-url="{% url 'note_update' job.slug %}">
+        <a class="nav-item nav-link" href="#" data-id="notes">
             <i class="bx bx-note" id="icon"></i>
             Notes
         </a>
     </nav>
 </div>
 <div class="modal-body">
+    <div class="tabcontent" id="job">
+        {% include 'app/job_update.html' %}
+    </div>
+    <div class="tabcontent" id="tasks" hidden>
+        {% include 'app/task_list.html' %}
+    </div>
+    <div class="tabcontent" id="notes" hidden>
+        {% include 'app/note_update.html' %}
+    </div>
 </div>
+<script>
+    $("#tabs").on('click', '.nav-link', function () {
+        var clickedTab = $(this);
+        var clickedTabId = clickedTab.data('id');
+        $("a.active").removeClass('active');
+        $(".tabcontent").prop('hidden', true);
+        $("#" + clickedTabId).prop('hidden', false);
+        clickedTab.addClass('active');
+    });
+</script>

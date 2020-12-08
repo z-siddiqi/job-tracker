@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-<form method="post" data-url="{% url 'board_create' %}" class="form">
+<form action="{% url 'board_create' %}" method="post" class="form">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">New Board</h5>

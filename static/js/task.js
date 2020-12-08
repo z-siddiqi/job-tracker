@@ -2,7 +2,7 @@ $(document).ready(function () {
     var createTask = function () {
         var form = $(this);
         $.ajax({
-            url: form.data('url'),
+            url: form.attr('action'),
             data: form.serialize(),
             type: 'post',
             dataType: 'json',

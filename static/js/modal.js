@@ -6,8 +6,8 @@ $(document).ready(function () {
 			type: 'get',
 			dataType: 'json',
 			success: function (response) {
-				$("#smallModal").modal('show');
 				$("#smallModal .modal-content").html(response.html);
+				$("#smallModal").modal('show');
 			}
 		});
 		return false;
@@ -20,11 +20,8 @@ $(document).ready(function () {
 			type: 'get',
 			dataType: 'json',
 			success: function (response) {
-				$("#largeModal").modal('show');
 				$("#largeModal .modal-content").html(response.html);
-				if ($("a:contains('Info')").length > 0) {
-					$("a:contains('Info')").trigger('click');  // initially load job info
-				}
+				$("#largeModal").modal('show');
 			}
 		});
 		return false;
@@ -33,7 +30,7 @@ $(document).ready(function () {
 	var saveModalForm = function () {
 		var form = $(this);
 		$.ajax({
-			url: form.data('url'),
+			url: form.attr('action'),
 			data: form.serialize(),
 			type: 'post',
 			dataType: 'json',
@@ -41,6 +38,8 @@ $(document).ready(function () {
 				if (response.form_is_valid) {
 					if (response.redirect_url) {
 						window.location.href = response.redirect_url;
+					} else {
+						showSuccessAlert();
 					}
 				} else {
 					form.closest('.modal').html(response.html)
@@ -50,27 +49,21 @@ $(document).ready(function () {
 		return false;
 	}
 
-	var loadJobInfo = function () {
-		var btn = $(this);
-		$.ajax({
-			url: btn.data('url'),
-			type: 'get',
-			dataType: 'json',
-			success: function (response) {
-				$('a.active').each(function () {
-					$(this).removeClass('active');
-				});
-				btn.addClass('active');
-				$("textarea.summernoteinplacewidget").summernote('destroy');
-				$("#largeModal .modal-body").html(response.html);
-			}
-		});
-		return false;
-	}
+	var showSuccessAlert = function () {
+        $(".alert-success").prop('hidden', false);
+        setTimeout(function () {
+            $(".alert-success").prop('hidden', true);
+        }, 1000);
+    }
 
 	var clearModal = function () {
 		$(this).find('.modal-content').empty();
-		return false;
+	}
+
+	var reloadPage = function () {
+		setTimeout(function () {
+			location.reload();
+		}, 500);
 	}
 
 	// show modal
@@ -80,9 +73,7 @@ $(document).ready(function () {
 	// save form
 	$("#smallModal, #largeModal").on('submit', '.form', saveModalForm);
 
-	// load job info
-	$("#largeModal").on('click', '.load-job-info', loadJobInfo);
-
 	// clear modal
-	$("#smallModal, #largeModal").on('hidden.bs.modal', clearModal);
+	$("#smallModal").on('hidden.bs.modal', clearModal);
+	$("#largeModal").on('hidden.bs.modal', reloadPage);
 });

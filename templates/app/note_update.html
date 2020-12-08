@@ -1,6 +1,5 @@
 {% load crispy_forms_tags %}
-<form method="post" data-url="{% url 'note_update' job.slug %}" class="form pb-3">
+<form action="{% url 'note_update' job.slug %}" method="post" class="form pb-3" name="noteUpdate">
     {% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-dark" type="submit">Save</button>
+    {{ note_form|crispy }}
 </form>

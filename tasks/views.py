@@ -22,20 +22,6 @@ class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         return obj.board.user == self.request.user
 
     @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        data = dict()
-        form = TaskForm()
-        job = self.get_job()
-        tasks = Task.objects.filter(job=job)
-        context={'job': job, 'tasks': tasks, 'form': form}
-        data['html'] = render_to_string(
-            'app/task_list.html', 
-            context=context, 
-            request=request
-        )
-        return JsonResponse(data)
-
-    @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         data = dict()
         form = TaskForm(request.POST)

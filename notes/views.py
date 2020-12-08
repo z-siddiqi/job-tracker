@@ -25,20 +25,6 @@ class NoteUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         return obj.job.board.user == self.request.user
     
     @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        data = dict()
-        job = self.get_job()
-        note = self.get_object()
-        form = NoteForm(instance=note)
-        context = {'job': job, 'note': note, 'form': form}
-        data['html'] = render_to_string(
-            'app/note_update.html', 
-            context=context, 
-            request=request
-        )
-        return JsonResponse(data)
-
-    @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         data = dict()
         note = self.get_object()

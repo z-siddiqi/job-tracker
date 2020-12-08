@@ -9,7 +9,7 @@ config = {
     'summernote': {
         'lang': 'en-US',
         'width': '100%',
-        'height': '300',
+        'height': '250',
         'toolbar': [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline']],

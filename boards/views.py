@@ -11,6 +11,9 @@ from .forms import BoardForm, JobForm
 from .scrape import get_job_info
 
 from notes.models import Note
+from notes.forms import NoteForm
+from tasks.models import Task
+from tasks.forms import TaskForm
 from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
 
 
@@ -191,52 +194,46 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         return JsonResponse(data)
 
 
-class BoardCreateView(CustomLoginRequiredMixin, View):
-    
-    @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        data = dict()
-        form = BoardForm()
-        context = {'form': form}
-        data['html'] = render_to_string(
-            'app/board_create.html', 
-            context=context, 
-            request=request
-        )
-        return JsonResponse(data)
-
-    @method_decorator(ajax_required)
-    def post(self, request, *args, **kwargs):
-        data = dict()
-        form = BoardForm(request.POST)
-        if form.is_valid():
-            new_board = form.save(commit=False)
-            new_board.user = request.user
-            new_board = form.save()
-            data['form_is_valid'] = True
-            data['redirect_url'] = new_board.get_absolute_url()
-        else:
-            data['form_is_valid'] = False
-        return JsonResponse(data)
-
-
 class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
+    template_name = 'app/job_detail.html'
 
     def get_object(self):
         return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+    
+    def get_note(self):
+        return Note.objects.get(job=self.job) 
+
+    def get_tasks(self):
+        return Task.objects.filter(job=self.job)
     
     def test_func(self):
         obj = self.get_object()
         return obj.board.user == self.request.user
 
+    def get_context_data(self, **kwargs):
+        # job
+        kwargs['job'] = self.job
+        kwargs['job_form'] = JobForm(instance=self.job)
+
+        # tasks
+        tasks = self.get_tasks()
+        kwargs['tasks'] = tasks
+        kwargs['task_form'] = TaskForm()
+
+        # note
+        note = self.get_note()
+        kwargs['note'] = note
+        kwargs['note_form'] = NoteForm(instance=note)
+
+        return kwargs
+    
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
+        self.job = self.get_object()
         data = dict()
-        job = self.get_object()
-        context = {'job': job}
         data['html'] = render_to_string(
-            'app/job_detail.html', 
-            context=context, 
+            template_name=self.template_name, 
+            context=self.get_context_data(),
             request=request
         )
         return JsonResponse(data)
@@ -252,19 +249,6 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         return obj.board.user == self.request.user
     
     @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        data = dict()
-        job = self.get_object()
-        form = JobForm(instance=job)
-        context = {'job': job, 'form': form}
-        data['html'] = render_to_string(
-            'app/job_update.html', 
-            context=context, 
-            request=request
-        )
-        return JsonResponse(data)
-
-    @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         data = dict()
         job = self.get_object()
@@ -272,7 +256,6 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
-            data['redirect_url'] = job.get_absolute_url()
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)

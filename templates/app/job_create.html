@@ -17,7 +17,7 @@
     </div>
     <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed,
         Totaljobs and Reed.</small>
-    <form method="post" data-url="{% url 'job_create' board.slug %}" class="form pb-3">
+    <form action="{% url 'job_create' board.slug %}" method="post" class="form pb-3" name="jobCreate">
         {% csrf_token %}
         <div class="form-row">
             <div class="col-md-6">

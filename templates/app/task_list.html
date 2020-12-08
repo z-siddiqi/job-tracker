@@ -1,7 +1,7 @@
-<form method="post" data-url="{% url 'task_list' job.slug %}" class="task-form">
+<form action="{% url 'task_list' job.slug %}" method="post" class="task-form">
     {% csrf_token %}
     <div class="input-group pb-3">
-        {{ form.task }}
+        {{ task_form.task }}
         <span class="input-group-append">
             <button class="btn btn-dark" type="submit">Add</button>
         </span>

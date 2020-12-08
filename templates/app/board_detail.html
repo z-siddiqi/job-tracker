@@ -64,6 +64,12 @@
 </main>
 {% endblock content %}
 
+{% block modal %}
+<div class="alert alert-success alert-bottom text-center" role="alert" hidden>
+    Updated!
+</div>
+{% endblock modal %}
+
 {% block script %}
 <script src="{% static 'js/sidenav.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>

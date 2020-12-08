@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-<form method="post" data-url="{% url 'board_update' board.slug %}" class="form">
+<form action="{% url 'board_update' board.slug %}" method="post" class="form">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Edit Board</h5>
