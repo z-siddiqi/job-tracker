@@ -1,6 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404
-from django.views.generic import UpdateView, View
+from django.views.generic import View
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 

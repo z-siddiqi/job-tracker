@@ -17,7 +17,7 @@ class MetricsMixin():
 
 
 class MetricsView(CustomLoginRequiredMixin, MetricsMixin, TemplateView):
-    template_name = 'app/metrics.html'
+    template_name = 'metrics/metrics.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(MetricsView, self).get_context_data(*args, **kwargs)

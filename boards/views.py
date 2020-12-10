@@ -41,14 +41,14 @@ def board_detail(request, board_slug):
             'Offer',
         )
         context = {'jobs': jobs, 'board': board, 'columns': columns}
-        return render(request, 'app/board_detail.html', context)
+        return render(request, 'boards/board_detail.html', context)
     else:
         return redirect('home')
 
 
 class BoardListView(CustomLoginRequiredMixin, ListView):
     model = Board
-    template_name = 'app/board_list.html'
+    template_name = 'boards/board_list.html'
     context_object_name = 'boards'
 
     def get_queryset(self):
@@ -64,7 +64,7 @@ class BoardCreateView(CustomLoginRequiredMixin, View):
         form = BoardForm()
         context = {'form': form}
         data['html'] = render_to_string(
-            'app/board_create.html', 
+            'boards/board_create.html', 
             context=context, 
             request=request
         )
@@ -101,7 +101,7 @@ class BoardUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         form = BoardForm(instance=board)
         context = {'board': board, 'form': form}
         data['html'] = render_to_string(
-            'app/board_update.html', 
+            'boards/board_update.html', 
             context=context, 
             request=request
         )
@@ -139,7 +139,7 @@ class BoardDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View)
         board = self.get_object()
         context = {'board': board}
         data['html'] = render_to_string(
-            'app/board_delete.html', 
+            'boards/board_delete.html', 
             context=context, 
             request=request
         )
@@ -171,7 +171,7 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         form = JobForm()
         context = {'board': board, 'form': form}
         data['html'] = render_to_string(
-            'app/job_create.html', 
+            'boards/job_create.html', 
             context=context, 
             request=request
         )
@@ -195,7 +195,7 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
 
 class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
-    template_name = 'app/job_detail.html'
+    template_name = 'boards/job_detail.html'
 
     def get_object(self):
         return get_object_or_404(Job, slug=self.kwargs['job_slug'])
@@ -279,7 +279,7 @@ class JobDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         job = self.get_object()
         context = {'job': job}
         data['html'] = render_to_string(
-            'app/job_delete.html', 
+            'boards/job_delete.html', 
             context=context, 
             request=request
         )
