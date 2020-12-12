@@ -10,8 +10,6 @@ from .models import Board, Job
 from .forms import BoardForm, JobForm
 from .scrape import get_job_info
 
-from notes.models import Note
-from notes.forms import NoteForm
 from tasks.models import Task
 from tasks.forms import TaskForm
 from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
@@ -186,7 +184,6 @@ class JobCreateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
             new_job.user = request.user
             new_job.board = self.get_board()
             new_job = form.save()
-            Note.objects.create(job=new_job)
             data['form_is_valid'] = True
             data['redirect_url'] = new_job.get_absolute_url()
         else:
@@ -199,9 +196,6 @@ class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
 
     def get_object(self):
         return get_object_or_404(Job, slug=self.kwargs['job_slug'])
-    
-    def get_note(self):
-        return Note.objects.get(job=self.job) 
 
     def get_tasks(self):
         return Task.objects.filter(job=self.job)
@@ -219,11 +213,6 @@ class JobDetailView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         tasks = self.get_tasks()
         kwargs['tasks'] = tasks
         kwargs['task_form'] = TaskForm()
-
-        # note
-        note = self.get_note()
-        kwargs['note'] = note
-        kwargs['note_form'] = NoteForm(instance=note)
 
         return kwargs
     

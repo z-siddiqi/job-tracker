@@ -13,6 +13,5 @@ urlpatterns = [
     path('', include('pages.urls')),
     path('boards/', include('boards.urls')),
     path('tasks/', include('tasks.urls')),
-    path('notes/', include('notes.urls')),
     path('metrics/', include('metrics.urls')),
 ]

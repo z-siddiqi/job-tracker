@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'boards.apps.BoardsConfig',
     'pages.apps.PagesConfig',
     'tasks.apps.TasksConfig',
-    'notes.apps.NotesConfig',
     'metrics.apps.MetricsConfig',
     'summernote.apps.SummernoteConfig',
 
