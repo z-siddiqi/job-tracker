@@ -237,6 +237,9 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         obj = self.get_object()
         return obj.board.user == self.request.user
     
+    def get_success_url(self):
+        return reverse('board_detail', kwargs={'board_slug': self.kwargs['board_slug']})
+    
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         data = dict()
@@ -245,6 +248,7 @@ class JobUpdateView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
         if form.is_valid():
             form.save()
             data['form_is_valid'] = True
+            data['redirect_url'] = self.get_success_url()
         else:
             data['form_is_valid'] = False
         return JsonResponse(data)

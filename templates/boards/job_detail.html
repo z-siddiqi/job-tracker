@@ -14,10 +14,6 @@
             <i class="bx bx-task" id="icon"></i>
             Tasks
         </a>
-        <a class="nav-item nav-link" href="#" data-id="notes">
-            <i class="bx bx-note" id="icon"></i>
-            Notes
-        </a>
     </nav>
 </div>
 <div class="modal-body">
@@ -27,10 +23,8 @@
     <div class="tabcontent" id="tasks" hidden>
         {% include 'tasks/task_list.html' %}
     </div>
-    <div class="tabcontent" id="notes" hidden>
-        {% include 'notes/note_update.html' %}
-    </div>
 </div>
+
 <script>
     $("#tabs").on('click', '.nav-link', function () {
         var clickedTab = $(this);
@@ -39,5 +33,12 @@
         $(".tabcontent").prop('hidden', true);
         $("#" + clickedTabId).prop('hidden', false);
         clickedTab.addClass('active');
+    });
+
+    var form = $("#job .form");
+    var modal = form.closest('#largeModal');
+    modal.on('hidden.bs.modal', function () {
+        console.log('Form submitted!')
+        form.submit();
     });
 </script>

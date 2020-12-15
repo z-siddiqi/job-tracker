@@ -78,7 +78,7 @@
             <div class="row">
                 <div class="col-12 col-lg-3">
                     <div class="card mb-3" style="height: 32.7rem;">
-                        <div class="card-header">
+                        <div class="card-header bg-transparent border-bottom-0">
                             <h5 class="fw-700">Recent Jobs</h5>
                         </div>
                         <div class="card-body pt-0" style="overflow: auto;">
@@ -96,7 +96,7 @@
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="card mb-3">
-                        <div class="card-header">
+                        <div class="card-header bg-transparent border-bottom-0">
                             <h5 class="fw-700">Activity Chart</h5>
                         </div>
                         <div class="card-body pt-0">
@@ -114,8 +114,8 @@
 
 {% block script %}
 <script src="{% static 'js/sidenav.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-<script type="text/javascript">
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script>
     $.get('{% url "metrics_chart" %}', function (data) {
         var ctx = $("#activityChart").get(0).getContext("2d");
         new Chart(ctx, {

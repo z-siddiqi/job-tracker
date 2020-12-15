@@ -18,8 +18,8 @@ body {
 
 .content {
 	width: 1250px;
-    max-width: 100%;
-    margin: auto;
+	max-width: 100%;
+	margin: auto;
 }
 
 
@@ -140,35 +140,9 @@ body {
 
 /* kanban */
 
-#columns {
-	overflow-y: hidden;
-}
-
-#outerColumn {
+.kanban-column {
 	background-color: #e2e4e6 !important;
-	border: none;
 	min-height: 20rem;
-}
-
-#innerColumn {
-	padding: 0 0.6rem 0.5rem;
-}
-
-#jobCard {
-	background-color: #fff !important;
-	border-radius: 0.3rem;
-	margin-bottom: 0.6rem;
-}
-
-#jobCard .card-body {
-	padding: 1rem;
-	cursor: pointer;
-	border-radius: inherit;
-}
-
-.card-header {
-	background-color: transparent;
-	border-bottom: none;
 }
 
 .add-card-btn {
@@ -178,13 +152,9 @@ body {
 	padding: 0.5rem;
 }
 
-.add-card-btn i {
-	margin: auto;
-}
-
 .add-card-btn:hover {
 	background-color: #cdd2d4;
-	color: #4d4d4d;
+	color: #424650;
 }
 
 
@@ -196,15 +166,15 @@ body {
 
 #largeModal .modal-dialog,
 #largeModal .modal-content {
-    height: 80%;
+	height: 80%;
 }
 
 #largeModal .modal-body {
-    overflow-y: scroll;
+	overflow-y: scroll;
 }
 
 #largeModal a.active {
-    border-bottom: 2px solid #343a40;
+	border-bottom: 2px solid #343a40;
 }
 
 #largeModal i {
@@ -217,21 +187,21 @@ body {
 
 .alert-bottom {
 	width: 10rem;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 1rem;
-    z-index: 1041;
+	z-index: 1041;
 }
 
 
 /* summernote editor */
 
 .note-toolbar {
-    border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 

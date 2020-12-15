@@ -1,3 +1,5 @@
+{% load static %}
+
 <form action="{% url 'task_list' job.slug %}" method="post" class="task-form">
     {% csrf_token %}
     <div class="input-group pb-3">
@@ -11,7 +13,7 @@
     {% for task in tasks %}
     <div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
         <div class="card-body">
-            <div class="form-check-inline overflow">
+            <div class="form-check-inline mw-85 overflow-hidden">
                 <input class="form-check-input float-left task-complete" type="checkbox"
                     {% if task.completed %}checked{% endif %}>
                 <label class="form-check-label">
@@ -25,3 +27,5 @@
     </div>
     {% endfor %}
 </div>
+
+<script src="{% static 'js/task.js' %}"></script>

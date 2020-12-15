@@ -14,7 +14,7 @@
             <h3 class="mb-3">Boards</h3>
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <a href="#" class="card mb-3 grey-hover btm-shadow show-small-modal" data-url="{% url 'board_create' %}">
+                    <a href="#" class="card mb-3 grey-hover btm-shadow show-modal" data-modal="#smallModal" data-url="{% url 'board_create' %}">
                         <div class="card-body d-flex justify-content-center">
                             <div class="card-text text-truncate">
                                 <h5 class="fw-700 mb-0">Add Board</h5>
@@ -38,6 +38,14 @@
     </div>
 </main>
 {% endblock content %}
+
+{% block modal %}
+<div class="modal fade" id="smallModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock modal %}
 
 {% block script %}
 <script src="{% static 'js/sidenav.js' %}"></script>

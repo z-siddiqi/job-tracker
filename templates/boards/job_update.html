@@ -1,5 +1,5 @@
 {% load crispy_forms_tags %}
-<form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form pb-3" name="jobUpdate">
+<form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form">
     {% csrf_token %}
     <div class="form-row">
         <div class="col-md-6">
@@ -19,8 +19,3 @@
     </div>
     {{ job_form.description|as_crispy_field }}
 </form>
-<script>
-    $("form[name='jobUpdate'] .form-control").change(function() {
-        $(this).parents("form").submit();
-    });
-</script>

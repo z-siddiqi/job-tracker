@@ -67,9 +67,9 @@ body {
 }
 
 #textColumn h1 {
-    font-size: 40px;
-    font-family: Raleway, sans-serif;
-    font-weight: 800;
+	font-size: 40px;
+	font-family: Raleway, sans-serif;
+	font-weight: 800;
 }
 
 #homeButtons {
@@ -99,7 +99,7 @@ body {
 
 #homeSignup:hover {
 	background-color: #7795f8;
-    color: #fff;
+	color: #fff;
 }
 
 #homeCards {
@@ -107,24 +107,24 @@ body {
 }
 
 #homeCards h5 {
-    font-weight: 800;
+	font-weight: 800;
 }
 
 
 /* error pages */
 
 .error-msg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	text-align: center;
 }
 
 .error-msg h1 {
-    font-size: 40px;
-    font-family: Raleway, sans-serif;
-    font-weight: 800;
+	font-size: 40px;
+	font-family: Raleway, sans-serif;
+	font-weight: 800;
 }
 
 

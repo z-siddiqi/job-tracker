@@ -15,33 +15,32 @@
                 <h3>{{ board }}</h3>
             </div>
             <div class="col-4 pb-1 text-right">
-                <a href="#" class="show-small-modal" data-url="{% url 'board_update' board.slug %}">
+                <a href="#" class="show-modal" data-modal="#smallModal" data-url="{% url 'board_update' board.slug %}">
                     <i class="bx bx-edit-alt" id="icon"></i>
                 </a>
-                <a href="#" class="show-small-modal" data-url="{% url 'board_delete' board.slug %}">
+                <a href="#" class="show-modal" data-modal="#smallModal" data-url="{% url 'board_delete' board.slug %}">
                     <i class="bx bx-trash ml-2" id="icon"></i>
                 </a>
             </div>
         </div>
-        <div class="row flex-row flex-nowrap" id="columns">
+        <div class="row flex-row flex-nowrap overflow-y-hidden">
             {% for column in columns %}
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3" id="{{ column.lower }}">
-                <div class="card mb-3" id="outerColumn">
-                    <div class="card-header">
+                <div class="kanban-column card mb-3 border-0">
+                    <div class="card-header bg-transparent border-bottom-0">
                         <h5 class="card-title fw-700">{{ column }}</h5>
                     </div>
-                    <div class="card-body dyn-height" id="innerColumn">
+                    <div class="card-body px-2 py-0 dyn-height">
                         {% for job in jobs %}
                         {% if job.progress == column %}
-                        <div class="card btm-shadow show-large-modal" id="jobCard" data-url="{% url 'job_detail' job.board.slug job.slug %}">
-                            <div class="card-body grey-hover">
+                        <div class="card btm-shadow mb-2 show-modal" data-modal="#largeModal" data-url="{% url 'job_detail' job.board.slug job.slug %}">
+                            <div class="card-body p-3 rounded cursor-pointer grey-hover">
                                 <div class="row no-gutters">
                                     <div class="col-11">
                                         <h5 class="mr-3">{{ job.company }}</h5>
                                     </div>
                                     <div class="col-1">
-                                        <a href="#" class="float-right show-small-modal"
-                                            data-url="{% url 'job_delete' job.board.slug job.slug %}">
+                                        <a href="#" class="float-right show-modal" data-modal="#smallModal" data-url="{% url 'job_delete' job.board.slug job.slug %}">
                                             <i class="bx bx-trash" id="icon"></i>
                                         </a>
                                     </div>
@@ -53,7 +52,7 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <a href="#" data-url="{% url 'job_create' board.slug %}" class="add-card-btn btn show-large-modal">
+                    <a href="#" class="add-card-btn btn show-modal" data-modal="#largeModal" data-url="{% url 'job_create' board.slug %}">
                         +
                     </a>
                 </div>
@@ -65,14 +64,19 @@
 {% endblock content %}
 
 {% block modal %}
-<div class="alert alert-success alert-bottom text-center" role="alert" hidden>
-    Updated!
+<div class="modal fade" id="smallModal">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+<div class="modal fade" id="largeModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content"></div>
+    </div>
 </div>
 {% endblock modal %}
 
 {% block script %}
 <script src="{% static 'js/sidenav.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
-<script src="{% static 'js/scrape.js' %}"></script>
-<script src="{% static 'js/task.js' %}"></script>
 {% endblock script %}

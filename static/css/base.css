@@ -24,9 +24,16 @@ a #icon {
 	font-weight: 700;
 }
 
-.overflow {
-	max-width: 85%;
+.overflow-hidden {
 	overflow: hidden;
+}
+
+.overflow-y-hidden {
+	overflow-y: hidden;
+}
+
+.mw-85 {
+	max-width: 85%;
 }
 
 .border-m {
@@ -50,6 +57,10 @@ a #icon {
 
 .btm-shadow {
 	border-bottom: 0.1rem solid #ccc;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }
 
 

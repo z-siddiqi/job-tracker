@@ -14,14 +14,6 @@
                         document.execCommand('insertText', false, bufferText);
                     }, 10);
                 },
-                // submit form on blur
-                onBlur: function () {
-                    var form = $(this).parents("form");
-                    var formName = form.attr('name');
-                    if (formName === 'jobUpdate') {
-                        form.submit();
-                    }
-                }
             }
         }));
     }
