@@ -1,7 +1,9 @@
-from django.db import models
-from django.contrib.auth.mixins import AccessMixin, UserPassesTestMixin
-from django.contrib.auth.views import redirect_to_login
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+
+from boards.models import Board, Job
+from tasks.models import Task
 
 
 def ajax_required(f):
@@ -14,23 +16,71 @@ def ajax_required(f):
     return wrap
 
 
-class CustomLoginRequiredMixin(AccessMixin):
+class UserAccessMixin():
+    redirect_url = None
+
+    def get_redirect_url(self):
+        return self.redirect_url
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect_to_login(request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
+        user_test_result = self.test_func()
+        if not user_test_result:
+            if request.is_ajax():
+                self.response_payload = {'status': 403}  # permission denied
+                return self.render_to_response({})
+            return redirect(self.get_redirect_url())
         return super().dispatch(request, *args, **kwargs)
 
 
-class CustomUserPassesTestMixin(UserPassesTestMixin):
+class BoardPermissionMixin(UserAccessMixin):
 
-    def handle_no_permission(self):
-        return redirect('board_list')
+    def get_board(self):
+        return get_object_or_404(Board, slug=self.kwargs['board_slug'])
+
+    def test_func(self):
+        obj = self.get_board()
+        return obj.user == self.request.user
 
 
-class TimeStampMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class JobPermissionMixin(UserAccessMixin):
 
-    class Meta:
-        abstract = True
+    def get_job(self):
+        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+
+    def test_func(self):
+        obj = self.get_job()
+        return obj.board.user == self.request.user
+
+
+class TaskPermissionMixin(UserAccessMixin):
+
+    def get_task(self):
+        return get_object_or_404(Task, pk=self.kwargs['task_pk'])
+
+    def test_func(self):
+        obj = self.get_task()
+        return obj.job.board.user == self.request.user
+
+
+class JsonResponseMixin():
+
+    def render_to_response(self, context):
+        payload = self.get_response_payload(context)
+        return JsonResponse(payload)
+
+    def get_response_payload(self, context):
+        if context:
+            return self.get_form_html(context)
+        return self.response_payload
+
+
+class AjaxFormMixin():
+    template_name = None
+
+    def get_form_html(self, context):
+        form_html = render_to_string(
+            template_name=self.template_name, 
+            context=context, 
+            request=self.request
+        )
+        return {'form': form_html}

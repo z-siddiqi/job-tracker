@@ -19,7 +19,7 @@
     </div>
     <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed,
         Totaljobs and Reed.</small>
-    <form action="{% url 'job_create' board.slug %}" method="post" class="form pb-3">
+    <form action="{% url 'job_create' board.slug %}" method="post" class="form job-create pb-3">
         {% csrf_token %}
         <div class="form-row">
             <div class="col-md-6">
@@ -43,3 +43,9 @@
 </div>
 
 <script src="{% static 'js/scrape.js' %}"></script>
+<script>
+    $("#largeModal").off('hidden.bs.modal');  // remove existing event handler
+    $("#largeModal").on('hidden.bs.modal', function () {
+        $(this).find('.modal-content').empty();
+    });
+</script>

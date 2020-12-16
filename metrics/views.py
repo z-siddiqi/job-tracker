@@ -1,12 +1,14 @@
 from datetime import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
 from chartjs.views.lines import BaseLineChartView
 
 from boards.models import Board, Job
-from utils.mixins import ajax_required, CustomLoginRequiredMixin
+from utils.mixins import ajax_required
+
 
 class MetricsMixin():
     
@@ -16,7 +18,7 @@ class MetricsMixin():
         return jobs
 
 
-class MetricsView(CustomLoginRequiredMixin, MetricsMixin, TemplateView):
+class MetricsView(LoginRequiredMixin, MetricsMixin, TemplateView):
     template_name = 'metrics/metrics.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -30,7 +32,7 @@ class MetricsView(CustomLoginRequiredMixin, MetricsMixin, TemplateView):
         return context
 
 
-class MetricsChartView(CustomLoginRequiredMixin, MetricsMixin, BaseLineChartView):
+class MetricsChartView(LoginRequiredMixin, MetricsMixin, BaseLineChartView):
 
     def get_labels(self, *args, **kwargs):
         return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

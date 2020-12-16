@@ -3,8 +3,8 @@ from .base import *
 # Database
 
 DATABASES = {
-    "default": env.dj_db_url(
-        "DATABASE_URL", default="postgres://postgres@db/postgres"
+    'default': env.dj_db_url(
+        'DATABASE_URL', default='postgres://postgres@db/postgres'
     )
 }
 

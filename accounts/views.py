@@ -1,16 +1,17 @@
 import uuid
 import shortuuid
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model, authenticate, login
 from django.views.generic import View, CreateView, TemplateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model, authenticate, login
 
 from .forms import CustomUserCreationForm
 from .models import CustomUser 
 
 from boards.demo import create_demo_board
-from utils.mixins import CustomLoginRequiredMixin
+
 
 class SignUpView(CreateView):
     model = CustomUser
@@ -20,11 +21,12 @@ class SignUpView(CreateView):
 
 
 class GuestSignUpView(View):
+    http_method_names = ['get']
     
     def get(self, request, *args, **kwargs):
         User = get_user_model()
         guest_id = str(shortuuid.uuid())[:5]
-        username = f"guest-{guest_id}"
+        username = f'guest-{guest_id}'
         password = str(uuid.uuid4())
 
         # create guest account
@@ -42,9 +44,6 @@ class GuestSignUpView(View):
         login(request, guest_user)
         return redirect('board_list')
 
-    def post(self, request, *args, **kwargs):
-        return redirect('home')
 
-
-class AccountDetailView(CustomLoginRequiredMixin, TemplateView):
+class AccountDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'registration/account_detail.html'

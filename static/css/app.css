@@ -141,15 +141,19 @@ body {
 /* kanban */
 
 .kanban-column {
+	height: calc(100vh - 20rem);
 	background-color: #e2e4e6 !important;
-	min-height: 20rem;
+	border-bottom-right-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
 }
 
 .add-card-btn {
+	display: inline-block;
 	font-size: 2rem;
+	text-align: center;
+	padding: .25rem;
+	background-color: #e2e4e6;
 	color: #838c91;
-	border: none;
-	padding: 0.5rem;
 }
 
 .add-card-btn:hover {

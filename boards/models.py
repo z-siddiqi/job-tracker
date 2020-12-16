@@ -5,9 +5,15 @@ from django.urls import reverse
 from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
-from utils.mixins import TimeStampMixin
 
-# Create your models here.
+class TimeStampMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 class Board(TimeStampMixin):
     title = models.CharField(max_length=100)
     user = models.ForeignKey(

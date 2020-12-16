@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     var scrapeJob = function () {
         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
         var inputUrl = $("#inputUrl").val();

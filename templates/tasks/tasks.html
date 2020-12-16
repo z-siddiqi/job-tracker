@@ -1,6 +1,6 @@
 {% load static %}
 
-<form action="{% url 'task_list' job.slug %}" method="post" class="task-form">
+<form action="{% url 'task_create' job.slug %}" method="post" class="form task-create">
     {% csrf_token %}
     <div class="input-group pb-3">
         {{ task_form.task }}

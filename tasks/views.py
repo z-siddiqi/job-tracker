@@ -1,78 +1,52 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View
-from django.http import JsonResponse
 from django.forms.models import model_to_dict
-from django.template.loader import render_to_string
 
 from .models import Task
 from .forms import TaskForm
 
-from boards.models import Job
-from utils.mixins import ajax_required, CustomLoginRequiredMixin, CustomUserPassesTestMixin
+from utils.mixins import ajax_required, JobPermissionMixin, TaskPermissionMixin
+from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
 
-class TaskListView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
+class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
+    http_method_names = ['post']
+    model = Task
+    form_class = TaskForm
 
-    def get_job(self):
-        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.job = self.get_job()
+        return super().form_valid(form)
+
+    def get_success_data(self):
+        return {'task': model_to_dict(self.object)}
+
+
+class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
+    http_method_names = ['post']
+    model = Task
+    pk_url_kwarg = 'task_pk'
     
-    def test_func(self):
-        obj = self.get_job()
-        return obj.board.user == self.request.user
-
-    @method_decorator(ajax_required)
-    def post(self, request, *args, **kwargs):
-        data = dict()
-        form = TaskForm(request.POST)
-        job = self.get_job()
-        if form.is_valid():
-            new_task = form.save(commit=False)
-            new_task.job = job
-            new_task = form.save()
-            data['task'] = model_to_dict(new_task)
-            data['form_is_valid'] = True
-            return JsonResponse(data)
-        else:
-            data['form_is_valid'] = False
-        return JsonResponse(data)
-
-
-class TaskCompleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
-
-    def get_object(self):
-        return get_object_or_404(Task, pk=self.kwargs['task_pk'])
+    def update(self, request, *args, **kwargs):
+        self.object.completed = not self.object.completed  # toggle the boolean field
+        self.object.save()
+        self.response_payload = self.get_success_data()
+        return self.render_to_response({})
     
-    def test_func(self):
-        obj = self.get_object()
-        return obj.job.board.user == self.request.user
-
-    @method_decorator(ajax_required)
-    def post(self, request, *args, **kwargs):
-        data = dict()
-        task = Task.objects.get(pk=self.kwargs['task_pk'])
-        if not task.completed:
-            task.completed = True
-        else:
-            task.completed = False
-        task.save()
-        data['task'] = model_to_dict(task)
-        return JsonResponse(data)
-
-
-class TaskDeleteView(CustomLoginRequiredMixin, CustomUserPassesTestMixin, View):
-
-    def get_object(self):
-        return get_object_or_404(Task, pk=self.kwargs['task_pk'])
-    
-    def test_func(self):
-        obj = self.get_object()
-        return obj.job.board.user == self.request.user
+    def get_success_data(self):
+        return {'status': 200}
     
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
-        data = dict()
-        task = Task.objects.get(pk=kwargs['task_pk'])
-        task.delete()
-        data['result'] = 'ok'
-        return JsonResponse(data)
+        self.object = self.get_object()
+        return self.update(request, *args, **kwargs)
+
+
+class TaskDeleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxDeleteView):
+    http_method_names = ['post']
+    model = Task
+    pk_url_kwarg = 'task_pk'
+    
+    def get_success_data(self):
+        return {'status': 200}

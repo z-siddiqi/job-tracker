@@ -1,21 +1,63 @@
 {% load crispy_forms_tags %}
-<form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form">
-    {% csrf_token %}
-    <div class="form-row">
-        <div class="col-md-6">
-            {{ job_form.company|as_crispy_field }}
-        </div>
-        <div class="col-md-6">
-            {{ job_form.title|as_crispy_field }}
-        </div>
+<div class="modal-header d-block pb-0">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="mb-3">
+        <h3>Job: {{ job.slug }}</h3>
     </div>
-    <div class="form-row">
-        <div class="col-md-6">
-            {{ job_form.deadline|as_crispy_field }}
-        </div>
-        <div class="col-md-6">
-            {{ job_form.progress|as_crispy_field }}
-        </div>
+    <nav class="nav nav-justified mb-0" id="tabs">
+        <a href="#" class="nav-item nav-link active" data-id="job">
+            <i class="bx bx-info-square" id="icon"></i>
+            Info
+        </a>
+        <a href="#" class="nav-item nav-link" data-id="tasks">
+            <i class="bx bx-task" id="icon"></i>
+            Tasks
+        </a>
+    </nav>
+</div>
+<div class="modal-body">
+    <div class="tabcontent" id="job">
+        <form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form job-update">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-6">
+                    {{ form.company|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.title|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    {{ form.deadline|as_crispy_field }}
+                </div>
+                <div class="col-md-6">
+                    {{ form.progress|as_crispy_field }}
+                </div>
+            </div>
+            {{ form.description|as_crispy_field }}
+        </form>
     </div>
-    {{ job_form.description|as_crispy_field }}
-</form>
+    <div class="tabcontent" id="tasks" hidden>
+        {% include 'tasks/tasks.html' %}
+    </div>
+</div>
+
+<script>
+    $("#tabs").on('click', '.nav-link', function () {
+        var clickedTab = $(this);
+        var clickedTabId = clickedTab.data('id');
+        $("a.active").removeClass('active');
+        $(".tabcontent").prop('hidden', true);
+        $("#" + clickedTabId).prop('hidden', false);
+        clickedTab.addClass('active');
+    });
+</script>
+<script>
+    $("#largeModal").off('hidden.bs.modal');  // remove existing event handler
+    $("#largeModal").on('hidden.bs.modal', function () {
+        $(this).find('.job-update').submit();
+    });
+</script>
