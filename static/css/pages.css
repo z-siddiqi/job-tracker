@@ -15,28 +15,13 @@ body {
 	margin-bottom: 4em;
 }
 
-.border {
-	height: 6px;
-	border: 1px solid #dee2e6 !important;
-	background-color: #fd7576;
-	background-image: linear-gradient(to right, #fd7576, #fd7576 25%, #fec85d 25%, #fec85d 50%, #4db8de 50%, #4db8de 75%, #5969e2 75%, #5969e2 100%, #5969e2 100%);
-	-webkit-background-size: 50% 100%;
-	-moz-background-size: 50% 100%;
-	background-size: 50% 100%;
-}
-
-.logo h1 {
-	float: left;
-	margin: 0 auto;
+.logo {
 	text-transform: uppercase;
-	font-size: 1.1em;
 	color: #34324b;
 	font-weight: 700;
-	line-height: normal;
-	text-align: left;
 }
 
-.logo h1 span {
+.logo span {
 	font-weight: 400;
 }
 

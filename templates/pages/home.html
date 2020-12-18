@@ -6,13 +6,13 @@
 {% endblock style %}
 
 {% block content %}
-<div class="border"></div>
 <header class="pages-header">
     <div id="nav">
         <nav class="navbar navbar-expand navbar-light">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                <div class="logo">
-                    <h1>Job <span>Tracker</span></h1>
+            <a class="navbar-brand media" href="{% url 'home' %}">
+                <img src="{% static 'img/logo.png' %}" class="my-auto mr-2" height="25px">
+                <div class="media-content logo">
+                    Job <span>Tracker</span>
                 </div>
             </a>
             <ul class="navbar-nav ml-auto">
