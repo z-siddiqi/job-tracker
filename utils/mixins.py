@@ -7,16 +7,15 @@ from tasks.models import Task
 
 
 def ajax_required(f):
-
     def wrap(request, *args, **kwargs):
         if not request.is_ajax():
-            return redirect('home')
+            return redirect("home")
         return f(request, *args, **kwargs)
-    
+
     return wrap
 
 
-class UserAccessMixin():
+class UserAccessMixin:
     redirect_url = None
 
     def get_redirect_url(self):
@@ -26,16 +25,15 @@ class UserAccessMixin():
         user_test_result = self.test_func()
         if not user_test_result:
             if request.is_ajax():
-                self.response_payload = {'status': 403}  # permission denied
+                self.response_payload = {"status": 403}  # permission denied
                 return self.render_to_response({})
             return redirect(self.get_redirect_url())
         return super().dispatch(request, *args, **kwargs)
 
 
 class BoardPermissionMixin(UserAccessMixin):
-
     def get_board(self):
-        return get_object_or_404(Board, slug=self.kwargs['board_slug'])
+        return get_object_or_404(Board, slug=self.kwargs["board_slug"])
 
     def test_func(self):
         obj = self.get_board()
@@ -43,9 +41,8 @@ class BoardPermissionMixin(UserAccessMixin):
 
 
 class JobPermissionMixin(UserAccessMixin):
-
     def get_job(self):
-        return get_object_or_404(Job, slug=self.kwargs['job_slug'])
+        return get_object_or_404(Job, slug=self.kwargs["job_slug"])
 
     def test_func(self):
         obj = self.get_job()
@@ -53,17 +50,15 @@ class JobPermissionMixin(UserAccessMixin):
 
 
 class TaskPermissionMixin(UserAccessMixin):
-
     def get_task(self):
-        return get_object_or_404(Task, pk=self.kwargs['task_pk'])
+        return get_object_or_404(Task, pk=self.kwargs["task_pk"])
 
     def test_func(self):
         obj = self.get_task()
         return obj.job.board.user == self.request.user
 
 
-class JsonResponseMixin():
-
+class JsonResponseMixin:
     def render_to_response(self, context):
         payload = self.get_response_payload(context)
         return JsonResponse(payload)
@@ -74,13 +69,11 @@ class JsonResponseMixin():
         return self.response_payload
 
 
-class AjaxFormMixin():
+class AjaxFormMixin:
     template_name = None
 
     def get_form_html(self, context):
         form_html = render_to_string(
-            template_name=self.template_name, 
-            context=context, 
-            request=self.request
+            template_name=self.template_name, context=context, request=self.request
         )
-        return {'form': form_html}
+        return {"form": form_html}

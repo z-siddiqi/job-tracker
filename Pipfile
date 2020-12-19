@@ -17,6 +17,7 @@ lxml = "*"
 requests = "*"
 shortuuid = "*"
 django-chartjs = "*"
+black = "*"
 
 [requires]
 python_version = "3.8"

@@ -5,10 +5,9 @@ from utils.mixins import ajax_required, JsonResponseMixin, AjaxFormMixin
 
 
 class BaseAjaxView(JsonResponseMixin, AjaxFormMixin):
-
     def get_success_data(self):
         url = self.get_success_url()
-        return {'url': url}
+        return {"url": url}
 
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
@@ -20,7 +19,6 @@ class BaseAjaxView(JsonResponseMixin, AjaxFormMixin):
 
 
 class AjaxCreateView(BaseAjaxView, BaseCreateView):
-
     def form_valid(self, form):
         self.object = form.save()
         self.response_payload = self.get_success_data()
@@ -28,7 +26,6 @@ class AjaxCreateView(BaseAjaxView, BaseCreateView):
 
 
 class AjaxUpdateView(BaseAjaxView, BaseUpdateView):
-
     def form_valid(self, form):
         self.object = form.save()
         self.response_payload = self.get_success_data()
@@ -36,7 +33,6 @@ class AjaxUpdateView(BaseAjaxView, BaseUpdateView):
 
 
 class AjaxDeleteView(BaseAjaxView, BaseDeleteView):
-
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.delete()

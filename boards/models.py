@@ -21,7 +21,7 @@ class Board(TimeStampMixin):
         on_delete=models.CASCADE,
     )
     slug = models.SlugField(
-        default='',
+        default="",
         max_length=8,
     )
 
@@ -33,34 +33,37 @@ class Board(TimeStampMixin):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.title}'
-    
-    def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'board_slug': self.slug})
+        return f"{self.title}"
 
-class Job(TimeStampMixin):  
+    def get_absolute_url(self):
+        return reverse("board_detail", kwargs={"board_slug": self.slug})
+
+
+class Job(TimeStampMixin):
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
-        ('Applied', 'Applied'),
-        ('Phone', 'Phone'),
-        ('Onsite', 'Onsite'),
-        ('Offer', 'Offer'),
+        ("Applied", "Applied"),
+        ("Phone", "Phone"),
+        ("Onsite", "Onsite"),
+        ("Offer", "Offer"),
     )
-    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES, default='Applied')
+    progress = models.CharField(
+        max_length=8, choices=PROGRESS_CHOICES, default="Applied"
+    )
     description = models.TextField(blank=True, null=True)
     board = models.ForeignKey(
         Board,
         on_delete=models.CASCADE,
     )
     slug = models.SlugField(
-        default='',
+        default="",
         max_length=8,
     )
 
     class Meta:
-        ordering = ['deadline', ]
+        ordering = ["deadline"]
 
     def save(self, *args, **kwargs):
         if not self.pk:
@@ -69,7 +72,7 @@ class Job(TimeStampMixin):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.title} at {self.company}'
+        return f"{self.title} at {self.company}"
 
     def get_absolute_url(self):
-        return reverse('board_detail', kwargs={'board_slug': self.board.slug})
+        return reverse("board_detail", kwargs={"board_slug": self.board.slug})

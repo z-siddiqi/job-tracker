@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from .forms import CustomUserCreationForm
-from .models import CustomUser 
+from .models import CustomUser
 
 from boards.demo import create_demo_board
 
@@ -16,24 +16,22 @@ from boards.demo import create_demo_board
 class SignUpView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
-    template_name = 'registration/signup.html'
-    success_url = reverse_lazy('login')
+    template_name = "registration/signup.html"
+    success_url = reverse_lazy("login")
 
 
 class GuestSignUpView(View):
-    http_method_names = ['get']
-    
+    http_method_names = ["get"]
+
     def get(self, request, *args, **kwargs):
         User = get_user_model()
         guest_id = str(shortuuid.uuid())[:5]
-        username = f'guest-{guest_id}'
+        username = f"guest-{guest_id}"
         password = str(uuid.uuid4())
 
         # create guest account
         guest_user = User.objects.create_user(
-            username=username,
-            password=password,
-            is_guest=True
+            username=username, password=password, is_guest=True
         )
 
         # create demo board
@@ -42,8 +40,8 @@ class GuestSignUpView(View):
         # log guest_user in
         guest_user = authenticate(username=username, password=password)
         login(request, guest_user)
-        return redirect('board_list')
+        return redirect("board_list")
 
 
 class AccountDetailView(LoginRequiredMixin, TemplateView):
-    template_name = 'registration/account_detail.html'
+    template_name = "registration/account_detail.html"

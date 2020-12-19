@@ -10,7 +10,7 @@ from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
 
 class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
-    http_method_names = ['post']
+    http_method_names = ["post"]
     model = Task
     form_class = TaskForm
 
@@ -20,23 +20,23 @@ class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
         return super().form_valid(form)
 
     def get_success_data(self):
-        return {'task': model_to_dict(self.object)}
+        return {"task": model_to_dict(self.object)}
 
 
 class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
-    http_method_names = ['post']
+    http_method_names = ["post"]
     model = Task
-    pk_url_kwarg = 'task_pk'
-    
+    pk_url_kwarg = "task_pk"
+
     def update(self, request, *args, **kwargs):
         self.object.completed = not self.object.completed  # toggle the boolean field
         self.object.save()
         self.response_payload = self.get_success_data()
         return self.render_to_response({})
-    
+
     def get_success_data(self):
-        return {'status': 200}
-    
+        return {"status": 200}
+
     @method_decorator(ajax_required)
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -44,9 +44,9 @@ class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
 
 
 class TaskDeleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxDeleteView):
-    http_method_names = ['post']
+    http_method_names = ["post"]
     model = Task
-    pk_url_kwarg = 'task_pk'
-    
+    pk_url_kwarg = "task_pk"
+
     def get_success_data(self):
-        return {'status': 200}
+        return {"status": 200}
