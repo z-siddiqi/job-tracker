@@ -18,6 +18,7 @@ requests = "*"
 shortuuid = "*"
 django-chartjs = "*"
 black = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.8"

@@ -20,7 +20,7 @@ class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
         return super().form_valid(form)
 
     def get_success_data(self):
-        return {"task": model_to_dict(self.object)}
+        return {"status": 200, "task": model_to_dict(self.object)}
 
 
 class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):

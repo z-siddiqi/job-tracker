@@ -3,9 +3,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
 from django.http import JsonResponse
 from django.urls import reverse
+from rest_framework.generics import ListAPIView
 
 from .models import Board, Job
 from .forms import BoardForm, JobForm
+from .serializers import JobSerializer
 from .scrape import get_job_info
 
 from tasks.models import Task
@@ -55,8 +57,7 @@ class BoardDetailView(LoginRequiredMixin, BoardPermissionMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["jobs"] = self.get_jobs()
-        context["columns"] = ("Applied", "Phone", "Onsite", "Offer")
+        context["columns"] = ("applied", "phone", "onsite", "offer")
         return context
 
 
@@ -77,6 +78,16 @@ class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
         return reverse("board_list")
 
 
+class JobListView(LoginRequiredMixin, BoardPermissionMixin, ListAPIView):
+    serializer_class = JobSerializer
+    model = Job
+
+    def get_queryset(self):
+        objs = self.model.objects
+        board = self.get_board()
+        return objs.filter(board=board)
+
+
 class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
     model = Job
     form_class = JobForm
@@ -92,6 +103,9 @@ class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
         self.object.user = self.request.user
         self.object.board = self.get_board()
         return super().form_valid(form)
+
+    def get_success_data(self):
+        return {"status": 200}
 
 
 class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
@@ -109,6 +123,9 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
         context["task_form"] = TaskForm()
         return context
 
+    def get_success_data(self):
+        return {"status": 200}
+
 
 class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, AjaxDeleteView):
     model = Job
@@ -116,5 +133,5 @@ class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, AjaxDeleteView):
     form_class = JobForm
     template_name = "boards/job_delete.html"
 
-    def get_success_url(self):
-        return reverse("board_detail", kwargs={"board_slug": self.kwargs["board_slug"]})
+    def get_success_data(self):
+        return {"status": 200}

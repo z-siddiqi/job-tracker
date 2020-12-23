@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "metrics.apps.MetricsConfig",
     "summernote.apps.SummernoteConfig",
     # 3rd party
+    "rest_framework",
     "crispy_forms",
     "chartjs",
 ]
