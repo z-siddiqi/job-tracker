@@ -41,11 +41,3 @@
         <button class="btn btn-dark" type="submit">Create</button>
     </form>
 </div>
-
-<script src="{% static 'js/scrape.js' %}"></script>
-<script>
-    $("#largeModal").off('hidden.bs.modal');  // remove existing event handler
-    $("#largeModal").on('hidden.bs.modal', function () {
-        $(this).find('.modal-content').empty();
-    });
-</script>

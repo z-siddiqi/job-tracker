@@ -48,11 +48,12 @@
 {% endblock modal %}
 
 {% block script %}
-<script src="{% static 'js/sidenav.js' %}"></script>
-<script src="{% static 'js/modal.js' %}"></script>
+{% include 'app/scripts.html' %}
 <script>
-    $("#smallModal").on('hidden.bs.modal', function () {
-        $(this).find('.modal-content').empty();
+    $(document).ready(function () {
+        $("#container").on('click', '.show-modal', showModal);
+        $(".modal").on('submit', '.form', saveModalForm);
+        $(".modal").on('hidden.bs.modal', clearModal);
     });
 </script>
 {% endblock script %}

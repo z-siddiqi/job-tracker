@@ -10,11 +10,11 @@
 {% include 'app/sidebar.html' %}
 <main>
     <div class="container-fluid cpx-0 pt-3" id="container">
-        <div class="row no-gutters align-items-center mb-3" id="boardButtons">
-            <div class="col-8 text-truncate">
+        <div class="row no-gutters align-items-center mb-3">
+            <div class="col-8 text-truncate" id="boardTitle">
                 <h3>{{ board }}</h3>
             </div>
-            <div class="col-4 pb-1 text-right">
+            <div class="col-4 pb-1 text-right" id="boardButtons">
                 <a href="#" class="show-modal board-edit" data-modal="#smallModal" data-url="{% url 'board_update' board.slug %}">
                     <i class="bx bx-edit-alt" id="icon"></i>
                 </a>
@@ -57,11 +57,16 @@
 {% endblock modal %}
 
 {% block script %}
-<script src="{% static 'js/sidenav.js' %}"></script>
-<script src="{% static 'js/modal.js' %}"></script>
+{% include 'app/scripts.html' %}
 <script>
     $(document).ready(function () {
         loadJobs();
+        $("#container").on('click', '.show-modal', showModal);
+        $("#largeModal").on('click', '.scrape-button', scrapeJob);
+        $("#largeModal").on('click', '.task-complete', completeTask);
+        $("#largeModal").on('click', '.task-delete', deleteTask);
+        $(".modal").on('submit', '.form', saveModalForm);
+        $(".modal").on('hidden.bs.modal', clearModal);
     });
 </script>
 {% endblock script %}

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
+from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.urls import reverse
 from rest_framework.generics import ListAPIView
@@ -66,6 +67,9 @@ class BoardUpdateView(LoginRequiredMixin, BoardPermissionMixin, AjaxUpdateView):
     slug_url_kwarg = "board_slug"
     form_class = BoardForm
     template_name = "boards/board_update.html"
+
+    def get_success_data(self):
+        return {"status": 200, "board": model_to_dict(self.object)}
 
 
 class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):

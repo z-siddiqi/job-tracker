@@ -19,7 +19,7 @@
 </div>
 <div class="modal-body">
     <div class="tabcontent" id="job">
-        <form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form job-update">
+        <form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form job-update pb-3">
             {% csrf_token %}
             <div class="form-row">
                 <div class="col-md-6">
@@ -38,6 +38,7 @@
                 </div>
             </div>
             {{ form.description|as_crispy_field }}
+            <button class="btn btn-dark" type="submit">Save</button>
         </form>
     </div>
     <div class="tabcontent" id="tasks" hidden>
@@ -53,11 +54,5 @@
         $(".tabcontent").prop('hidden', true);
         $("#" + clickedTabId).prop('hidden', false);
         clickedTab.addClass('active');
-    });
-</script>
-<script>
-    $("#largeModal").off('hidden.bs.modal');  // remove existing event handler
-    $("#largeModal").on('hidden.bs.modal', function () {
-        $(this).find('.job-update').submit();
     });
 </script>

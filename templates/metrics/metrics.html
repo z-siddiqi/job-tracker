@@ -113,7 +113,7 @@
 {% endblock content %}
 
 {% block script %}
-<script src="{% static 'js/sidenav.js' %}"></script>
+{% include 'app/scripts.html' %}
 <script src="{% static 'js/Chart.min.js' %}"></script>
 <script>
     $.get('{% url "metrics_chart" %}', function (data) {
