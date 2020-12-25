@@ -11,8 +11,16 @@ body {
 .content {
 	width: 1200px;
 	max-width: 90%;
-	margin: 0 auto;
-	margin-bottom: 4em;
+	margin: auto;
+	min-height: calc(100vh - 200px);
+}
+
+.footer {
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+	background-color: #fbfbff;
+	border-top: 1px solid rgba(25,4,69,0.1);
 }
 
 .logo {
@@ -47,17 +55,7 @@ body {
 
 /* home */
 
-#textColumn {
-	margin-top: 3rem;
-}
-
-#textColumn h1 {
-	font-size: 40px;
-	font-family: Raleway, sans-serif;
-	font-weight: 800;
-}
-
-#homeButtons {
+.home-buttons {
 	display: flex;
 }
 
@@ -87,48 +85,14 @@ body {
 	color: #fff;
 }
 
-#homeCards {
-	margin-top: 8em;
-}
-
-#homeCards h5 {
-	font-weight: 800;
-}
-
-
-/* error pages */
-
-.error-msg {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-}
-
-.error-msg h1 {
-	font-size: 40px;
-	font-family: Raleway, sans-serif;
-	font-weight: 800;
-}
-
-
 /* media queries */
 
 @media screen and (max-width: 1200px) {
-	#textColumn {
-		margin-top: 0;
-	}
-
-	#homeButtons {
-		display: block;
-	}
-
 	#homeSignup {
 		padding: 12px 20px;
 	}
 
-	#homeCards {
-		margin-top: 3em;
+	.home-buttons {
+		display: block;
 	}
 }

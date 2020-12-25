@@ -187,21 +187,6 @@ body {
 }
 
 
-/* alerts */
-
-.alert-bottom {
-	width: 10rem;
-	position: fixed;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 1rem;
-	z-index: 1041;
-}
-
-
 /* summernote editor */
 
 .note-toolbar {
@@ -233,5 +218,21 @@ body {
 
 	.body-pd {
 		padding-left: calc(var(--nav-width) + 188px) !important;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	#largeModal .modal-dialog {
+		margin: 0;
+	}
+
+	#largeModal .modal-content {
+		border: none;
+		border-radius: 0;
+	}
+
+	#largeModal .modal-dialog,
+	#largeModal .modal-content {
+		height: 100%;
 	}
 }

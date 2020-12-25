@@ -104,7 +104,7 @@ var appendJob = function (job) {
 							</a>
 						</div>
 					</div>
-					<h5 class="fw-700">${job.title}</h5>
+					<h5 class="font-weight-bold">${job.title}</h5>
 					<p class="text-muted mb-0">${job.deadline}</p>
 				</div>
 			</div>

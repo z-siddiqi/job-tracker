@@ -22,8 +22,8 @@
                                     <i class="bx bx-calendar-alt" style="font-size: 2.5rem;"></i>
                                 </span>
                                 <div class="media-body text-right">
-                                    <h5 class="fw-700">Applied</h5>
-                                    <h5 class="fw-700 mb-0">{{ applied_count }}</h5>
+                                    <h5 class="font-weight-bold">Applied</h5>
+                                    <h5 class="font-weight-bold mb-0">{{ applied_count }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -37,8 +37,8 @@
                                     <i class="bx bx-phone" style="font-size: 2.5rem;"></i>
                                 </span>
                                 <div class="media-body text-right">
-                                    <h5 class="fw-700">Phone</h5>
-                                    <h5 class="fw-700 mb-0">{{ phone_count }}</h5>
+                                    <h5 class="font-weight-bold">Phone</h5>
+                                    <h5 class="font-weight-bold mb-0">{{ phone_count }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -52,8 +52,8 @@
                                     <i class="bx bx-building" style="font-size: 2.5rem;"></i>
                                 </span>
                                 <div class="media-body text-right">
-                                    <h5 class="fw-700">Onsite</h5>
-                                    <h5 class="fw-700 mb-0">{{ onsite_count }}</h5>
+                                    <h5 class="font-weight-bold">Onsite</h5>
+                                    <h5 class="font-weight-bold mb-0">{{ onsite_count }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -67,8 +67,8 @@
                                     <i class="bx bx-check-square" style="font-size: 2.5rem;"></i>
                                 </span>
                                 <div class="media-body text-right">
-                                    <h5 class="fw-700">Offer</h5>
-                                    <h5 class="fw-700 mb-0">{{ offer_count }}</h5>
+                                    <h5 class="font-weight-bold">Offer</h5>
+                                    <h5 class="font-weight-bold mb-0">{{ offer_count }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -77,15 +77,15 @@
             </div>
             <div class="row">
                 <div class="col-12 col-lg-3">
-                    <div class="card mb-3" style="height: 32.7rem;">
+                    <div class="card mb-3" style="height: 523px;">
                         <div class="card-header bg-transparent border-bottom-0">
-                            <h5 class="fw-700">Recent Jobs</h5>
+                            <h5 class="font-weight-bold">Recent Jobs</h5>
                         </div>
                         <div class="card-body pt-0" style="overflow: auto;">
                             {% for job in recent_jobs %}
                             <div class="card btm-shadow mb-2">
                                 <div class="card-body">
-                                    <h6 class="fw-700">{{ job }}</h6>
+                                    <h6 class="font-weight-bold">{{ job }}</h6>
                                     <p class="text-muted mb-0">{{ job.updated_at|timesince|upto:"," }} ago</p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                 <div class="col-12 col-lg-9">
                     <div class="card mb-3">
                         <div class="card-header bg-transparent border-bottom-0">
-                            <h5 class="fw-700">Activity Chart</h5>
+                            <h5 class="font-weight-bold">Activity Chart</h5>
                         </div>
                         <div class="card-body pt-0">
                             <div class="card">

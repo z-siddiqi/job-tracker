@@ -25,10 +25,10 @@
 </header>
 <div class="content">
     <div class="row">
-        <div class="col-12 col-xl-5" id="textColumn">
-            <h1>Track all of your job applications in one place</h1>
+        <div class="col-12 col-xl-5 my-auto">
+            <h1 class="font-weight-bold">Track all of your job applications in one place</h1>
             <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
-            <div class="my-4" id="homeButtons">
+            <div class="home-buttons my-4">
                 <a href="{% url 'signup' %}" id="homeSignup">
                     Sign up
                 </a>
@@ -43,31 +43,31 @@
             <img src="{% static 'img/homepage.png' %}" class="mw-100">
         </div>
     </div>
-    <div class="card-deck" id="homeCards">
+    <div class="card-deck my-6">
         <div class="card border-m mb-3" style="border-color:#fd7576;">
             <div class="card-body">
-                <h5 class="card-title">Save Jobs</h5>
+                <h5 class="card-title font-weight-bold">Save Jobs</h5>
                 <p class="card-text">Use the scraping tool to easily save jobs from popular job boards such as Indeed
                     and Totaljobs.</p>
             </div>
         </div>
         <div class="card border-m mb-3" style="border-color:#fec85d;">
             <div class="card-body">
-                <h5 class="card-title">Create Tasks</h5>
+                <h5 class="card-title font-weight-bold">Create Tasks</h5>
                 <p class="card-text">Track the steps you need to take to land that job, from writing a cover letter to
                     preparing for the big interview.</p>
             </div>
         </div>
         <div class="card border-m mb-3" style="border-color:#4db8de;">
             <div class="card-body">
-                <h5 class="card-title">Quick Analytics</h5>
+                <h5 class="card-title font-weight-bold">Quick Analytics</h5>
                 <p class="card-text">Monitor your job search with insightful metrics that allow you to see the progress
                     you've made.</p>
             </div>
         </div>
     </div>
 </div>
-<footer class="footer py-3">
+<footer class="footer">
     <div class="container text-center">
         <a href="https://github.com/z-siddiqi/job-tracker" target="_blank">
             <i class="bx bxl-github" id="icon"></i>

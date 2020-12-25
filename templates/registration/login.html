@@ -25,11 +25,13 @@
     </div>
 </header>
 <div class="content">
-    <h2>Log In</h2>
-    <form class="form-login" method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-dark" type="submit">Log In</button>
-    </form>
+    <div class="center form-center">
+        <h2>Log In</h2>
+        <form class="form-login" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-dark" type="submit">Log In</button>
+        </form>
+    </div>
 </div>
 {% endblock content %}
