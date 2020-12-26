@@ -28,37 +28,37 @@
         <div class="col-12 col-xl-5 my-auto">
             <h1 class="font-weight-bold">Track all of your job applications in one place</h1>
             <h4>Job Tracker allows users to see their active job applications at a glance.</h4>
-            <div class="home-buttons my-4">
-                <a href="{% url 'signup' %}" id="homeSignup">
+            <div class="home-buttons d-flex mt-4">
+                <a href="{% url 'signup' %}" class="rounded-lg font-weight-bold transition" id="homeSignup">
                     Sign up
                 </a>
                 <div id="homeGuestSignup">
-                    <a href="{% url 'guest_signup' %}">
+                    <a href="{% url 'guest_signup' %}" class="rounded-lg font-weight-bold">
                         or, view a demo board
                     </a>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-xl-7">
+        <div class="col-12 col-xl-7 home-img">
             <img src="{% static 'img/homepage.png' %}" class="mw-100">
         </div>
     </div>
     <div class="card-deck my-6">
-        <div class="card border-m mb-3" style="border-color:#fd7576;">
+        <div class="card border-m rounded-lg mb-3" style="border-color:#fd7576;">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Save Jobs</h5>
                 <p class="card-text">Use the scraping tool to easily save jobs from popular job boards such as Indeed
                     and Totaljobs.</p>
             </div>
         </div>
-        <div class="card border-m mb-3" style="border-color:#fec85d;">
+        <div class="card border-m rounded-lg mb-3" style="border-color:#fec85d;">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Create Tasks</h5>
                 <p class="card-text">Track the steps you need to take to land that job, from writing a cover letter to
                     preparing for the big interview.</p>
             </div>
         </div>
-        <div class="card border-m mb-3" style="border-color:#4db8de;">
+        <div class="card border-m rounded-lg mb-3" style="border-color:#4db8de;">
             <div class="card-body">
                 <h5 class="card-title font-weight-bold">Quick Analytics</h5>
                 <p class="card-text">Monitor your job search with insightful metrics that allow you to see the progress

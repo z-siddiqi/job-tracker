@@ -39,7 +39,14 @@ a #icon {
 
 .border-m {
 	border-width: medium;
-	border-radius: .5em;
+}
+
+.rounded-lg {
+	border-radius: .4rem;
+}
+
+.transition {
+	transition: 0.2s;
 }
 
 .dyn-height {
@@ -64,16 +71,10 @@ a #icon {
 	cursor: pointer;
 }
 
-.center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
 .form-center {
 	width: 400px;
-	max-width: 90%;
+	max-width: 100%;
+	margin-bottom: 1rem;
 }
 
 
