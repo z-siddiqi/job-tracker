@@ -119,7 +119,7 @@
     $.get('{% url "metrics_chart" %}', function (data) {
         var ctx = $("#activityChart").get(0).getContext("2d");
         new Chart(ctx, {
-            type: 'line', data: data
+            type: 'line', data: data, options: {scales: {yAxes: [{ticks: {beginAtZero: true, precision: 0}}]}}
         });
     });
 </script>

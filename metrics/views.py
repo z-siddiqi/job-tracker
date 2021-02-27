@@ -10,14 +10,14 @@ from boards.models import Board, Job
 from utils.mixins import ajax_required
 
 
-class MetricsMixin:
+class JobsMixin:
     def get_users_jobs(self, *args, **kwargs):
         boards = Board.objects.filter(user=self.request.user)
         jobs = Job.objects.filter(board__in=boards)
         return jobs
 
 
-class MetricsView(LoginRequiredMixin, MetricsMixin, TemplateView):
+class MetricsView(LoginRequiredMixin, JobsMixin, TemplateView):
     template_name = "metrics/metrics.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -31,7 +31,7 @@ class MetricsView(LoginRequiredMixin, MetricsMixin, TemplateView):
         return context
 
 
-class MetricsChartView(LoginRequiredMixin, MetricsMixin, BaseLineChartView):
+class MetricsChartView(LoginRequiredMixin, JobsMixin, BaseLineChartView):
     def get_labels(self, *args, **kwargs):
         return [
             "January",
