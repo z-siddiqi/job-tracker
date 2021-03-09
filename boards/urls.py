@@ -22,6 +22,6 @@ urlpatterns = [
     path("<str:board_slug>/jobs/", JobListView.as_view(), name="job_list"),
     path("<str:board_slug>/jobs/new/", JobCreateView.as_view(), name="job_create"),
     path("<str:board_slug>/jobs/new/scrape/", scrape_job, name="scrape_job"),
-    path("<str:board_slug>/jobs/<str:job_slug>/edit", JobUpdateView.as_view(), name="job_update"),
+    path("<str:board_slug>/jobs/<str:job_slug>/edit/", JobUpdateView.as_view(), name="job_update"),
     path("<str:board_slug>/jobs/<str:job_slug>/delete/", JobDeleteView.as_view(), name="job_delete"),
 ]
