@@ -15,10 +15,10 @@
                 <h3>{{ board }}</h3>
             </div>
             <div class="col-4 pb-1 text-right" id="boardButtons">
-                <a href="#" class="show-modal board-edit" data-modal="#smallModal" data-url="{% url 'board_update' board.slug %}">
+                <a href="#" class="show-modal board-edit" data-modal="smallModal" data-url="{% url 'board_update' board.slug %}">
                     <i class="bx bx-edit-alt" id="icon"></i>
                 </a>
-                <a href="#" class="show-modal board-delete" data-modal="#smallModal" data-url="{% url 'board_delete' board.slug %}">
+                <a href="#" class="show-modal board-delete" data-modal="smallModal" data-url="{% url 'board_delete' board.slug %}">
                     <i class="bx bx-trash ml-2" id="icon"></i>
                 </a>
             </div>
@@ -33,7 +33,7 @@
                     <div class="card-body px-2 py-0 dyn-height" id="{{ column }}">
                     </div>
                 </div>
-                <a href="#" class="add-card-btn w-100 border-0 rounded-bottom show-modal" data-modal="#largeModal" data-url="{% url 'job_create' board.slug %}">
+                <a href="#" class="add-card-btn w-100 border-0 rounded-bottom show-modal" data-modal="largeModal" data-url="{% url 'job_create' board.slug %}">
                     +
                 </a>
             </div>

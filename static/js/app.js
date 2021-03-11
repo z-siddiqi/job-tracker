@@ -1,18 +1,41 @@
 // modal
-var showModal = function () {
-	var btn = $(this);
-	var modalId = btn.data('modal');
-	$.ajax({
-		url: btn.data('url'),
-		type: 'get',
-		dataType: 'json',
-		success: function (response) {
-			if (response.status != 403) {
-				$(modalId + " .modal-content").html(response.form);
-				$(modalId).modal('show');
+// var showModal = function () {
+// 	var btn = $(this);
+// 	var modalId = btn.data('modal');
+// 	$.ajax({
+// 		url: btn.data('url'),
+// 		type: 'get',
+// 		dataType: 'json',
+// 		success: function (response) {
+// 			if (response.status != 403) {
+// 				$(modalId + " .modal-content").html(response.form);
+// 				$(modalId).modal('show');
+// 			}
+// 		}
+// 	});
+// 	return false;
+// }
+function showModal() {
+	let btn = this;
+	let modalId = btn.dataset.modal;
+	let url = btn.dataset.url;
+	fetch(url, {
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+		},
+	})
+		.then(response => response.json())
+		.then(data => {
+			if (data.status != 403) {
+				let modal = document.getElementById(modalId);
+				let bootstrapModal = new bootstrap.Modal(modal, {});
+				let modalContent = modal.getElementsByClassName("modal-content")[0];
+				modalContent.innerHTML = data.form;
+				bootstrapModal.show();
 			}
-		}
-	});
+		})
+		.catch(err => console.log(err))
 	return false;
 }
 
