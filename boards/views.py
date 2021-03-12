@@ -21,8 +21,8 @@ from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 @ajax_required
 @login_required
 def scrape_job(request, board_slug):
-    if request.method == "POST":
-        url = request.POST.get("jobUrl")
+    if request.method == "GET":
+        url = request.GET.get("jobUrl")
         data = get_job_info(url)
         return JsonResponse(data)
 
