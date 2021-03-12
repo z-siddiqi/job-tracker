@@ -1,20 +1,3 @@
-// modal
-// var showModal = function () {
-// 	var btn = $(this);
-// 	var modalId = btn.data('modal');
-// 	$.ajax({
-// 		url: btn.data('url'),
-// 		type: 'get',
-// 		dataType: 'json',
-// 		success: function (response) {
-// 			if (response.status != 403) {
-// 				$(modalId + " .modal-content").html(response.form);
-// 				$(modalId).modal('show');
-// 			}
-// 		}
-// 	});
-// 	return false;
-// }
 function showModal() {
 	let btn = this;
 	let modalId = btn.dataset.modal;
@@ -29,48 +12,56 @@ function showModal() {
 		.then(data => {
 			if (data.status != 403) {
 				let modal = document.getElementById(modalId);
-				let bootstrapModal = new bootstrap.Modal(modal, {});
 				let modalContent = modal.getElementsByClassName("modal-content")[0];
 				modalContent.innerHTML = data.form;
-				bootstrapModal.show();
+				$(modal).modal('show');  // need to change
 			}
 		})
 		.catch(err => console.log(err))
 	return false;
 }
 
-var saveModalForm = function () {
-	var form = $(this);
-	$.ajax({
-		url: form.attr('action'),
-		data: form.serialize(),
-		type: 'post',
-		dataType: 'json',
-		success: function (response) {
-			if (response.form) {
+function saveModalForm() {
+	let form = this;
+	let formData = new FormData(form);
+	fetch(form.action, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+		},
+		body: formData,
+	})
+		.then(response => response.json())
+		.then(data => {
+			if (data.form) {
 				// form invalid
-				form.closest('.modal-content').html(response.form);
-			} else if (response.status == 302) {
+				let modalContent = form.closest('.modal-content');
+				modalContent.innerHTML = data.form;
+			} else if (data.status == 302) {
 				// form valid with redirect
-				window.location.href = response.url;
-			} else if (response.status == 200) {
+				window.location.href = data.url;
+			} else if (data.status == 200) {
 				// form valid without redirect
-				if (response.task) {
+				if (data.task) {
 					// add task
-					appendTask(response.task);
-					form[0].reset();
-				} else if (response.board) {
+					appendTask(data.task);
+					form.reset();
+				} else if (data.board) {
 					// edit board title
-					$("#boardTitle h3").text(response.board.title)
-					form.closest('.modal').modal('toggle');
+					let modal = form.closest('.modal');
+					let boardTitle = document.getElementById(boardTitle).getElementsByTagName("h3")[0];
+					boardTitle.innerText = data.board.title;
+					$(modal).modal('toggle');  // need to change
 				} else {
 					// reload jobs
 					loadJobs();
-					form.closest('.modal').modal('toggle');
+					let modal = form.closest('.modal');
+					$(modal).modal('toggle');  // need to change
 				}
 			}
-		}
-	});
+		})
+		.catch(err => console.log(err))
 	return false;
 }
 
@@ -115,14 +106,14 @@ var scrapeJob = function () {
 
 var appendJob = function (job) {
 	const markup = `
-			<div class="card btm-shadow mb-2 show-modal" data-modal="#largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit">
+			<div class="card btm-shadow mb-2 show-modal" data-modal="largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit">
 				<div class="card-body p-3 rounded cursor-pointer grey-hover">
 					<div class="row no-gutters">
 						<div class="col-11">
 							<h5 class="mr-3">${job.company}</h5>
 						</div>
 						<div class="col-1">
-							<a href="#" class="float-right show-modal" data-modal="#smallModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/delete">
+							<a href="#" class="float-right show-modal" data-modal="smallModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/delete">
 								<i class="bx bx-trash" id="icon"></i>
 							</a>
 						</div>
