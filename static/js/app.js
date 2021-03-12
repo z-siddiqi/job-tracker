@@ -14,7 +14,7 @@ function showModal() {
 			if (data.status != 403) {
 				let modal = document.getElementById(modalId);
 				let modalContent = modal.getElementsByClassName("modal-content")[0];
-				modalContent.innerHTML = data.form;
+				setInnerHTML(modalContent, data.form);
 				$(modal).modal('show');  // need to change
 			}
 		})
@@ -38,7 +38,7 @@ function saveModalForm() {
 			if (data.form) {
 				// form invalid
 				let modalContent = form.closest('.modal-content');
-				modalContent.innerHTML = data.form;
+				setInnerHTML(modalContent, data.form);
 			} else if (data.status == 302) {
 				// form valid with redirect
 				window.location.href = data.url;
@@ -109,7 +109,7 @@ function scrapeJob() {
 		.then(data => {
 			document.getElementById("id_company").value = data.company;
 			document.getElementById("id_title").value = data.title;
-			document.getElementById("id_description").summernote('code', data.description);  // summernote editor init is broken atm
+			$(document.getElementById("id_description")).summernote('code', data.description);  // need to change
 		})
 		.catch(err => console.log(err))
 }
@@ -182,5 +182,17 @@ var deleteTask = function () {
 		success: function () {
 			$('#taskCard[data-id="' + dataID + '"]').remove();
 		}
+	});
+}
+
+// run scripts inserted via innerHTML
+function setInnerHTML(elm, html) {
+	elm.innerHTML = html;
+	Array.from(elm.querySelectorAll("script")).forEach(oldScript => {
+		const newScript = document.createElement("script");
+		Array.from(oldScript.attributes)
+			.forEach(attr => newScript.setAttribute(attr.name, attr.value));
+		newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+		oldScript.parentNode.replaceChild(newScript, oldScript);
 	});
 }
