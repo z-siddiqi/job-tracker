@@ -1,3 +1,4 @@
+// modal
 function showModal() {
 	let btn = this;
 	let modalId = btn.dataset.modal;
@@ -50,7 +51,7 @@ function saveModalForm() {
 				} else if (data.board) {
 					// edit board title
 					let modal = form.closest('.modal');
-					let boardTitle = document.getElementById(boardTitle).getElementsByTagName("h3")[0];
+					let boardTitle = document.getElementById("boardTitle").getElementsByTagName("h3")[0];
 					boardTitle.innerText = data.board.title;
 					$(modal).modal('toggle');  // need to change
 				} else {
@@ -65,46 +66,55 @@ function saveModalForm() {
 	return false;
 }
 
-var clearModal = function () {
-	$(this).find('.modal-content').empty();
+function clearModal() {
+	let modalContent = this.getElementsByClassName("modal-content")[0];
+	modalContent.innerHTML = "";
 }
 
 // job
-var loadJobs = function () {
-	var url = $("#boardButtons .board-edit").data('url').replace('edit', 'jobs')
-	$.ajax({
-		url: url,
-		type: 'get',
-		dataType: 'json',
-		success: function (response) {
-			$("#applied, #phone, #onsite, #offer").empty();
-			$.each(response, function (index, val) {
-				appendJob(val);
-			});
-		}
-	});
+function loadJobs() {
+	let url = window.location.pathname + "jobs";
+	fetch(url, {
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+		},
+	})
+		.then(response => response.json())
+		.then(data => {
+			let columns = document.getElementsByClassName("jobs-container");
+			for (let column of columns) {
+				column.innerHTML = "";
+			}
+			data.forEach(job => {
+				let parentColumn = document.getElementById(job.progress);
+				appendJob(parentColumn, job);
+			})
+		})
+		.catch(err => console.log(err))
 	return false;
 }
 
-var scrapeJob = function () {
-	var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-	var inputUrl = $("#inputUrl").val();
-	$.ajax({
-		url: $(this).data('url'),
-		data: {
-			csrfmiddlewaretoken: csrfToken,
-			jobUrl: inputUrl
+function scrapeJob() {
+	let url = new URL(this.dataset.url, window.location.href);
+	let inputUrl = document.getElementById("inputUrl").value;
+	url.searchParams.append("jobUrl", inputUrl);
+	fetch(url, {
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
 		},
-		type: 'post',
-		success: function (response) {
-			$("#id_company").val(response.company);
-			$("#id_title").val(response.title);
-			$("#id_description").summernote('code', response.description);
-		}
-	});
+	})
+		.then(response => response.json())
+		.then(data => {
+			document.getElementById("id_company").value = data.company;
+			document.getElementById("id_title").value = data.title;
+			document.getElementById("id_description").summernote('code', data.description);  // summernote editor init is broken atm
+		})
+		.catch(err => console.log(err))
 }
 
-var appendJob = function (job) {
+function appendJob(element, job) {
 	const markup = `
 			<div class="card btm-shadow mb-2 show-modal" data-modal="largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit">
 				<div class="card-body p-3 rounded cursor-pointer grey-hover">
@@ -123,7 +133,7 @@ var appendJob = function (job) {
 				</div>
 			</div>
 		`;
-	$("#" + job.progress).append(markup);
+	element.innerHTML += markup;
 }
 
 // task
