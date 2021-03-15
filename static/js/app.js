@@ -153,36 +153,41 @@ var appendTask = function (task) {
 				</div>
 			</div>
 		`;
-	$("#taskList").append(markup);
+	taskListEl = document.getElementById("taskList");
+	taskListEl.innerHTML += markup;
 }
 
 var completeTask = function () {
-	var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-	var dataID = $(this).closest('div.card').data('id');
-	$.ajax({
-		url: '/tasks/' + dataID + '/complete/',
-		data: {
-			csrfmiddlewaretoken: csrfToken,
-			id: dataID
+	let taskEl = this.closest('div.card');
+	let dataID = taskEl.dataset.id;
+	let url = `/tasks/${dataID}/complete/`;
+	let csrfToken = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+			'X-CSRFToken': csrfToken,
 		},
-		type: 'post'
-	});
+	})
+		.catch(err => console.log(err))
 }
 
 var deleteTask = function () {
-	var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-	var dataID = $(this).closest('div.card').data('id');
-	$.ajax({
-		url: '/tasks/' + dataID + '/delete/',
-		data: {
-			csrfmiddlewaretoken: csrfToken,
-			id: dataID
+	let taskEl = this.closest('div.card');
+	let dataID = taskEl.dataset.id;
+	let url = `/tasks/${dataID}/delete/`;
+	let csrfToken = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'Accept': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest',
+			'X-CSRFToken': csrfToken,
 		},
-		type: 'post',
-		success: function () {
-			$('#taskCard[data-id="' + dataID + '"]').remove();
-		}
-	});
+	})
+		.then(() => taskEl.remove())
+		.catch(err => console.log(err))
 }
 
 // run scripts inserted via innerHTML
