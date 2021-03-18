@@ -9,6 +9,7 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     job = models.ForeignKey(
         Job,
+        related_name="tasks",
         on_delete=models.CASCADE,
     )
 

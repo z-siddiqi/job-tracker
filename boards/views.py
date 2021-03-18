@@ -54,9 +54,6 @@ class BoardDetailView(LoginRequiredMixin, BoardPermissionMixin, DetailView):
     template_name = "boards/board_detail.html"
     redirect_url = "board_list"
 
-    def get_jobs(self):
-        return Job.objects.filter(board=self.object)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["columns"] = ("applied", "phone", "onsite", "offer")
@@ -123,12 +120,9 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
     form_class = JobForm
     template_name = "boards/job_update.html"
 
-    def get_tasks(self):
-        return Task.objects.filter(job=self.object)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["tasks"] = self.get_tasks()
+        context["tasks"] = self.object.tasks.all()
         context["task_form"] = TaskForm()
         return context
 

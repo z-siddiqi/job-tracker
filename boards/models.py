@@ -53,6 +53,7 @@ class Job(TimeStampMixin):
     description = models.TextField(blank=True, null=True)
     board = models.ForeignKey(
         Board,
+        related_name="jobs",
         on_delete=models.CASCADE,
     )
     slug = models.SlugField(
