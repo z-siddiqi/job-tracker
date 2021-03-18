@@ -5,11 +5,11 @@ from django.forms.models import model_to_dict
 from .models import Task
 from .forms import TaskForm
 
-from utils.mixins import ajax_required, JobPermissionMixin, TaskPermissionMixin
+from utils.mixins import ajax_required, BoardPermissionMixin
 from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
 
-class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
+class TaskCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
     http_method_names = ["post"]
     model = Task
     form_class = TaskForm
@@ -23,7 +23,7 @@ class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
         return {"status": 200, "task": model_to_dict(self.object)}
 
 
-class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
+class TaskCompleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxUpdateView):
     http_method_names = ["post"]
     model = Task
     pk_url_kwarg = "task_pk"
@@ -43,7 +43,7 @@ class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
         return self.update(request, *args, **kwargs)
 
 
-class TaskDeleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxDeleteView):
+class TaskDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
     http_method_names = ["post"]
     model = Task
     pk_url_kwarg = "task_pk"

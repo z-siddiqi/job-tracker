@@ -14,7 +14,7 @@ from .scrape import get_job_info
 
 from tasks.models import Task
 from tasks.forms import TaskForm
-from utils.mixins import ajax_required, BoardPermissionMixin, JobPermissionMixin
+from utils.mixins import ajax_required, BoardPermissionMixin
 from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
 
@@ -114,7 +114,7 @@ class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
         return {"status": 200}
 
 
-class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
+class JobUpdateView(LoginRequiredMixin, BoardPermissionMixin, AjaxUpdateView):
     model = Job
     slug_url_kwarg = "job_slug"
     form_class = JobForm
@@ -130,7 +130,7 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
         return {"status": 200}
 
 
-class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, AjaxDeleteView):
+class JobDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
     model = Job
     slug_url_kwarg = "job_slug"
     form_class = JobForm

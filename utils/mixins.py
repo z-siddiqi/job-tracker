@@ -40,24 +40,6 @@ class BoardPermissionMixin(UserAccessMixin):
         return obj.user == self.request.user
 
 
-class JobPermissionMixin(UserAccessMixin):
-    def get_job(self):
-        return get_object_or_404(Job, slug=self.kwargs["job_slug"])
-
-    def test_func(self):
-        obj = self.get_job()
-        return obj.board.user == self.request.user
-
-
-class TaskPermissionMixin(UserAccessMixin):
-    def get_task(self):
-        return get_object_or_404(Task, pk=self.kwargs["task_pk"])
-
-    def test_func(self):
-        obj = self.get_task()
-        return obj.job.board.user == self.request.user
-
-
 class JsonResponseMixin:
     def render_to_response(self, context):
         payload = self.get_response_payload(context)
