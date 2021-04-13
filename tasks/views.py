@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
 
 from .models import Task
 from .forms import TaskForm
 
+from boards.models import  Job
 from utils.mixins import ajax_required, BoardPermissionMixin
 from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
@@ -16,7 +18,7 @@ class TaskCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.job = self.get_job()
+        self.object.job = get_object_or_404(Job, slug=self.kwargs["job_slug"])
         return super().form_valid(form)
 
     def get_success_data(self):
