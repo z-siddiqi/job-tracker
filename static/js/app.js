@@ -57,7 +57,7 @@ var clearModal = function () {
 
 // job
 var loadJobs = function () {
-	var url = $("#boardButtons .board-edit").data('url').replace('edit', 'jobs')
+	var url = `${window.location.href}jobs`
 	$.ajax({
 		url: url,
 		type: 'get',
