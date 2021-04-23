@@ -13,3 +13,7 @@ db.sqlite3
 
 # docker
 docker-compose.yml
+
+# js
+node_modules
+build
