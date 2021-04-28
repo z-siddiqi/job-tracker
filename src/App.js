@@ -11,7 +11,14 @@ const App = () => {
   }, []);
 
   return (
-    <h1>{ boardTitle }</h1>
+    <div className="container-fluid cpx-0 pt-3" id="container">
+      <div className="row no-gutters align-items-center mb-3">
+        <h1>{boardTitle}</h1>
+      </div>
+      <div className="row flex-row flex-nowrap overflow-y-hidden">
+        {/* <JobList /> */}
+      </div>
+    </div>
   );
 }
 
