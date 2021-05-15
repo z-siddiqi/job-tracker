@@ -9,53 +9,7 @@
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
 <main>
-    <div class="container-fluid cpx-0 pt-3" id="container">
-        <div id="root"></div>
-        <script src="{% static 'build/index.js' %}"></script>
-        <div class="row flex-row flex-nowrap overflow-y-hidden">
-            {% for column in columns %}
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <div class="kanban-column card border-0">
-                    <div class="card-header bg-transparent border-bottom-0">
-                        <h5 class="card-title font-weight-bold">{{ column|title }}</h5>
-                    </div>
-                    <div class="card-body px-2 py-0 dyn-height" id="{{ column }}">
-                    </div>
-                </div>
-                <a href="#" class="add-card-btn w-100 border-0 rounded-bottom show-modal" data-modal="#largeModal" data-url="{% url 'job_create' board.slug %}">
-                    +
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    <div id="root"></div>
+    <script src="{% static 'build/index.js' %}"></script>
 </main>
 {% endblock content %}
-
-{% block modal %}
-<div class="modal fade" id="smallModal">
-    <div class="modal-dialog">
-        <div class="modal-content"></div>
-    </div>
-</div>
-<div class="modal fade" id="largeModal">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content"></div>
-    </div>
-</div>
-{% endblock modal %}
-
-{% block script %}
-{% include 'app/scripts.html' %}
-<script>
-    $(document).ready(function () {
-        loadJobs();
-        $("#container").on('click', '.show-modal', showModal);
-        $("#largeModal").on('click', '.scrape-button', scrapeJob);
-        $("#largeModal").on('click', '.task-complete', completeTask);
-        $("#largeModal").on('click', '.task-delete', deleteTask);
-        $(".modal").on('submit', '.form', saveModalForm);
-        $(".modal").on('hidden.bs.modal', clearModal);
-    });
-</script>
-{% endblock script %}
