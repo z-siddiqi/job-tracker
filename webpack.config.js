@@ -1,11 +1,7 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, './static/build'),
-  },
+  entry: "./src/index.js",
   module: {
     rules: [
       {
@@ -15,13 +11,17 @@ module.exports = {
         options: {
           presets: [
             "@babel/preset-env",
-            [
-              "@babel/preset-react",
-              { "runtime": "automatic" }
-            ]
-          ]
-        }
+            ["@babel/preset-react", { runtime: "automatic" }],
+          ],
+        },
       },
-    ]
-  }
+    ],
+  },
+  resolve: {
+    extensions: ["*", ".js", ".jsx"],
+  },
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "./static/build"),
+  },
 };
