@@ -26,3 +26,19 @@
         </div>
     </nav>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", (e) => {
+      const windowPath = window.location.pathname.split("/")[1];
+      document.querySelector("#" + windowPath).classList.add("active-link");
+    
+      document
+        .querySelector("#appHeaderToggle")
+        .addEventListener("click", (e) => {
+          document.querySelector("#appHeaderToggle").classList.toggle("bx-x"); // change icon
+          document.querySelector("#sideBar").classList.toggle("show-nav"); // show navbar
+          document.querySelector("body").classList.toggle("body-pd"); // add padding to body
+          document.querySelector("#appHeader").classList.toggle("body-pd"); // add padding to header
+        });
+    });
+</script>
