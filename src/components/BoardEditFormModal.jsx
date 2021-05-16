@@ -13,6 +13,9 @@ const BoardEditFormModal = (props) => {
   };
 
   const handleSubmit = (e) => {
+    props.onSubmit({
+      title: title,
+    });
     e.preventDefault();
   };
 
@@ -35,7 +38,7 @@ const BoardEditFormModal = (props) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit" variant="dark">
+          <Button variant="dark" onClick={handleSubmit}>
             Edit
           </Button>
         </Modal.Footer>

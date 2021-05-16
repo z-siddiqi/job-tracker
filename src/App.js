@@ -20,6 +20,15 @@ const App = () => {
     setIsEditFormOpen(false);
   };
 
+  const handleEditFormSubmit = (attrs) => {
+    updateBoard(attrs);
+    setIsEditFormOpen(false);
+  };
+
+  const updateBoard = (attrs) => {
+    setBoardTitle(attrs.title);
+  };
+
   return (
     <div className="container-fluid cpx-0 pt-3" id="container">
       <div className="row no-gutters align-items-center mb-3">
@@ -32,6 +41,7 @@ const App = () => {
         initialTitle={boardTitle}
         isOpen={isEditFormOpen}
         onClose={handleEditFormClose}
+        onSubmit={handleEditFormSubmit}
       />
     </div>
   );
