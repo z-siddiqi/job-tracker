@@ -8,7 +8,7 @@ const EditableBoardTitle = (props) => {
         <h3>{props.title}</h3>
       </div>
       <div className="d-flex text-nowrap ml-2">
-        <h4 className="cursor-pointer">
+        <h4 className="cursor-pointer" onClick={props.onEditClick}>
           <BsPencil />
         </h4>
         <h4 className="cursor-pointer ml-2">
