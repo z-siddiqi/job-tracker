@@ -11,7 +11,7 @@ const EditableBoardTitle = (props) => {
         <h4 className="cursor-pointer" onClick={props.onEditClick}>
           <BsPencil />
         </h4>
-        <h4 className="cursor-pointer ml-2">
+        <h4 className="cursor-pointer ml-2" onClick={props.onDeleteClick}>
           <BsTrash />
         </h4>
       </div>
