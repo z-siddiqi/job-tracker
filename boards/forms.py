@@ -14,6 +14,6 @@ class BoardForm(ModelForm):
 class JobForm(ModelForm):
     class Meta:
         model = Job
-        fields = ("company", "title", "deadline", "progress", "description")
+        fields = ("company", "title", "deadline", "status", "description")
 
         widgets = {"description": SummernoteInplaceWidget()}

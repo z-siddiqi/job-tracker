@@ -24,10 +24,10 @@ class MetricsView(LoginRequiredMixin, JobsMixin, TemplateView):
         context = super(MetricsView, self).get_context_data(*args, **kwargs)
         jobs = self.get_users_jobs()
         context["recent_jobs"] = jobs.order_by("-updated_at")[:10]
-        context["applied_count"] = jobs.filter(progress="applied").count()
-        context["phone_count"] = jobs.filter(progress="phone").count()
-        context["onsite_count"] = jobs.filter(progress="onsite").count()
-        context["offer_count"] = jobs.filter(progress="offer").count()
+        context["applied_count"] = jobs.filter(status="applied").count()
+        context["phone_count"] = jobs.filter(status="phone").count()
+        context["onsite_count"] = jobs.filter(status="onsite").count()
+        context["offer_count"] = jobs.filter(status="offer").count()
         return context
 
 

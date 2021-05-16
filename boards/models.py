@@ -43,13 +43,13 @@ class Job(TimeStampMixin):
     company = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     deadline = models.DateField(default=now, blank=True)
-    PROGRESS_CHOICES = (
+    STATUS_CHOICES = (
         ("applied", "Applied"),
         ("phone", "Phone"),
         ("onsite", "Onsite"),
         ("offer", "Offer"),
     )
-    progress = models.CharField(max_length=8, choices=PROGRESS_CHOICES)
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES)
     description = models.TextField(blank=True, null=True)
     board = models.ForeignKey(
         Board,

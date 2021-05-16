@@ -17,6 +17,6 @@ class JobSerializer(serializers.ModelSerializer):
             "company",
             "title",
             "deadline",
-            "progress",
+            "status",
             "description",
         )
