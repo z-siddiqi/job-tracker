@@ -13,8 +13,9 @@ function showModal() {
 		.then(data => {
 			if (data.status != 403) {
 				let modal = document.getElementById(modalId);
-				let modalContent = modal.getElementsByClassName("modal-content")[0];
+				let modalContent = modal.querySelector(".modal-content");
 				setInnerHTML(modalContent, data.form);
+				modalContent.querySelector(".form").onsubmit = saveModalForm;
 				$(modal).modal('show');  // need to change
 			}
 		})

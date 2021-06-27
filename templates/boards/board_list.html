@@ -50,10 +50,9 @@
 {% block script %}
 {% include 'app/scripts.html' %}
 <script>
-    $(document).ready(function () {
-        $("#container").on('click', '.show-modal', showModal);
-        $(".modal").on('submit', '.form', saveModalForm);
-        $(".modal").on('hidden.bs.modal', clearModal);
+    document.addEventListener("DOMContentLoaded", (e) => { 
+      document.querySelector(".show-modal").addEventListener("click", showModal);
+      $(".modal").on('hidden.bs.modal', clearModal);  // need to change
     });
 </script>
 {% endblock script %}
