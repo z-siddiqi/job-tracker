@@ -54,6 +54,8 @@ class BoardDetailView(LoginRequiredMixin, BoardPermissionMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["columns"] = ("applied", "phone", "onsite", "offer")
+        job_serializer = JobSerializer(self.object.jobs, many=True)
+        context["jobs"] = job_serializer.data
         return context
 
 
@@ -94,7 +96,8 @@ class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
         return super().form_valid(form)
 
     def get_success_data(self):
-        return {"status": 200}
+        job_serializer = JobSerializer(instance=self.object)
+        return {"status": 200, "job": job_serializer.data}
 
 
 class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
@@ -110,7 +113,8 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
         return context
 
     def get_success_data(self):
-        return {"status": 200}
+        job_serializer = JobSerializer(instance=self.object)
+        return {"status": 200, "job": job_serializer.data}
 
 
 class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, AjaxDeleteView):
