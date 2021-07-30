@@ -1,0 +1,14 @@
+<div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
+    <div class="card-body">
+        <div class="form-check-inline mw-85 overflow-hidden">
+            <input class="form-check-input float-start me-2" type="checkbox" onchange="completeTask(event)"
+                {% if task.completed %}checked{% endif %}>
+            <label class="form-check-label">
+                {{ task }}
+            </label>
+        </div>
+        <a href="#" class="float-end" onclick="deleteTask(event)">
+            <i class="bi bi-x-square-fill"></i>
+        </a>
+    </div>
+</div>
