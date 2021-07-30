@@ -1,5 +1,3 @@
-import json
-
 from django.forms import Textarea
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -35,11 +33,7 @@ class SummernoteInplaceWidget(Textarea):
 
     def render(self, name, value, attrs=None, **kwargs):
         summernote_settings = config.get("summernote", {}).copy()
-        html = super(SummernoteInplaceWidget, self).render(
-            name, value, attrs=attrs, **kwargs
-        )
-        context = {
-            "settings": json.dumps(summernote_settings),
-        }
+        html = super().render(name, value, attrs=attrs, **kwargs)
+        context = {"summernote_settings": summernote_settings}
         html += render_to_string("summernote/widget.html", context=context)
         return mark_safe(html)

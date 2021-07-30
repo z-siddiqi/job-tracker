@@ -1,7 +1,8 @@
+{{ summernote_settings|json_script:"summernoteSettings" }}
 <script>
     var initSummernote = function () {
         var origin = $("textarea.summernoteinplacewidget");
-        var settings = {{ settings| safe }};
+        var settings = JSON.parse($("#summernoteSettings").text());
         $(origin).summernote($.extend(settings, {
             callbacks: {
                 // remove formatting on paste
