@@ -1,18 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.urls import reverse
-from rest_framework.generics import ListAPIView
 
 from .models import Board, Job
 from .forms import BoardForm, JobForm
 from .serializers import JobSerializer
 from .scrape import get_job_info
 
-from tasks.models import Task
 from tasks.forms import TaskForm
 from utils.mixins import ajax_required, BoardPermissionMixin, JobPermissionMixin
 from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
@@ -21,8 +18,8 @@ from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 @ajax_required
 @login_required
 def scrape_job(request, board_slug):
-    if request.method == "POST":
-        url = request.POST.get("jobUrl")
+    if request.method == "GET":
+        url = request.GET.get("jobUrl")
         data = get_job_info(url)
         return JsonResponse(data)
 
@@ -78,20 +75,6 @@ class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
 
     def get_success_url(self):
         return reverse("board_list")
-
-
-class JobListView(LoginRequiredMixin, BoardPermissionMixin, ListAPIView):
-    serializer_class = JobSerializer
-    model = Job
-
-    def get_queryset(self):
-        objs = self.model.objects
-        board = self.get_board()
-        return objs.filter(board=board)
-
-    @method_decorator(ajax_required)
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
 
 
 class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
