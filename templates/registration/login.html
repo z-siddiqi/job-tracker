@@ -7,23 +7,7 @@
 {% endblock style %}
 
 {% block content %}
-<header class="pages-header">
-    <div id="nav">
-        <nav class="navbar navbar-expand navbar-light">
-            <a class="navbar-brand media" href="{% url 'home' %}">
-                <img src="{% static 'img/logo.png' %}" class="my-auto mr-2" height="25px">
-                <div class="logo media-content">
-                    Job <span>Tracker</span>
-                </div>
-            </a>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{% url 'signup' %}" class="btn btn-purple">Sign Up</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</header>
+{% include 'pages/header.html' with button_href='signup' %}
 <div class="content">
     <div class="form-center mx-auto">
         <h2>Log In</h2>

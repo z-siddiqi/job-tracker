@@ -1,0 +1,25 @@
+{% load static %}
+
+<header class="pages-header">
+    <div id="nav">
+        <nav class="navbar navbar-expand navbar-light">
+            <div class="container-fluid px-0">
+                <a class="navbar-brand d-flex align-content-start" href="{% url 'home' %}">
+                    <img src="{% static 'img/logo.png' %}" class="my-auto me-2" height="25px">
+                    <div class="media-content logo">
+                        Job <span>Tracker</span>
+                    </div>
+                </a>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        {% if button_href == 'login' %}
+                        <a href="{% url 'login' %}" class="btn btn-dark">Log In</a>
+                        {% else %}
+                        <a href="{% url 'signup' %}" class="btn btn-purple">Sign Up</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
