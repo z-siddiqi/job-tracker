@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
-from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 
 from .models import Task
 from .forms import TaskForm
 
+from boards.models import Job
 from utils.mixins import ajax_required, JobPermissionMixin, TaskPermissionMixin
 from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 
@@ -13,14 +15,27 @@ class TaskCreateView(LoginRequiredMixin, JobPermissionMixin, AjaxCreateView):
     http_method_names = ["post"]
     model = Task
     form_class = TaskForm
+    template_name = "tasks/task_create.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["job"] = get_object_or_404(Job, slug=self.kwargs["job_slug"])
+        return context
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.job = self.get_job()
+        self.object.job = get_object_or_404(Job, slug=self.kwargs["job_slug"])
         return super().form_valid(form)
 
     def get_success_data(self):
-        return {"status": 200, "task": model_to_dict(self.object)}
+        return {
+            "status": 200,
+            "task_html": render_to_string(
+                template_name="tasks/task.html",
+                context={"task": self.object},
+                request=self.request,
+            ),
+        }
 
 
 class TaskCompleteView(LoginRequiredMixin, TaskPermissionMixin, AjaxUpdateView):
