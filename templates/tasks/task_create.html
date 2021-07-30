@@ -1,0 +1,7 @@
+<form action="{% url 'task_create' job.slug %}" onsubmit="handleTaskCreateFormSubmit(event)">
+    {% csrf_token %}
+    <div class="input-group pb-3">
+        {{ form.task }}
+        <button class="btn btn-dark" type="submit">Add</button>
+    </div>
+</form>
