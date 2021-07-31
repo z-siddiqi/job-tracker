@@ -107,6 +107,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+#  Primary key type
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+
 # Static files
 
 STATIC_ROOT = str(BASE_DIR.joinpath("staticfiles"))
