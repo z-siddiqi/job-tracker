@@ -1,27 +1,21 @@
-{% load static %}
 {% load crispy_forms_tags %}
 
 <div class="modal-header">
     <h3>Add Job</h3>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
     <label for="inputUrl">URL</label>
     <div class="input-group">
-        <input class="form-control" type="url"
-            placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="inputUrl">
-        <span class="input-group-append">
-            <button type="button" class="btn btn-dark scrape-button"
-                data-url="{% url 'scrape_job' board.slug %}">Scrape</button>
-        </span>
+        <input type="url" class="form-control"
+            placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="jobUrl">
+        <a href="#" class="btn btn-outline-dark scrape-button" data-url="{% url 'scrape_job' board.slug %}">Scrape</a>
     </div>
     <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed,
         Totaljobs and Reed.</small>
     <form action="{% url 'job_create' board.slug %}" method="post" class="form job-create pb-3">
         {% csrf_token %}
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-6">
                 {{ form.company|as_crispy_field }}
             </div>
@@ -29,7 +23,7 @@
                 {{ form.title|as_crispy_field }}
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-6">
                 {{ form.deadline|as_crispy_field }}
             </div>

@@ -8,33 +8,34 @@
 {% block content %}
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
+{{ jobs|json_script:"jobs" }}
 <main>
     <div class="container-fluid cpx-0 pt-3" id="container">
-        <div class="row no-gutters align-items-center mb-3">
+        <div class="row g-0 align-items-center mb-3">
             <div class="col-8 text-truncate" id="boardTitle">
                 <h3>{{ board }}</h3>
             </div>
-            <div class="col-4 pb-1 text-right" id="boardButtons">
+            <div class="col-4 pb-1 text-end" id="boardButtons">
                 <a href="#" class="show-modal board-edit" data-modal="#smallModal" data-url="{% url 'board_update' board.slug %}">
-                    <i class="bx bx-edit-alt" id="icon"></i>
+                    <i class="bi bi-pencil fs-5"></i>
                 </a>
                 <a href="#" class="show-modal board-delete" data-modal="#smallModal" data-url="{% url 'board_delete' board.slug %}">
-                    <i class="bx bx-trash ml-2" id="icon"></i>
+                    <i class="bi bi-trash fs-5 ms-2"></i>
                 </a>
             </div>
         </div>
         <div class="row flex-row flex-nowrap overflow-y-hidden">
             {% for column in columns %}
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <div class="kanban-column card border-0">
-                    <div class="card-header bg-transparent border-bottom-0">
-                        <h5 class="card-title font-weight-bold">{{ column|title }}</h5>
+                <div class="kanban-column d-flex flex-column position-relative rounded-top">
+                    <div class="px-3 py-2">
+                        <h5 class="fw-bold">{{ column|title }}</h5>
                     </div>
-                    <div class="card-body px-2 py-0 dyn-height" id="{{ column }}">
+                    <div class="px-2 py-0 dyn-height overflow-x-hidden" id="{{ column }}" style="flex: 1 1 auto;">
                     </div>
                 </div>
                 <a href="#" class="add-card-btn w-100 border-0 rounded-bottom show-modal" data-modal="#largeModal" data-url="{% url 'job_create' board.slug %}">
-                    +
+                    <i class="bi bi-plus"></i>
                 </a>
             </div>
             {% endfor %}

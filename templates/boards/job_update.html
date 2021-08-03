@@ -1,18 +1,17 @@
 {% load crispy_forms_tags %}
+
 <div class="modal-header d-block pb-0">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <div class="mb-3">
-        <h3>Job: {{ job.slug }}</h3>
+    <div class="d-flex align-items-center mb-3">
+        <h3 class="mb-0">Job: {{ job.slug }}</h3>
+        <button type="button" class="btn-close mt-0" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <nav class="nav nav-justified mb-0" id="tabs">
-        <a href="#" class="nav-item nav-link active" data-id="job">
-            <i class="bx bx-info-square" id="icon"></i>
+        <a href="#" class="nav-item nav-link text-dark active" data-id="job">
+            <i class="bi bi-info-square fs-5"></i>
             Info
         </a>
-        <a href="#" class="nav-item nav-link" data-id="tasks">
-            <i class="bx bx-task" id="icon"></i>
+        <a href="#" class="nav-item nav-link text-dark" data-id="tasks">
+            <i class="bi bi-sticky fs-5"></i>
             Tasks
         </a>
     </nav>
@@ -21,7 +20,7 @@
     <div class="tabcontent" id="job">
         <form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form job-update pb-3">
             {% csrf_token %}
-            <div class="form-row">
+            <div class="row">
                 <div class="col-md-6">
                     {{ form.company|as_crispy_field }}
                 </div>
@@ -29,7 +28,7 @@
                     {{ form.title|as_crispy_field }}
                 </div>
             </div>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-md-6">
                     {{ form.deadline|as_crispy_field }}
                 </div>
@@ -42,7 +41,8 @@
         </form>
     </div>
     <div class="tabcontent" id="tasks" hidden>
-        {% include 'tasks/tasks.html' %}
+        {% include "tasks/task_create.html" with form=task_form %}
+        {% include 'tasks/task_list.html' %}
     </div>
 </div>
 

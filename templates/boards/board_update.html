@@ -1,16 +1,15 @@
 {% load crispy_forms_tags %}
+
 <form action="{% url 'board_update' board.slug %}" method="post" class="form">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">Edit Board</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
         {{ form|crispy }}
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-dark mr-auto">Edit</button>
+        <button type="submit" class="btn btn-dark me-auto">Edit</button>
     </div>
 </form>

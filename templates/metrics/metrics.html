@@ -13,79 +13,79 @@
     <div class="container-fluid cpx-0 pt-3" id="container">
         <div class="content">
             <h3 class="mb-3">Metrics</h3>
-            <div class="row">
+            <div class="row g-4 mb-4">
                 <div class="col-12 col-sm-6 col-xl-3">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="media align-items-center">
-                                <span class="mr-3">
-                                    <i class="bx bx-calendar-alt" style="font-size: 2.5rem;"></i>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="me-3">
+                                    <i class="bi bi-calendar" style="font-size: 2rem;"></i>
                                 </span>
-                                <div class="media-body text-right">
-                                    <h5 class="font-weight-bold">Applied</h5>
-                                    <h5 class="font-weight-bold mb-0">{{ applied_count }}</h5>
+                                <div class="text-end">
+                                    <h5 class="fw-bold">Applied</h5>
+                                    <h5 class="fw-bold mb-0">{{ applied_count }}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="media align-items-center">
-                                <span class="mr-3">
-                                    <i class="bx bx-phone" style="font-size: 2.5rem;"></i>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="me-3">
+                                    <i class="bi bi-telephone" style="font-size: 2rem;"></i>
                                 </span>
-                                <div class="media-body text-right">
-                                    <h5 class="font-weight-bold">Phone</h5>
-                                    <h5 class="font-weight-bold mb-0">{{ phone_count }}</h5>
+                                <div class="text-end">
+                                    <h5 class="fw-bold">Phone</h5>
+                                    <h5 class="fw-bold mb-0">{{ phone_count }}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="media align-items-center">
-                                <span class="mr-3">
-                                    <i class="bx bx-building" style="font-size: 2.5rem;"></i>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="me-3">
+                                    <i class="bi bi-building" style="font-size: 2rem;"></i>
                                 </span>
-                                <div class="media-body text-right">
-                                    <h5 class="font-weight-bold">Onsite</h5>
-                                    <h5 class="font-weight-bold mb-0">{{ onsite_count }}</h5>
+                                <div class="text-end">
+                                    <h5 class="fw-bold">Onsite</h5>
+                                    <h5 class="fw-bold mb-0">{{ onsite_count }}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
-                    <div class="card mb-3">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="media align-items-center">
-                                <span class="mr-3">
-                                    <i class="bx bx-check-square" style="font-size: 2.5rem;"></i>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="me-3">
+                                    <i class="bi bi-check-square" style="font-size: 2rem;"></i>
                                 </span>
-                                <div class="media-body text-right">
-                                    <h5 class="font-weight-bold">Offer</h5>
-                                    <h5 class="font-weight-bold mb-0">{{ offer_count }}</h5>
+                                <div class="text-end">
+                                    <h5 class="fw-bold">Offer</h5>
+                                    <h5 class="fw-bold mb-0">{{ offer_count }}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-12 col-lg-3">
-                    <div class="card mb-3" style="height: 523px;">
+                    <div class="card h-100">
                         <div class="card-header bg-transparent border-bottom-0">
-                            <h5 class="font-weight-bold">Recent Jobs</h5>
+                            <h5 class="fw-bold">Recent Jobs</h5>
                         </div>
                         <div class="card-body pt-0" style="overflow: auto;">
                             {% for job in recent_jobs %}
-                            <div class="card btm-shadow mb-2">
+                            <div class="card btm-shadow mb-3">
                                 <div class="card-body">
-                                    <h6 class="font-weight-bold">{{ job }}</h6>
+                                    <h6 class="fw-bold">{{ job }}</h6>
                                     <p class="text-muted mb-0">{{ job.updated_at|timesince|upto:"," }} ago</p>
                                 </div>
                             </div>
@@ -95,9 +95,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-9">
-                    <div class="card mb-3">
+                    <div class="card h-100">
                         <div class="card-header bg-transparent border-bottom-0">
-                            <h5 class="font-weight-bold">Activity Chart</h5>
+                            <h5 class="fw-bold">Activity Chart</h5>
                         </div>
                         <div class="card-body pt-0">
                             <div class="card">
