@@ -48,7 +48,7 @@
 {% endblock modal %}
 
 {% block script %}
-{% include 'app/scripts.html' %}
+<script src="{% static 'js/main.js' %}"></script>
 <script>
     $(document).ready(function () {
         $("#container").on('click', '.show-modal', showModal);
