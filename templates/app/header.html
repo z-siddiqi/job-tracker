@@ -1,10 +1,16 @@
-<header class="app-header" id="appHeader">
-    <div class="app-header-toggle">
-        <i class="bi bi-list fs-4" id="appHeaderToggle"></i>
-    </div>
-    <div class="ml-auto">
-        <a href="{% url 'logout' %}">
-            <i class="bi bi-box-arrow-left fs-4"></i>
-        </a>
-    </div>
+<header class="fixed-top d-flex align-items-center w-100 px-3" id="appHeader">
+    <a href="#" onclick="toggleSidebar(event)">
+        <i class="bi bi-list fs-4" id="sidebarToggleIcon"></i>
+    </a>
 </header>
+
+<script>
+    const toggleSidebar = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelector("#sidebarToggleIcon").classList.toggle("bi-x"); // change icon
+        document.querySelector("#sidebar").classList.toggle("show"); // show sidebar
+        document.querySelector("body").classList.toggle("sidebar-pd"); // add padding to body
+        document.querySelector("#appHeader").classList.toggle("sidebar-pd"); // add padding to header
+    };
+</script>
