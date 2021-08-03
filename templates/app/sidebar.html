@@ -1,42 +1,38 @@
 {% load static %}
 
-<div class="side-bar" id="sideBar">
-    <nav class="side-nav">
-        <div>
-            <div class="side-nav-logo">
-                <img src="{% static 'img/logo-alt.png' %}" height="20px">
-                <span class="side-nav-logo-name">
-                    Job <span>Tracker</span>
-                </span>
-            </div>
-            <div>
-                <a href="{% url 'board_list' %}" class="side-nav-link" id="boards">
-                    <i class="bi bi-grid fs-4"></i>
-                    <span>Boards</span>
-                </a>
-                <a href="{% url 'metrics' %}" class="side-nav-link" id="metrics">
-                    <i class="bi bi-bar-chart fs-4"></i>
-                    <span>Metrics</span>
-                </a>
-                <a href="{% url 'account_detail' %}" class="side-nav-link" id="accounts">
-                    <i class="bi bi-person-circle fs-4"></i>
-                    <span>Account</span>
-                </a>
-            </div>
-        </div>
+<div class="d-flex flex-column position-fixed side-bar" id="sidebar">
+    <div class="p-3 mx-auto">
+        <img src="{% static 'img/logo-alt.png' %}" height="22px">
+    </div>
+    <nav class="nav flex-column mb-auto text-center">
+        <a href="{% url 'board_list' %}" class="side-nav-link" title="boards" data-bs-toggle="tooltip">
+            <i class="bi bi-grid fs-4"></i>
+        </a>
+        <a href="{% url 'metrics' %}" class="side-nav-link" title="metrics" data-bs-toggle="tooltip">
+            <i class="bi bi-bar-chart fs-4"></i>
+        </a>
     </nav>
+    <div class="dropdown border-top">
+        <a href="#"
+            class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
+            id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{% static 'img/user.png' %}" alt="user" class="rounded-circle" width="24" height="24">
+        </a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
+            <li><a href="{% url 'account_detail' %}" class="dropdown-item">Profile</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a href="{% url 'logout' %}" class="dropdown-item">Sign out</a></li>
+        </ul>
+    </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        var sideNavActiveLink = window.location.pathname.split("/")[1];
-        $("#" + sideNavActiveLink).addClass('active-link');
-
-        $("#appHeaderToggle").click(function () {
-            $("#sideBar").toggleClass('show-nav');  // show navbar
-            $("#appHeaderToggle").toggleClass('bx-x');  // change icon
-            $("body").toggleClass('body-pd');  // add padding to body
-            $("#appHeader").toggleClass('body-pd');  // add padding to header
-        });
+    document.addEventListener("DOMContentLoaded", (e) => {
+        const windowPath = window.location.pathname.split("/")[1];
+        if (windowPath !== "accounts") {
+            document.querySelector(`[title=${windowPath}]`).classList.add("active");
+        }
     });
 </script>
