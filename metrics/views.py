@@ -23,7 +23,7 @@ class MetricsView(LoginRequiredMixin, JobsMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(MetricsView, self).get_context_data(*args, **kwargs)
         jobs = self.get_users_jobs()
-        context["recent_jobs"] = jobs.order_by("-updated_at")[:10]
+        context["recent_jobs"] = jobs.order_by("-updated_at")[:4]
         context["applied_count"] = jobs.filter(progress="applied").count()
         context["phone_count"] = jobs.filter(progress="phone").count()
         context["onsite_count"] = jobs.filter(progress="onsite").count()
@@ -63,4 +63,4 @@ class MetricsChartView(LoginRequiredMixin, JobsMixin, BaseLineChartView):
 
     @method_decorator(ajax_required)
     def get(self, request, *args, **kwargs):
-        return super(BaseLineChartView, self).get(request, *args, **kwargs)
+        return super().get(request, *args, **kwargs)
