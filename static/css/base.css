@@ -2,6 +2,7 @@
 
 a {
 	color: inherit;
+	text-decoration: none;
 }
 
 a:hover {
@@ -9,8 +10,8 @@ a:hover {
 	color: inherit;
 }
 
-a #icon {
-	font-size: 1.5rem !important;
+.dropdown-item:active {
+    background-color: #5969e2;
 }
 
 .form-check-input:hover {
