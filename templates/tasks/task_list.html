@@ -3,3 +3,32 @@
         {% include "tasks/task.html" %}
     {% endfor %}
 </div>
+
+<script>
+    async function completeTask(e) {
+        const taskCard = e.target.closest("#taskCard");
+        const taskId = taskCard.dataset.id;
+        const url = `/tasks/${taskId}/`;
+        const csrfToken = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+        const requestOptions = {
+            method: "PATCH",
+            headers: { "X-CSRFToken": csrfToken },
+        };
+        const response = await fetch(url, requestOptions);
+    };
+
+    async function deleteTask(e) {
+        const taskCard = e.target.closest("#taskCard");
+        const taskId = taskCard.dataset.id;
+        const url = `/tasks/${taskId}/`;
+        const csrfToken = document.querySelector("input[name=csrfmiddlewaretoken]").value;
+        const requestOptions = {
+            method: "DELETE",
+            headers: { "X-CSRFToken": csrfToken },
+        };
+        const response = await fetch(url, requestOptions);
+        if (response.ok) {
+            taskCard.remove();
+        }
+    };
+</script>

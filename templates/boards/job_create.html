@@ -5,15 +5,15 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <label for="inputUrl">URL</label>
+    <label for="jobUrl">URL</label>
     <div class="input-group">
         <input type="url" class="form-control"
             placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="jobUrl">
-        <a href="#" class="btn btn-outline-dark scrape-button" data-url="{% url 'scrape_job' board.slug %}">Scrape</a>
+        <a href="{% url 'scrape_job' board.slug %}" class="btn btn-outline-dark" onclick="scrapeJob(event)">Scrape</a>
     </div>
     <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed,
         Totaljobs and Reed.</small>
-    <form action="{% url 'job_create' board.slug %}" method="post" class="form job-create pb-3">
+    <form action="{% url 'job_create' board.slug %}" class="pb-3" onsubmit="handleJobCreateFormSubmit(event)">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6">
@@ -35,3 +35,44 @@
         <button class="btn btn-dark" type="submit">Create</button>
     </form>
 </div>
+
+<script>
+    async function scrapeJob(e) {
+        e.preventDefault();
+        const url = new URL(e.currentTarget.href);
+        const jobUrl = document.getElementById("jobUrl").value;
+        url.searchParams.append("jobUrl", jobUrl);
+        const requestOptions = {
+            method: "GET",
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        };
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        if (response.ok) {
+            document.querySelector("#id_company").value = data.company;
+            document.querySelector("#id_title").value = data.title;
+            $(document.querySelector("#id_description")).summernote("code", data.description);
+        }
+    };
+
+    async function handleJobCreateFormSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        submitForm(form)
+            .then((data) => {
+                if (data.form) {
+                    const modalContent = form.closest(".modal-content");
+                    setInnerHTML(modalContent, data.form);
+                } else {
+                    const nextJobs = [...state.jobs, data.job];
+                    nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
+                    state.jobs = nextJobs;
+                    renderJobs();
+                    const modalEl = form.closest(".modal");
+                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                    modal.hide();
+                }
+            })
+            .catch((error) => console.log(error));
+    };
+</script>

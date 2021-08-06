@@ -6,19 +6,20 @@
         <button type="button" class="btn-close mt-0" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <nav class="nav nav-justified mb-0" id="tabs">
-        <a href="#" class="nav-item nav-link text-dark active" data-id="job">
+        <a href="#" class="nav-item nav-link text-dark active" data-tab="info">
             <i class="bi bi-info-square fs-5"></i>
             Info
         </a>
-        <a href="#" class="nav-item nav-link text-dark" data-id="tasks">
+        <a href="#" class="nav-item nav-link text-dark" data-tab="tasks">
             <i class="bi bi-sticky fs-5"></i>
             Tasks
         </a>
     </nav>
 </div>
 <div class="modal-body">
-    <div class="tabcontent" id="job">
-        <form action="{% url 'job_update' job.board.slug job.slug %}" method="post" class="form job-update pb-3">
+    <div class="tabcontent" id="info">
+        <form action="{% url 'job_update' job.board.slug job.slug %}" class="pb-3" data-job="{{ job.slug }}"
+            onsubmit="handleJobUpdateFormSubmit(event)">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-6">
@@ -47,12 +48,38 @@
 </div>
 
 <script>
-    $("#tabs").on('click', '.nav-link', function () {
-        var clickedTab = $(this);
-        var clickedTabId = clickedTab.data('id');
-        $("a.active").removeClass('active');
-        $(".tabcontent").prop('hidden', true);
-        $("#" + clickedTabId).prop('hidden', false);
-        clickedTab.addClass('active');
+    document.querySelectorAll(".nav-link").forEach((navLink) => {
+        navLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const clickedTab = e.currentTarget.dataset.tab;
+            document.querySelector("#tabs .active").classList.remove("active");
+            document.querySelectorAll(".tabcontent").forEach((el) => {
+                el.toggleAttribute("hidden");
+            });
+            e.currentTarget.classList.add("active");
+        });
     });
+
+    async function handleJobUpdateFormSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const jobSlug = form.dataset.job;
+        submitForm(form)
+            .then((data) => {
+                if (data.form) {
+                    const modalContent = form.closest(".modal-content");
+                    setInnerHTML(modalContent, data.form);
+                } else {
+                    const nextJobs = state.jobs.map((job) => job.slug === jobSlug ? { ...data.job } : job);
+                    nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
+                    state.jobs = nextJobs;
+                    renderJobs();
+                    const modalEl = form.closest(".modal");
+                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                    modal.hide();
+                }
+            })
+            .catch((error) => console.log(error));
+    };
 </script>

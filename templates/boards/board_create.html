@@ -1,5 +1,6 @@
 {% load crispy_forms_tags %}
-<form action="{% url 'board_create' %}" method="post" class="form">
+
+<form action="{% url 'board_create' %}" onsubmit="handleBoardCreateFormSubmit(event)">
     {% csrf_token %}
     <div class="modal-header">
         <h5 class="modal-title">New Board</h5>
@@ -12,3 +13,20 @@
         <button type="submit" class="btn btn-dark me-auto">Create</button>
     </div>
 </form>
+
+<script>
+    async function handleBoardCreateFormSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        submitForm(form)
+            .then((data) => {
+                if (data.form) {
+                    const modalContent = form.closest(".modal-content");
+                    setInnerHTML(modalContent, data.form);
+                } else {
+                    window.location.href = data.url;
+                }
+            })
+            .catch((error) => console.log(error));
+    }
+</script>

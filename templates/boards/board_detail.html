@@ -10,16 +10,16 @@
 {% include 'app/sidebar.html' %}
 {{ jobs|json_script:"jobs" }}
 <main>
-    <div class="container-fluid cpx-0 pt-3" id="container">
+    <div class="container-fluid cpx-0 pt-3">
         <div class="row g-0 align-items-center mb-3">
-            <div class="col-8 text-truncate" id="boardTitle">
-                <h3>{{ board }}</h3>
+            <div class="col-8 text-truncate">
+                <h3 id="boardTitle">{{ board }}</h3>
             </div>
-            <div class="col-4 pb-1 text-end" id="boardButtons">
-                <a href="#" class="show-modal board-edit" data-modal="#smallModal" data-url="{% url 'board_update' board.slug %}">
+            <div class="col-4 pb-1 text-end">
+                <a href="{% url 'board_update' board.slug %}" data-modal="#smallModal" onclick="showModal(event)">
                     <i class="bi bi-pencil fs-5"></i>
                 </a>
-                <a href="#" class="show-modal board-delete" data-modal="#smallModal" data-url="{% url 'board_delete' board.slug %}">
+                <a href="{% url 'board_delete' board.slug %}" data-modal="#smallModal" onclick="showModal(event)">
                     <i class="bi bi-trash fs-5 ms-2"></i>
                 </a>
             </div>
@@ -34,7 +34,7 @@
                     <div class="px-2 py-0 dyn-height overflow-x-hidden" id="{{ column }}" style="flex: 1 1 auto;">
                     </div>
                 </div>
-                <a href="#" class="add-card-btn w-100 border-0 rounded-bottom show-modal" data-modal="#largeModal" data-url="{% url 'job_create' board.slug %}">
+                <a href="{% url 'job_create' board.slug %}" class="add-card-btn w-100 border-0 rounded-bottom" data-modal="#largeModal" onclick="showModal(event)">
                     <i class="bi bi-plus"></i>
                 </a>
             </div>
@@ -59,15 +59,17 @@
 
 {% block script %}
 <script src="{% static 'js/main.js' %}"></script>
-<script>
-    $(document).ready(function () {
-        loadJobs();
-        $("#container").on('click', '.show-modal', showModal);
-        $("#largeModal").on('click', '.scrape-button', scrapeJob);
-        $("#largeModal").on('click', '.task-complete', completeTask);
-        $("#largeModal").on('click', '.task-delete', deleteTask);
-        $(".modal").on('submit', '.form', saveModalForm);
-        $(".modal").on('hidden.bs.modal', clearModal);
+<script>  
+    document.addEventListener("DOMContentLoaded", (e) => {
+        document.addEventListener("hidden.bs.modal", (e) => {
+            e.target.querySelector(".modal-content").innerHTML = "";
+        });
     });
+
+    const state = {
+        jobs: JSON.parse(document.querySelector("#jobs").textContent),
+    };
+
+    renderJobs();
 </script>
 {% endblock script %}

@@ -1,7 +1,27 @@
-<form action="{% url 'task_create' job.slug %}" onsubmit="handleTaskCreateFormSubmit(event)">
+<form action="{% url 'task_create' %}" onsubmit="handleTaskCreateFormSubmit(event)">
     {% csrf_token %}
+    <input type="hidden" name="job-slug" value="{{ job.slug }}">
     <div class="input-group pb-3">
         {{ form.task }}
         <button class="btn btn-dark" type="submit">Add</button>
     </div>
 </form>
+
+<script>
+    async function handleTaskCreateFormSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        submitForm(form)
+            .then((data) => {
+                if (data.form) {
+                    form.replaceWith(data.form);
+                }
+                
+                if (data.task_html) {
+                    document.querySelector("#taskList").innerHTML += data.task_html;
+                    form.reset();
+                }
+            })
+            .catch((error) => console.log(error));
+    };
+</script>

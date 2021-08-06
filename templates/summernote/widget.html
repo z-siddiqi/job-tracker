@@ -1,23 +1,4 @@
 {{ summernote_settings|json_script:"summernoteSettings" }}
 <script>
-    var initSummernote = function () {
-        var origin = $("textarea.summernoteinplacewidget");
-        var settings = JSON.parse($("#summernoteSettings").text());
-        $(origin).summernote($.extend(settings, {
-            callbacks: {
-                // remove formatting on paste
-                onPaste: function (e) {
-                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-
-                    e.preventDefault();
-
-                    setTimeout(function () {
-                        document.execCommand('insertText', false, bufferText);
-                    }, 10);
-                },
-            }
-        }));
-    }
-
     initSummernote();
 </script>

@@ -10,7 +10,7 @@
 {% include 'app/header.html' %}
 {% include 'app/sidebar.html' %}
 <main>
-    <div class="container-fluid cpx-0 pt-3" id="container">
+    <div class="container-fluid cpx-0 pt-3">
         <div class="content">
             <h3 class="mb-3">Metrics</h3>
             <div class="row g-4 mb-4">
@@ -115,10 +115,21 @@
 {% block script %}
 <script src="{% static 'js/Chart.min.js' %}"></script>
 <script>
-    $.get('{% url "metrics_chart" %}', function (data) {
-        var ctx = $("#activityChart").get(0).getContext("2d");
+    document.addEventListener("DOMContentLoaded", async (e) => {
+        const url = "{% url 'metrics_chart' %}";
+        const requestOptions = {
+            method: "GET",
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        };
+        const response = await fetch(url, requestOptions);
+        const data = await response.json();
+        const ctx = document.querySelector("#activityChart").getContext("2d");
         new Chart(ctx, {
-            type: 'line', data: data, options: {scales: {yAxes: [{ticks: {beginAtZero: true, precision: 0}}]}}
+            type: "line",
+            data: data,
+            options: {
+                scales: { yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }] },
+            },
         });
     });
 </script>
