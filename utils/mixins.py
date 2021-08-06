@@ -3,7 +3,6 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 
 from boards.models import Board, Job
-from tasks.models import Task
 
 
 def ajax_required(f):
@@ -25,8 +24,7 @@ class UserAccessMixin:
         user_test_result = self.test_func()
         if not user_test_result:
             if request.is_ajax():
-                self.response_payload = {"status": 403}  # permission denied
-                return self.render_to_response({})
+                return JsonResponse({}, status=403)
             return redirect(self.get_redirect_url())
         return super().dispatch(request, *args, **kwargs)
 
@@ -47,15 +45,6 @@ class JobPermissionMixin(UserAccessMixin):
     def test_func(self):
         obj = self.get_job()
         return obj.board.user == self.request.user
-
-
-class TaskPermissionMixin(UserAccessMixin):
-    def get_task(self):
-        return get_object_or_404(Task, pk=self.kwargs["task_pk"])
-
-    def test_func(self):
-        obj = self.get_task()
-        return obj.job.board.user == self.request.user
 
 
 class JsonResponseMixin:
