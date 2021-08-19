@@ -12,6 +12,7 @@ django-cache-url==3.2.3
 django-chartjs==2.2.1
 django-crispy-forms==1.12.0
 djangorestframework==3.12.4
+emoji==1.4.2
 environs==9.3.2
 gunicorn==20.1.0
 idna==3.2
