@@ -8,9 +8,12 @@ const fetchModalContent = async function (url) {
   return data.form;
 };
 
-const submitForm = async function (form) {
+const submitForm = async function (form, additionalFields = []) {
   const url = form.action;
   const formData = new FormData(form);
+  additionalFields.forEach((field) => {
+    formData.append(...Object.entries(field).flat());
+  });
   const requestOptions = {
     method: "POST",
     headers: { "X-Requested-With": "XMLHttpRequest" },
