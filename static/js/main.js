@@ -72,16 +72,14 @@ const showModal = async function (e) {
 };
 
 const renderJobs = function () {
-  const jobTemplates = state.jobs.reduce(function (result, job) {
-    if (!result[job.progress]) {
-      result[job.progress] = [];
-    }
-    result[job.progress].push(jobTemplate(job));
-    return result;
-  }, {});
+  const templates = { applied: [], phone: [], onsite: [], offer: [] };
 
-  for (const [progress, templates] of Object.entries(jobTemplates)) {
-    document.querySelector(`#${progress}`).innerHTML = templates.join("");
+  for (job of state.jobs) {
+    templates[job.progress].push(jobTemplate(job));
+  }
+
+  for (const [progress, templatesArray] of Object.entries(templates)) {
+    document.querySelector(`#${progress}`).innerHTML = templatesArray.join("");
   }
 };
 
