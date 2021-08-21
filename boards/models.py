@@ -15,6 +15,7 @@ class TimeStampMixin(models.Model):
 
 
 class Board(TimeStampMixin):
+    icon = models.CharField(max_length=2, default="💼")
     title = models.CharField(max_length=100)
     user = models.ForeignKey(
         get_user_model(),
