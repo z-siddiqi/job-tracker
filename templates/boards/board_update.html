@@ -14,17 +14,41 @@
     </div>
 </form>
 
+<script type="module">
+    import { EmojiButton } from "https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@latest/dist/index.min.js";
+
+    const picker = new EmojiButton({
+        position: "bottom-start",
+        showPreview: false,
+        autoFocusSearch: false,
+        emojisPerRow: 6,
+        rows: 4
+    });
+    
+    const iconInput = document.querySelector("#id_icon");
+
+    picker.on("emoji", selection => {
+        iconInput.value = selection.emoji;
+    });
+
+    iconInput.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        picker.togglePicker(iconInput)
+    });
+</script>
 <script>
     async function handleBoardUpdateFormSubmit(e) {
         e.preventDefault();
+        const iconField = {"icon": document.querySelector("#id_icon").value};
         const form = e.target;
-        submitForm(form)
+        submitForm(form, [iconField])
             .then((data) => {
                 if (data.form) {
                     const modalContent = form.closest(".modal-content");
                     setInnerHTML(modalContent, data.form);
                 } else {
-                    document.querySelector("#boardTitle").innerText = data.board.title;
+                    document.querySelector("#boardTitle").innerText = `${data.board.icon} ${data.board.title}`;
                     const modalEl = form.closest(".modal");
                     const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
                     modal.hide();

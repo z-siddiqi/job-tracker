@@ -13,7 +13,7 @@
     <div class="container-fluid cpx-0 pt-3">
         <div class="row g-0 align-items-center mb-3">
             <div class="col-8 text-truncate">
-                <h3 id="boardTitle">{{ board }}</h3>
+                <h3 id="boardTitle">{{ board.icon }} {{ board }}</h3>
             </div>
             <div class="col-4 pb-1 text-end">
                 <a href="{% url 'board_update' board.slug %}" data-modal="#smallModal" onclick="showModal(event)">
