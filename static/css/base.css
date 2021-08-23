@@ -61,11 +61,11 @@ a:hover {
 }
 
 .grey-hover:hover {
-	background-color: #eee;
+	background-color: #eee !important;
 }
 
 .btm-shadow {
-	border-bottom: 0.1rem solid #ccc;
+	border-bottom: 0.1rem solid #ccc !important;
 }
 
 .cursor-pointer {

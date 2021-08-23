@@ -22,6 +22,10 @@ body {
 	margin: auto;
 }
 
+.emoji-picker__wrapper {
+	z-index: 1060;
+}
+
 
 /* header */
 
@@ -29,6 +33,7 @@ body {
 	height: var(--header-height);
 	background-color: #f7f6fb;
 	transition: .5s;
+	z-index: 1000;
 }
 
 #appHeader a {
@@ -42,7 +47,6 @@ body {
 	top: 0;
 	left: -30%;
 	width: var(--nav-width);
-	height: 100vh;
 	background-color: #5969e2;
 	transition: .5s;
 	z-index: 1030;
@@ -97,6 +101,10 @@ body {
 .add-card-btn:hover {
 	background-color: #cdd2d4;
 	color: #424650;
+}
+
+#div_id_icon > .form-control {
+	width: auto;
 }
 
 

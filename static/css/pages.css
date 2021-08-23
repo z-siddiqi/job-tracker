@@ -15,14 +15,6 @@ body {
 	min-height: calc(100vh - 200px);
 }
 
-.footer {
-    bottom: 0;
-    height: 60px;
-    line-height: 60px;
-	background-color: #fbfbff;
-	border-top: 1px solid rgba(25,4,69,0.1);
-}
-
 .logo {
 	text-transform: uppercase;
 	color: #34324b;
