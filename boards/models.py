@@ -42,6 +42,7 @@ class Board(TimeStampMixin):
 
 class Job(TimeStampMixin):
     company = models.CharField(max_length=100)
+    logo = models.CharField(default="https://via.placeholder.com/130?text=Company+Logo", max_length=100)
     title = models.CharField(max_length=100)
     deadline = models.DateField(default=now, blank=True)
     PROGRESS_CHOICES = (
