@@ -5,34 +5,18 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <label for="jobUrl">URL</label>
-    <div class="input-group">
-        <input type="url" class="form-control"
-            placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="jobUrl">
-        <a href="{% url 'scrape_job' board.slug %}" class="btn btn-outline-dark" onclick="scrapeJob(event)">Scrape</a>
+    <div class="mb-3">
+        <label for="jobUrl">URL</label>
+        <div class="input-group">
+            <input type="url" class="form-control"
+                placeholder="https://www.example.co.uk/viewjob?jk=8e32db7a&q=grad&l=glasgow" id="jobUrl">
+            <a href="{% url 'scrape_job' board.slug %}" class="btn btn-outline-dark" onclick="scrapeJob(event)">Scrape</a>
+        </div>
+        <small class="form-text text-muted">Web scraping is currently only supported for job postings on Indeed,
+            Totaljobs and Reed.</small>
     </div>
-    <small class="form-text text-muted mb-3">Web scraping is currently only supported for job postings on Indeed,
-        Totaljobs and Reed.</small>
     <form action="{% url 'job_create' board.slug %}" class="pb-3" onsubmit="handleJobCreateFormSubmit(event)">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-6">
-                {{ form.company|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-                {{ form.title|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {{ form.deadline|as_crispy_field }}
-            </div>
-            <div class="col-md-6">
-                {{ form.progress|as_crispy_field }}
-            </div>
-        </div>
-        {{ form.description|as_crispy_field }}
-        <button class="btn btn-dark" type="submit">Create</button>
+        {% crispy form %}
     </form>
 </div>
 
