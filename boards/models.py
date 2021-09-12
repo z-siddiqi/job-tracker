@@ -3,6 +3,7 @@ import shortuuid
 from django.db import models
 from django.urls import reverse
 from django.utils.timezone import now
+from django.utils.safestring import mark_safe
 from django.contrib.auth import get_user_model
 
 
@@ -41,7 +42,7 @@ class Board(TimeStampMixin):
 
 
 class Job(TimeStampMixin):
-    company = models.CharField(max_length=100)
+    company = models.CharField(max_length=100, help_text=mark_safe("Logos provided by <a href='https://clearbit.com' target='_blank'>Clearbit</a>."))
     logo = models.CharField(default="https://via.placeholder.com/130?text=Company+Logo", max_length=100)
     title = models.CharField(max_length=100)
     deadline = models.DateField(default=now, blank=True)

@@ -65,4 +65,11 @@
             })
             .catch((error) => console.log(error));
     };
+
+    document.querySelector("#clear_logo").addEventListener("click", (e) => {
+        document.querySelector("#logo").src = "https://via.placeholder.com/130?text=Company+Logo";
+        document.querySelector("#id_logo").value = "https://via.placeholder.com/130?text=Company+Logo";
+    });
+
+    initClearbitSearchBar("id_company", "company_dropdown_button", "company_dropdown_menu");
 </script>
