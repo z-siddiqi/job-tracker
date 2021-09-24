@@ -1,5 +1,6 @@
 import emoji
 
+from django.utils.safestring import mark_safe
 from django.forms import ModelForm, ValidationError
 from django.forms.widgets import TextInput
 from crispy_forms.helper import FormHelper
@@ -42,7 +43,7 @@ class JobForm(ModelForm):
             ),
             AppendedText(
                 "company",
-                "<div class='dropdown'><button id='company_dropdown_button' class='btn' type='button' data-bs-toggle='dropdown'><i class='bi bi-search'></i></button><ul class='dropdown-menu dropdown-menu-end' id='company_dropdown_menu'></ul></div>",
+                mark_safe("<div class='dropdown'><button id='company_dropdown_button' class='btn' type='button' data-bs-toggle='dropdown'><i class='bi bi-search'></i></button><ul class='dropdown-menu dropdown-menu-end' id='company_dropdown_menu'></ul></div>"),
                 placeholder="Enter a company name",
                 autocomplete="off",
             ),

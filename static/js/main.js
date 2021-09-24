@@ -88,21 +88,32 @@ const renderJobs = function () {
 
 const jobTemplate = function (job) {
   return `
-			  <div class="card btm-shadow cursor-pointer grey-hover mb-2" data-slug="${job.slug}" data-modal="#largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit" onclick="showModal(event)">
-				  <div class="card-body p-3 rounded">
-					  <div class="row g-0">
-						  <div class="col-11">
-							  <h5 class="me-3">${job.company}</h5>
-						  </div>
-						  <div class="col-1">
-							  <a href="/boards/${job.board_slug}/jobs/${job.slug}/delete" class="float-end" data-modal="#smallModal" onclick="showModal(event)">
-				          <i class="bi bi-trash fs-5"></i>
-							  </a>
-						  </div>
-					  </div>
-					  <h5 class="fw-bold">${job.title}</h5>
-					  <p class="text-muted mb-0">${job.deadline}</p>
-				  </div>
-			  </div>
-		  `;
+    <div class="card btm-shadow cursor-pointer grey-hover mb-2" data-slug="${job.slug}" data-modal="#largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit" onclick="showModal(event)">
+      <div class="card-body p-3 rounded">
+        <div class="d-flex">
+          <div>
+            <img src="${job.logo}" class="rounded-2" height="30px" width="30px">
+          </div>
+          <div class="px-2 flex-grow-1">
+            <h5 class="fw-bolder">${job.title}</h5>
+            <div class="fw-bold" style="font-size: 0.85rem">
+              <p class="mb-2">
+                <i class="bi bi-box"></i>
+                ${job.company}
+              </p>
+              <p class="text-muted mb-0">
+                <i class="bi bi-geo-alt"></i>
+                City, Country
+              </p>
+            </div>
+          </div>
+          <div>
+            <a href="/boards/${job.board_slug}/jobs/${job.slug}/delete" data-modal="#smallModal" onclick="showModal(event)">
+              <i class="bi bi-trash fs-5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 };

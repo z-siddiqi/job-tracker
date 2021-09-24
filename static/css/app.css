@@ -107,6 +107,10 @@ body {
 	width: auto;
 }
 
+#div_id_company .input-group-text {
+	padding: 0;
+}
+
 
 /* modals */
 
