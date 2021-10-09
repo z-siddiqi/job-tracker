@@ -132,7 +132,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
-# Url redirects
+# Urls
 
+ADMIN_URL = env("DJANGO_ADMIN_URL")
 LOGIN_REDIRECT_URL = "board_list"
 LOGOUT_REDIRECT_URL = "home"
