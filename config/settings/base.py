@@ -1,6 +1,8 @@
 from pathlib import Path
 from environs import Env
 
+from django.core.management.utils import get_random_secret_key
+
 env = Env()
 env.read_env()
 
@@ -8,7 +10,7 @@ env.read_env()
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY", default=get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
@@ -134,6 +136,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Urls
 
-ADMIN_URL = env("DJANGO_ADMIN_URL")
+ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin/")
 LOGIN_REDIRECT_URL = "board_list"
 LOGOUT_REDIRECT_URL = "home"
