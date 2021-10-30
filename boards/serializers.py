@@ -1,7 +1,7 @@
 from django.utils.timesince import timesince
 from rest_framework import serializers
 
-from .models import Job
+from .models import Board, Job
 
 
 class JobSerializer(serializers.ModelSerializer):
@@ -24,3 +24,8 @@ class JobSerializer(serializers.ModelSerializer):
             "description",
             "updated_at",
         )
+
+class BoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Board
+        fields = '__all__'
