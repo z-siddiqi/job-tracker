@@ -1,18 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, ListView
-from django.forms.models import model_to_dict
-from django.http import JsonResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
 
 from .models import Board, Job
 from .forms import BoardForm, JobForm
-from .serializers import JobSerializer
+from .serializers import BoardSerializer, JobSerializer
 from .scrape import get_job_info
 
 from tasks.forms import TaskForm
-from utils.mixins import ajax_required, BoardPermissionMixin, JobPermissionMixin
-from utils.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
+from utils.mixins import ajax_required, BoardPermissionMixin, JobPermissionMixin, FormInvalidStatus400Mixin
 
 
 @ajax_required
@@ -34,7 +33,7 @@ class BoardListView(LoginRequiredMixin, ListView):
         return objs.filter(user=self.request.user)
 
 
-class BoardCreateView(LoginRequiredMixin, AjaxCreateView):
+class BoardCreateView(LoginRequiredMixin, FormInvalidStatus400Mixin, CreateView):
     model = Board
     form_class = BoardForm
     template_name = "boards/board_create.html"
@@ -59,17 +58,19 @@ class BoardDetailView(LoginRequiredMixin, BoardPermissionMixin, DetailView):
         return context
 
 
-class BoardUpdateView(LoginRequiredMixin, BoardPermissionMixin, AjaxUpdateView):
+class BoardUpdateView(LoginRequiredMixin, BoardPermissionMixin, FormInvalidStatus400Mixin, UpdateView):
     model = Board
     slug_url_kwarg = "board_slug"
     form_class = BoardForm
     template_name = "boards/board_update.html"
 
-    def get_success_data(self):
-        return {"status": 200, "board": model_to_dict(self.object)}
+    def form_valid(self, form):
+        self.object = form.save()
+        board_serializer = BoardSerializer(instance=self.object)
+        return JsonResponse({"board": board_serializer.data})
 
 
-class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
+class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, DeleteView):
     model = Board
     slug_url_kwarg = "board_slug"
     form_class = BoardForm
@@ -79,7 +80,7 @@ class BoardDeleteView(LoginRequiredMixin, BoardPermissionMixin, AjaxDeleteView):
         return reverse("board_list")
 
 
-class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
+class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, FormInvalidStatus400Mixin, CreateView):
     model = Job
     form_class = JobForm
     template_name = "boards/job_create.html"
@@ -93,14 +94,12 @@ class JobCreateView(LoginRequiredMixin, BoardPermissionMixin, AjaxCreateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.board = self.get_board()
-        return super().form_valid(form)
-
-    def get_success_data(self):
+        self.object = form.save()
         job_serializer = JobSerializer(instance=self.object)
-        return {"status": 200, "job": job_serializer.data}
+        return JsonResponse({"job": job_serializer.data})
 
 
-class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
+class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, FormInvalidStatus400Mixin, UpdateView):
     model = Job
     slug_url_kwarg = "job_slug"
     form_class = JobForm
@@ -111,17 +110,20 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, AjaxUpdateView):
         context["tasks"] = self.object.tasks.all()
         context["task_form"] = TaskForm()
         return context
-
-    def get_success_data(self):
+    
+    def form_valid(self, form):
+        self.object = form.save()
         job_serializer = JobSerializer(instance=self.object)
-        return {"status": 200, "job": job_serializer.data}
+        return JsonResponse({"job": job_serializer.data})
 
 
-class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, AjaxDeleteView):
+class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, DeleteView):
     model = Job
     slug_url_kwarg = "job_slug"
     form_class = JobForm
     template_name = "boards/job_delete.html"
-
-    def get_success_data(self):
-        return {"status": 200}
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponse(status=204)
