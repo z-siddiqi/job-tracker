@@ -10,7 +10,7 @@ dj-email-url==1.0.2
 django-cache-url==3.2.3
 django-chartjs==2.2.1
 django-crispy-forms==1.12.0
-django==3.2.7
+django==3.2.14
 djangorestframework==3.12.4
 emoji==1.4.2
 environs[django]==9.3.3
