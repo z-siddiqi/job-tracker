@@ -15,7 +15,12 @@ SECRET_KEY = env("DJANGO_SECRET_KEY", default=get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "job-tracker.zainuddinsiddiqi.com",
+    "192.241.140.13",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition

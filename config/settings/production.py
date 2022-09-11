@@ -3,7 +3,14 @@ from .base import *
 # Database
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": env.str("DJANGO_DATABASE_NAME"),
+        "USER": env.str("DJANGO_DATABASE_USER"),
+        "PASSWORD": env.str("DJANGO_DATABASE_PASSWORD"),
+        "HOST": "localhost",
+        "PORT": "",
+    }
 }
 
 
