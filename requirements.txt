@@ -16,7 +16,7 @@ emoji==1.4.2
 environs[django]==9.3.3
 gunicorn==20.1.0
 idna==3.2; python_version >= '3'
-lxml==4.6.3
+lxml==4.9.1
 marshmallow==3.13.0; python_version >= '3.5'
 mypy-extensions==0.4.3
 pathspec==0.9.0
