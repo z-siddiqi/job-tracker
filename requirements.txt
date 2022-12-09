@@ -1,7 +1,7 @@
 -i https://pypi.org/simple
 asgiref==3.4.1; python_version >= '3.6'
 black==21.8b0
-certifi==2021.5.30
+certifi==2022.12.7
 charset-normalizer==2.0.4; python_version >= '3'
 click==8.0.1; python_version >= '3.6'
 crispy-bootstrap5==0.5
