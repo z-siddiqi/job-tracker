@@ -1,0 +1,31 @@
+name: CD
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/production.key
+          chmod 600 ~/.ssh/production.key
+          cat >>~/.ssh/config <<END
+          Host production
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: "${{secrets.SSH_USER}}"
+          SSH_KEY: "${{secrets.SSH_KEY}}"
+          SSH_HOST: "${{secrets.SSH_HOST}}"
+      - name: Pull the source
+        run: ssh production 'cd job-tracker && git fetch && git reset --hard origin/main'
+      - name: Build project
+        run: ssh production 'cd job-tracker && chmod +x build.sh && ./build.sh'
+      - name: Restart the server
+        run: ssh production 'sudo systemctl restart job-tracker'
