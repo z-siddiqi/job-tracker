@@ -42,18 +42,17 @@
         e.preventDefault();
         const iconField = {"icon": document.querySelector("#id_icon").value};
         const form = e.target;
-        submitForm(form, [iconField])
-            .then((data) => {
-                if (data.form) {
-                    const modalContent = form.closest(".modal-content");
-                    setInnerHTML(modalContent, data.form);
-                } else {
-                    document.querySelector("#boardTitle").innerText = `${data.board.icon} ${data.board.title}`;
-                    const modalEl = form.closest(".modal");
-                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                    modal.hide();
-                }
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form, [iconField]);
+        if (!response.ok) {
+            const template = await response.text();
+            const modalContent = form.closest(".modal-content");
+            setInnerHTML(modalContent, template);
+        } else {
+            const data = await response.json();
+            document.querySelector("#boardTitle").innerText = `${data.board.icon} ${data.board.title}`;
+            const modalEl = form.closest(".modal");
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+        }
     };
 </script>

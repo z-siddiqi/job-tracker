@@ -42,22 +42,21 @@
     async function handleJobCreateFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        submitForm(form)
-            .then((data) => {
-                if (data.form) {
-                    const modalContent = form.closest(".modal-content");
-                    setInnerHTML(modalContent, data.form);
-                } else {
-                    const nextJobs = [...state.jobs, data.job];
-                    nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
-                    state.jobs = nextJobs;
-                    renderJobs();
-                    const modalEl = form.closest(".modal");
-                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                    modal.hide();
-                }
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form);
+        if (!response.ok) {
+            const template = await response.text();
+            const modalContent = form.closest(".modal-content");
+            setInnerHTML(modalContent, template);
+        } else {
+            const data = await response.json();
+            const nextJobs = [...state.jobs, data.job];
+            nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
+            state.jobs = nextJobs;
+            renderJobs();
+            const modalEl = form.closest(".modal");
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+        }
     };
 
     document.querySelector("#clear_logo").addEventListener("click", (e) => {

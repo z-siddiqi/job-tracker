@@ -1,8 +1,6 @@
-<div class="pb-3" id="taskList">
-    {% for task in tasks %}
-        {% include "tasks/task.html" %}
-    {% endfor %}
-</div>
+{% for task in tasks %}
+    {% include "tasks/task.html" %}
+{% endfor %}
 
 <script>
     async function completeTask(e) {

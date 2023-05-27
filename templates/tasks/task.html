@@ -1,14 +1,9 @@
-<div class="card mb-1" id="taskCard" data-id="{{ task.id }}">
-    <div class="card-body">
-        <div class="form-check-inline mw-85 overflow-hidden">
-            <input class="form-check-input float-start me-2" type="checkbox" onchange="completeTask(event)"
-                {% if task.completed %}checked{% endif %}>
-            <label class="form-check-label">
-                {{ task }}
-            </label>
-        </div>
-        <a href="#" class="float-end" onclick="deleteTask(event)">
-            <i class="bi bi-x-square-fill"></i>
-        </a>
-    </div>
+<div class="d-flex justify-content-between align-items-center border bg-white rounded p-3 mb-1" id="taskCard" data-id="{{ task.id }}">
+    <input type="checkbox" onchange="completeTask(event)" {% if task.completed %}checked{% endif %}>
+    <label class="text-truncate px-2 me-auto">
+        {{ task }}
+    </label>
+    <a href="#" onclick="deleteTask(event)">
+        <i class="bi bi-x-square-fill"></i>
+    </a>
 </div>

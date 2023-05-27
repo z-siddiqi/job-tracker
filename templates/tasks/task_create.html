@@ -1,27 +1,27 @@
+{% load crispy_forms_tags %}
+
 <form action="{% url 'task_create' %}" onsubmit="handleTaskCreateFormSubmit(event)">
-    {% csrf_token %}
     <input type="hidden" name="job-slug" value="{{ job.slug }}">
-    <div class="input-group pb-3">
-        {{ form.task }}
-        <button class="btn btn-dark" type="submit">Add</button>
-    </div>
+    {% crispy form %}
 </form>
 
 <script>
     async function handleTaskCreateFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        submitForm(form)
-            .then((data) => {
-                if (data.form) {
-                    form.replaceWith(data.form);
-                }
-                
-                if (data.task_html) {
-                    document.querySelector("#taskList").innerHTML += data.task_html;
-                    form.reset();
-                }
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form);
+        if (!response.ok) {
+            const template = await response.text();
+            document.querySelector("#taskCreateForm").innerHTML = template;
+        } else {
+            const template = await response.text();
+            const input = form.querySelector("#id_task");
+            if (input.classList.contains("is-invalid")) {
+                input.classList.remove("is-invalid");
+                form.querySelector("[id^='error_']").remove();
+            }
+            form.reset();
+            document.querySelector("#taskList").innerHTML += template;
+        }
     };
 </script>

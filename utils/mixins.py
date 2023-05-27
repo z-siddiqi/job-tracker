@@ -1,5 +1,4 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.template.loader import render_to_string
 from django.http import JsonResponse
 
 from boards.models import Board, Job
@@ -7,7 +6,7 @@ from boards.models import Board, Job
 
 def ajax_required(f):
     def wrap(request, *args, **kwargs):
-        if not request.is_ajax():
+        if request.META.get('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest':
             return redirect("home")
         return f(request, *args, **kwargs)
 
@@ -23,7 +22,7 @@ class UserAccessMixin:
     def dispatch(self, request, *args, **kwargs):
         user_test_result = self.test_func()
         if not user_test_result:
-            if request.is_ajax():
+            if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
                 return JsonResponse({}, status=403)
             return redirect(self.get_redirect_url())
         return super().dispatch(request, *args, **kwargs)
@@ -47,22 +46,8 @@ class JobPermissionMixin(UserAccessMixin):
         return obj.board.user == self.request.user
 
 
-class JsonResponseMixin:
-    def render_to_response(self, context):
-        payload = self.get_response_payload(context)
-        return JsonResponse(payload)
-
-    def get_response_payload(self, context):
-        if context:
-            return self.get_form_html(context)
-        return self.response_payload
-
-
-class AjaxFormMixin:
-    template_name = None
-
-    def get_form_html(self, context):
-        form_html = render_to_string(
-            template_name=self.template_name, context=context, request=self.request
-        )
-        return {"form": form_html}
+class FormInvalidStatus400Mixin:
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        response.status_code = 400
+        return response

@@ -25,8 +25,12 @@
         </form>
     </div>
     <div class="tabcontent" id="tasks" hidden>
-        {% include "tasks/task_create.html" with form=task_form %}
-        {% include 'tasks/task_list.html' %}
+        <div id="taskCreateForm">
+            {% include "tasks/task_create.html" with form=task_form %}
+        </div>
+        <div class="pb-3" id="taskList">
+            {% include 'tasks/task_list.html' %}
+        </div>
     </div>
 </div>
 
@@ -48,22 +52,21 @@
         e.preventDefault();
         const form = e.target;
         const jobSlug = form.dataset.job;
-        submitForm(form)
-            .then((data) => {
-                if (data.form) {
-                    const modalContent = form.closest(".modal-content");
-                    setInnerHTML(modalContent, data.form);
-                } else {
-                    const nextJobs = state.jobs.map((job) => job.slug === jobSlug ? { ...data.job } : job);
-                    nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
-                    state.jobs = nextJobs;
-                    renderJobs();
-                    const modalEl = form.closest(".modal");
-                    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                    modal.hide();
-                }
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form);
+        if (!response.ok) {
+            const template = await response.text();
+            const modalContent = form.closest(".modal-content");
+            setInnerHTML(modalContent, template);
+        } else {
+            const data = await response.json();
+            const nextJobs = state.jobs.map((job) => job.slug === jobSlug ? { ...data.job } : job);
+            nextJobs.sort((a, b) => Date.parse(a.deadline) - Date.parse(b.deadline));
+            state.jobs = nextJobs;
+            renderJobs();
+            const modalEl = form.closest(".modal");
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+        }
     };
 
     document.querySelector("#clear_logo").addEventListener("click", (e) => {

@@ -42,15 +42,13 @@
         e.preventDefault();
         const iconField = {"icon": document.querySelector("#id_icon").value};
         const form = e.target;
-        submitForm(form, [iconField])
-            .then((data) => {
-                if (data.form) {
-                    const modalContent = form.closest(".modal-content");
-                    setInnerHTML(modalContent, data.form);
-                } else {
-                    window.location.href = data.url;
-                }
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form, [iconField]);
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            const template = await response.text();
+            const modalContent = form.closest(".modal-content");
+            setInnerHTML(modalContent, template);
+        }
     };
 </script>

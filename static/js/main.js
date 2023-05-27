@@ -4,8 +4,7 @@ const fetchModalContent = async function (url) {
     headers: { "X-Requested-With": "XMLHttpRequest" },
   };
   const response = await fetch(url, requestOptions);
-  const data = await response.json();
-  return data.form;
+  return response;
 };
 
 const submitForm = async function (form, additionalFields = []) {
@@ -20,8 +19,7 @@ const submitForm = async function (form, additionalFields = []) {
     body: formData,
   };
   const response = await fetch(url, requestOptions);
-  const data = await response.json();
-  return data;
+  return response;
 };
 
 const setInnerHTML = function (elm, html) {
@@ -63,15 +61,13 @@ const showModal = async function (e) {
   e.stopPropagation();
   const modalId = e.currentTarget.dataset.modal;
   const url = e.currentTarget.href ?? e.currentTarget.dataset.url;
-  fetchModalContent(url)
-    .then((content) => {
-      const modalEl = document.querySelector(modalId);
-      const modalContent = modalEl.querySelector(".modal-content");
-      setInnerHTML(modalContent, content);
-      const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-      modal.show();
-    })
-    .catch((error) => console.log(error));
+  const response = await fetchModalContent(url);
+  const content = await response.text();
+  const modalEl = document.querySelector(modalId);
+  const modalContent = modalEl.querySelector(".modal-content");
+  setInnerHTML(modalContent, content);
+  const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+  modal.show();
 };
 
 const renderJobs = function () {

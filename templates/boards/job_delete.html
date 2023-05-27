@@ -18,15 +18,14 @@
         e.preventDefault();
         const form = e.target;
         const jobSlug = form.dataset.job;
-        submitForm(form)
-            .then((data) => {
-                const nextJobs = state.jobs.filter((job) => job.slug !== jobSlug);
-                state.jobs = nextJobs;
-                renderJobs();
-                const modalEl = form.closest(".modal");
-                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-                modal.hide();
-            })
-            .catch((error) => console.log(error));
+        const response = await submitForm(form);
+        if (response.ok) {
+            const nextJobs = state.jobs.filter((job) => job.slug !== jobSlug);
+            state.jobs = nextJobs;
+            renderJobs();
+            const modalEl = form.closest(".modal");
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.hide();
+        }
     };
 </script>
