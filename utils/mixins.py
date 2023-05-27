@@ -6,7 +6,7 @@ from boards.models import Board, Job
 
 def ajax_required(f):
     def wrap(request, *args, **kwargs):
-        if not request.is_ajax():
+        if request.META.get('HTTP_X_REQUESTED_WITH') != 'XMLHttpRequest':
             return redirect("home")
         return f(request, *args, **kwargs)
 
@@ -22,7 +22,7 @@ class UserAccessMixin:
     def dispatch(self, request, *args, **kwargs):
         user_test_result = self.test_func()
         if not user_test_result:
-            if request.is_ajax():
+            if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
                 return JsonResponse({}, status=403)
             return redirect(self.get_redirect_url())
         return super().dispatch(request, *args, **kwargs)
