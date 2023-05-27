@@ -16,8 +16,9 @@
     async function handleBoardDeleteFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        submitForm(form)
-            .then((data) => (window.location.href = data.url))
-            .catch((error) => console.log(error));
+        const response = await submitForm(form);
+        if (response.ok) {
+            window.location.href = response.url;
+        }
     };
 </script>
