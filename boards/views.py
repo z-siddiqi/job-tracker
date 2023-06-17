@@ -120,10 +120,8 @@ class JobUpdateView(LoginRequiredMixin, JobPermissionMixin, FormInvalidStatus400
 class JobDeleteView(LoginRequiredMixin, JobPermissionMixin, DeleteView):
     model = Job
     slug_url_kwarg = "job_slug"
-    form_class = JobForm
     template_name = "boards/job_delete.html"
-    
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
+
+    def form_valid(self, form):
         self.object.delete()
         return HttpResponse(status=204)

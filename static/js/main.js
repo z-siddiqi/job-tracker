@@ -84,7 +84,7 @@ const renderJobs = function () {
 
 const jobTemplate = function (job) {
   return `
-    <div class="card btm-shadow cursor-pointer grey-hover mb-2" data-slug="${job.slug}" data-modal="#largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit" onclick="showModal(event)">
+    <div class="card btm-shadow cursor-pointer grey-hover mb-2" data-slug="${job.slug}" data-modal="#largeModal" data-url="/boards/${job.board_slug}/jobs/${job.slug}/edit/" onclick="showModal(event)">
       <div class="card-body p-3 rounded">
         <div class="d-flex">
           <div>
@@ -104,7 +104,7 @@ const jobTemplate = function (job) {
             </div>
           </div>
           <div>
-            <a href="/boards/${job.board_slug}/jobs/${job.slug}/delete" data-modal="#smallModal" onclick="showModal(event)">
+            <a href="/boards/${job.board_slug}/jobs/${job.slug}/delete/" data-modal="#smallModal" onclick="showModal(event)">
               <i class="bi bi-trash fs-5"></i>
             </a>
           </div>
