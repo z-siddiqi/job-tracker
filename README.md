@@ -1,7 +1,5 @@
 [![Made with Django.](https://www.djangoproject.com/m/img/badges/djangomade124x25.gif)](http://www.djangoproject.com/)
 
-👉 [View Live](https://job-tracker.zainuddinsiddiqi.com) 
-
 <h1 align="center">Job Tracker</h1>
  
 ### Screenshots 📸
